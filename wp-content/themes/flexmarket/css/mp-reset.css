@@ -1,0 +1,24 @@
+/* MP Default CSS Reset
+-------------------------------------------------------------- */
+
+/* ================= Sidebar Widget ================= */
+ul#mp_category_list {
+	margin: 0px;
+}
+
+ul#mp_category_list li {
+	background-image: none !important; 
+}
+
+/* ================= MP Buy Button ================= */
+form.mp_buy_form {
+	float: none;
+	margin: 0px;
+}
+
+.mp_no_stock {
+	width: 100%;
+	text-align: center;
+	display: block;
+	padding: 15px 0px;
+}

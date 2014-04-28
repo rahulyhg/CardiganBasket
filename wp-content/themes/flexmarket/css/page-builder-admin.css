@@ -1,0 +1,150 @@
+/* Page Builder (admin) CSS 
+-------------------------------------------------------------- */
+
+/* Page Builder Template Selector
+-------------------------------------------------------------- */
+
+#page-builder-column.metabox-holder {
+	padding-top: 0px;
+}
+
+.aqpb-template-selector-wrapper {
+	padding: 10px;
+	margin-bottom: 25px;
+	margin-top: 5px;
+	border: 1px solid #EEEEEE;
+	background: #FBFBFB;
+}
+
+.aqpb-template-selector-wrapper form select#template,
+.aqpb-template-selector-wrapper form label.selected-menu,
+.aqpb-template-selector-wrapper form span.submit-btn {
+	margin-right: 5px;
+}
+
+/* Duplicate link
+-------------------------------------------------------------- */
+
+#aqpb-header .delete-action a.template-duplicate {
+	display: block;
+	float: left;
+	line-height: 15px;
+	margin: 4px 7px 4px 0px;
+	padding: 1px 2px;
+	color: #51A451;
+	text-decoration: none;
+}
+
+#aqpb-header .delete-action a.template-duplicate:hover {
+	color: #62c462;
+}
+
+/* Preset Templates
+-------------------------------------------------------------- */
+
+#aqpb-header .preset-template-select {
+	display: inline;
+	margin-right: 5px;
+}
+
+#aqpb-header .preset-template-select > label {
+	margin-right: 3px;
+}
+
+/* Template Canvas
+-------------------------------------------------------------- */
+
+#template-shortcode > input {
+	width: auto;
+	font-size: 12.5px;
+	line-height: 13.5px;
+}
+
+#page-builder-archive ul#blocks-archive {
+	margin: 0px;
+	padding: 10px 0px;
+}
+
+#page-builder-archive ul#blocks-archive > li.block {
+	width: 48.88889999%;
+	margin: 0px;
+	margin-left: 0.88889999%;
+	margin-bottom: 10px;
+}
+
+/* Resposive Layout
+-------------------------------------------------------------- */
+
+@media (max-width: 480px) {
+	.aqpb-template-selector-wrapper span.add-template-action {
+		display: block;
+	}
+	#page-builder-frame,
+	#page-builder-column.metabox-holder {
+		margin: 0px;
+		width: 100%;
+	}
+	#page-builder-archive {
+		width: 100%;
+	}
+	#page-builder-archive ul#blocks-archive > li.block {
+		width: 32.2228889999%;
+		margin: 0px;
+		margin-left: 0.88889999%;
+		margin-bottom: 10px;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 575px) {
+	.aqpb-template-selector-wrapper span.add-template-action {
+		display: block;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+	#page-builder-frame,
+	#page-builder-column.metabox-holder {
+		margin: 0px;
+		width: 100%;
+	}
+	#page-builder-archive {
+		width: 100%;
+	}
+	#page-builder-archive ul#blocks-archive > li.block {
+		width: 18.8888889999%;
+		margin: 0px;
+		margin-left: 0.88889999%;
+		margin-bottom: 10px;
+	}
+	/*#page-builder-fixed,
+	.aqpb-wrap {
+		float: left;
+		width: 100%;
+	}
+	#page-builder ul#blocks-to-edit { width: 100%; margin-left: -1.48889999%; }
+  	#aqpb-body ul#blocks-to-edit > li.block { margin-left: 1.499999%; margin-right: 0px; }
+	#aqpb-body ul#blocks-to-edit > li.block.span1 { width:5.58%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span2 { width:14.16%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span3 { width:22.75%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span4 { width:31.33%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span5 { width:39.92%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span6 { width:48.5%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span7 { width:57.08%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span8 { width:65.67%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span9 { width:74.25%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span10 { width:82.83%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span11 { width:91.42%; }
+	#aqpb-body ul#blocks-to-edit > li.block.span12 { width:100%; } */
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
+@media (min-width: 980px) and (max-width: 1200px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}

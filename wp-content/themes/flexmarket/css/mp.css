@@ -1,0 +1,174 @@
+/*
+MarketPress Style: Flexmarket
+*/
+
+form.mp_buy_form .mp_adding_to_cart {
+color: #ffffff;
+padding: 5px;
+-moz-border-radius: 4px;
+-khtml-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+text-decoration: none;
+background: #000;
+}
+
+/* Sidebar */
+
+#sidebar ul#mp_product_list li:before {
+	display: none;
+	background: none;
+	margin-right: 0px;
+}
+
+#sidebar .well ul#mp_product_list li .row-fluid {
+	border-bottom: 1px dashed #fff;
+}
+
+#sidebar .well:hover ul#mp_product_list li .row-fluid {
+	border-bottom: 1px dashed rgba(62, 62, 62, 0.5);
+}
+
+#sidebar .well ul#mp_product_list li:last-child .row-fluid {
+	border-bottom: none;
+}
+
+/* Cart Widget */
+
+.mp_cart_widget_content table.mp_cart_contents_widget {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.mp_cart_widget_content table.mp_cart_contents_widget {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.mp_cart_widget_content table.mp_cart_contents_widget th,
+.mp_cart_widget_content table.mp_cart_contents_widget td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+.mp_cart_widget_content table.mp_cart_contents_widget th {
+  font-weight: bold;
+}
+.mp_cart_widget_content table.mp_cart_contents_widget thead th {
+  vertical-align: bottom;
+}
+.mp_cart_widget_content table.mp_cart_contents_widget caption + thead tr:first-child th,
+.mp_cart_widget_content table.mp_cart_contents_widget caption + thead tr:first-child td,
+.mp_cart_widget_content table.mp_cart_contents_widget colgroup + thead tr:first-child th,
+.mp_cart_widget_content table.mp_cart_contents_widget colgroup + thead tr:first-child td,
+.mp_cart_widget_content table.mp_cart_contents_widget thead:first-child tr:first-child th,
+.mp_cart_widget_content table.mp_cart_contents_widget thead:first-child tr:first-child td {
+  border-top: 0;
+}
+.mp_cart_widget_content table.mp_cart_contents_widget tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+
+.mp_cart_widget_content .mp_cart_subtotal_lbl {
+	text-align: right;
+}
+
+.mp_cart_widget_content .mp_cart_actions_widget {
+	text-align: right;
+}
+
+.mp_cart_widget_content .mp_cart_actions_widget a.mp_empty_cart {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 1px 6px;
+  margin-bottom: 0;
+  font-size: 10.5px;
+  line-height: 20px;
+  *line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  text-shadow: none !important;
+}
+
+.mp_cart_widget_content .mp_cart_actions_widget a.mp_checkout_link {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 1px 6px;
+  margin-bottom: 0;
+  font-size: 10.5px;
+  line-height: 20px;
+  *line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  text-shadow: none !important;
+}
+
+.mp_cart_widget_content .mp_cart_actions_widget a.mp_empty_cart:hover,
+.mp_cart_widget_content .mp_cart_actions_widget a.mp_checkout_link:hover {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}

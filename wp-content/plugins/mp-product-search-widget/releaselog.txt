@@ -1,0 +1,10 @@
+Version 1.1.0 -
+	added more filter hooks for better customization
+	WP 3.6 compatible
+
+version 1.0.1 - 
+	Fixed reset issue in chrome
+
+version 1.0 - 7th May 2013
+
+	first release

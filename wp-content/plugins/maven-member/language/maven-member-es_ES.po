@@ -1,0 +1,1058 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Maven Member v1.0.29\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-06-25 19:27-0300\n"
+"Last-Translator: juan <paibaena@hotmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: addons/core/maven-addon-option.php:26
+#@ maven-member
+msgid "Invalid html. Check your option type"
+msgstr "HTML no válido. Revise su tipo de opción"
+
+#: addons/core/maven-dummy-captcha.php:20
+#@ maven-member
+msgid "There is no captcha selected"
+msgstr "No hay captcha seleccionado"
+
+#: addons/widgets/logout/mvn_widget_logout.php:11
+#@ maven-member
+msgid "Maven Member LogIn/Logout"
+msgstr ""
+
+#: addons/widgets/logout/mvn_widget_logout.php:16
+#: addons/widgets/logout/mvn_widget_logout.php:57
+#@ maven-member
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: addons/widgets/logout/mvn_widget_logout.php:31
+#: addons/widgets/logout/mvn_widget_logout.php:42
+#: views/admin/settings-view.php:122
+#@ maven-member
+msgid "Template"
+msgstr "Plantilla"
+
+#: addons/widgets/logout/mvn_widget_logout.php:34
+msgid "Use the {login_form} variable in the template to show the login"
+msgstr "use la variable {login_form} en la plantilla para mostrar el formulario de login"
+
+#: addons/widgets/logout/mvn_widget_logout.php:45
+msgid "Use the {logout_url} variable in the template"
+msgstr "Use la variable {logout_url} en la plantilla"
+
+#: controllers/maven-member-base-class.php:17
+#@ maven-member
+msgid "You don't have permissions to access this page."
+msgstr "Usted no tiene permisos para acceder a esta página."
+
+#: controllers/maven-member-base-class.php:310
+#@ maven-member
+msgid "Secutiry issue: Are you sure you want to do this?"
+msgstr "¿Estás seguro que quieres hacer esto?"
+
+#: controllers/maven-member-base-class.php:342
+#@ maven-member
+msgid "Action failed. Please refresh the page and retry."
+msgstr "Error en la acción. Por favor, actualice la página y vuelva a intentarlo."
+
+#: controllers/maven-member-categories-class.php:33
+#: controllers/maven-member-pages-class.php:33
+#: views/admin/wp-category-form-view.php:3
+#@ maven-member
+#@ myplugin_textdomain
+msgid "Maven roles"
+msgstr "Roles de Maven"
+
+#: controllers/maven-member-categories-class.php:84
+#@ maven-member
+msgid "Reseted"
+msgstr "Restablecido"
+
+#: controllers/maven-member-categories-class.php:86
+#@ maven-member
+msgid "Not Reseted"
+msgstr "No restablecido"
+
+#: controllers/maven-member-categories-class.php:193
+#@ maven-member
+msgid "Role doesn't exists:"
+msgstr "El Rol no existe:"
+
+#: controllers/maven-member-categories-class.php:213
+#@ maven-member
+msgid "Not saved"
+msgstr "No se Guardó"
+
+#: controllers/maven-member-categories-class.php:364
+#: controllers/maven-member-manager-class.php:193
+#: controllers/maven-member-manager-class.php:232
+#: views/admin/wizard-view.php:99
+#@ maven-member
+msgid "Categories"
+msgstr "Categorias"
+
+#: controllers/maven-member-dashboard-class.php:15
+#@ maven-member
+msgid "Maven Member Dashboard"
+msgstr ""
+
+#: controllers/maven-member-dashboard-class.php:30
+#@ maven-member
+msgid "Not setted"
+msgstr "No se configuró"
+
+#: controllers/maven-member-dashboard-class.php:39
+#@ maven-member
+msgid "Maven Member Feedback"
+msgstr ""
+
+#: controllers/maven-member-dashboard-class.php:53
+#@ maven-member
+msgid "Maven Member FAQs"
+msgstr ""
+
+#: controllers/maven-member-field-class.php:36
+#@ maven-member
+msgid "This is the title"
+msgstr "Este es el titulo"
+
+#: controllers/maven-member-import-class.php:136
+#: controllers/maven-member-manager-class.php:195
+#: controllers/maven-member-manager-class.php:256
+#@ maven-member
+msgid "Import"
+msgstr "Importar"
+
+#: controllers/maven-member-install-class.php:24
+#@ maven-member
+msgid "This content is restricted to site members.  If you are an existing user, please login."
+msgstr "Este contenido está restringido a los miembros del sitio. Si usted es un usuario existente, por favor inicie sesión."
+
+#: controllers/maven-member-install-class.php:33
+#@ maven-member
+msgid "You can't see the title"
+msgstr "Usted no puede ver el titulo"
+
+#: controllers/maven-member-install-class.php:45
+#@ maven-member
+msgid "Register"
+msgstr "Registro"
+
+#: controllers/maven-member-install-class.php:69
+#: controllers/maven-member-manager-class.php:216
+#@ maven-member
+msgid "Maven Member"
+msgstr ""
+
+#: controllers/maven-member-install-class.php:79
+#@ maven-member
+msgid "Maven Registration Page"
+msgstr "Pagina de registro de Maven"
+
+#: controllers/maven-member-install-class.php:86
+#@ maven-member
+msgid "Registration successfuly made"
+msgstr "Registro realizado con exito"
+
+#: controllers/maven-member-install-class.php:90
+#@ maven-member
+msgid "Maven Registration successful Page"
+msgstr "Pagina de registro exitoso de Maven"
+
+#: controllers/maven-member-install-class.php:97
+#@ maven-member
+msgid "You have not been activated yet"
+msgstr "Usted no se ha activado todavía"
+
+#: controllers/maven-member-install-class.php:101
+#@ maven-member
+msgid "Activation required"
+msgstr "Se requiere activación"
+
+#: controllers/maven-member-manager-class.php:190
+#@ maven-member
+msgid "Wizard"
+msgstr "Asistente"
+
+#: controllers/maven-member-manager-class.php:191
+#: controllers/maven-member-roles-class.php:211
+#: views/admin/categories-view.php:20
+#: views/admin/categories-view.php:52
+#: views/admin/categories-view.php:63
+#: views/admin/templates-view.php:10
+#: views/admin/templates-view.php:21
+#: views/admin/users-view.php:39
+#: views/admin/users-view.php:75
+#: views/admin/users-view.php:91
+#@ maven-member
+msgid "Roles"
+msgstr "Roles"
+
+#: controllers/maven-member-manager-class.php:192
+#: controllers/maven-member-manager-class.php:224
+#: controllers/maven-member-users-class.php:599
+#: views/admin/wizard-view.php:37
+#@ maven-member
+msgid "Users"
+msgstr "Usuarios"
+
+#: controllers/maven-member-manager-class.php:196
+#: controllers/maven-member-manager-class.php:240
+#: controllers/maven-member-registration-class.php:26
+#@ maven-member
+msgid "Registration Fields"
+msgstr "Campos de Registro"
+
+#: controllers/maven-member-manager-class.php:197
+#: controllers/maven-member-manager-class.php:248
+#: controllers/maven-member-settings-class.php:340
+#@ maven-member
+msgid "Settings"
+msgstr "Configuración"
+
+#: controllers/maven-member-manager-class.php:198
+#@ maven-member
+msgid "Help"
+msgstr "Ayuda"
+
+#: controllers/maven-member-manager-class.php:205
+msgid "Dashboard"
+msgstr ""
+
+#: controllers/maven-member-manager-class.php:283
+msgid "Maven Member test"
+msgstr "Prueba MAven Mamber"
+
+#: controllers/maven-member-pages-class.php:43
+#@ maven-member
+msgid "Maven Roles"
+msgstr "Roles de Maven"
+
+#: controllers/maven-member-pages-class.php:200
+#: views/admin/settings-view.php:147
+#@ maven-member
+msgid "Templates"
+msgstr "Plantillas"
+
+#: controllers/maven-member-registration-class.php:40
+#@ maven-member
+msgid "Fields updated"
+msgstr "Campos Actualizados"
+
+#: controllers/maven-member-registration-class.php:186
+#@ maven-member
+msgid "id is required"
+msgstr "El ID es requerido"
+
+#: controllers/maven-member-registration-class.php:204
+#@ maven-member
+msgid "Required fields"
+msgstr "Campos Requeridos"
+
+#: controllers/maven-member-registration-class.php:317
+#, php-format
+#@ maven-member
+msgid "New user registration on your site %s:"
+msgstr "Nuevo usuario registrado en su sitio %s:"
+
+#: controllers/maven-member-registration-class.php:318
+#, php-format
+#@ maven-member
+msgid "Username: %s"
+msgstr "Usuario: %s"
+
+#: controllers/maven-member-registration-class.php:319
+#, php-format
+#@ maven-member
+msgid "E-mail: %s"
+msgstr ""
+
+#: controllers/maven-member-registration-class.php:321
+#, php-format
+#@ maven-member
+msgid "[%s] New User Registration"
+msgstr "[%s] Nuevo Usuario Registrado"
+
+#: controllers/maven-member-registration-class.php:339
+#, php-format
+#@ maven-member
+msgid "[%s] User Activated"
+msgstr "[%s] Usuario Activado"
+
+#: controllers/maven-member-roles-class.php:178
+#@ maven-member
+msgid "Invalid"
+msgstr "Invalido"
+
+#: controllers/maven-member-settings-class.php:72
+#@ maven-member
+msgid "Setting"
+msgstr "Ajuste"
+
+#: controllers/maven-member-settings-class.php:74
+#@ maven-member
+msgid "Maven: You don't have selected an activation url.&nbsp;&nbsp;"
+msgstr "Maven: Usted no ha seleccionado una dirección URL de activación.&nbsp;&nbsp;"
+
+#: controllers/maven-member-settings-class.php:237
+#@ maven-member
+msgid "Resetted settings."
+msgstr "Configuracion Restablecida"
+
+#: controllers/maven-member-settings-class.php:253
+#@ maven-member
+msgid "Settings saved successfully."
+msgstr "La Configuracion se guardó correctamente."
+
+#: controllers/maven-member-settings-class.php:255
+#@ maven-member
+msgid "Settings saved successfully.<br/>"
+msgstr "La Configuracion se guardó correctamente.<br/>"
+
+#: controllers/maven-member-short-codes-class.php:51
+#@ maven-member
+msgid "Registration is not enabled"
+msgstr "El Registro no está habilitado"
+
+#: controllers/maven-member-users-class.php:312
+#@ maven-member
+msgid "Inserted"
+msgstr "Insertado"
+
+#: controllers/maven-member-users-class.php:440
+#: views/admin/categories-view.php:74
+#: views/admin/templates-view.php:32
+#: views/admin/users-view.php:105
+#@ maven-member
+msgid "Edit"
+msgstr "Editar"
+
+#: controllers/maven-member-users-class.php:443
+#: views/admin/users-view.php:107
+#: views/admin/users-view.php:167
+#@ maven-member
+msgid "Enable"
+msgstr "Habilitar"
+
+#: controllers/maven-member-users-class.php:445
+#: views/admin/users-view.php:109
+#@ maven-member
+msgid "Disable"
+msgstr "Deshabiltar"
+
+#: controllers/maven-member-users-class.php:447
+#: views/admin/categories-view.php:76
+#: views/admin/fields-view.php:92
+#: views/admin/roles-view.php:68
+#: views/admin/users-view.php:111
+#@ maven-member
+msgid "Delete"
+msgstr "Borrar"
+
+#: controllers/maven-member-wizard-class.php:18
+#@ maven-member
+msgid "Wizard!"
+msgstr "Asistente!"
+
+#: models/maven-member-categories-model.php:73
+#@ maven-member
+msgid "Already exists"
+msgstr "Ya existe"
+
+#: models/maven-member-registration-model.php:14
+#@ maven-member
+msgid "Username"
+msgstr "Nombre de Usuario"
+
+#: models/maven-member-registration-model.php:15
+#: views/admin/users-view.php:17
+#@ maven-member
+msgid "Password"
+msgstr "Contraseña"
+
+#: models/maven-member-registration-model.php:16
+#: views/admin/users-view.php:25
+#@ maven-member
+msgid "Email"
+msgstr ""
+
+#: models/maven-member-registration-model.php:17
+#@ maven-member
+msgid "First Name"
+msgstr "Primer Nombre"
+
+#: models/maven-member-registration-model.php:18
+#@ maven-member
+msgid "Last Name"
+msgstr "Apellido"
+
+#: models/maven-member-registration-model.php:19
+#@ maven-member
+msgid "Address 1"
+msgstr "Dirección 1"
+
+#: models/maven-member-registration-model.php:20
+#@ maven-member
+msgid "Address 2"
+msgstr "Dirección 2"
+
+#: models/maven-member-registration-model.php:21
+#@ maven-member
+msgid "City"
+msgstr "Ciudad"
+
+#: models/maven-member-registration-model.php:22
+#@ maven-member
+msgid "State"
+msgstr "Estado"
+
+#: models/maven-member-registration-model.php:23
+#@ maven-member
+msgid "Zip"
+msgstr "Codigo Postal"
+
+#: models/maven-member-registration-model.php:24
+#@ maven-member
+msgid "Country"
+msgstr "Pais"
+
+#: models/maven-member-registration-model.php:25
+#@ maven-member
+msgid "Day Phone"
+msgstr "Telefono"
+
+#: models/maven-member-registration-model.php:26
+#@ maven-member
+msgid "Website"
+msgstr "Sitio Web"
+
+#: views/admin/base-view.php:4
+#@ maven-member
+msgid "Add New"
+msgstr "Agregar Nuevo"
+
+#: views/admin/base-view.php:9
+#@ maven-member
+msgid "Info successfully updated"
+msgstr "La informacion se actualizó correctamente"
+
+#: views/admin/box-view.php:2
+#@ maven-member
+msgid "Click to toggle"
+msgstr "Haga clic para cambiar"
+
+#: views/admin/categories-view.php:6
+#@ maven-member
+msgid "Category details"
+msgstr "Detalle de la categoria"
+
+#: views/admin/categories-view.php:12
+#: views/admin/categories-view.php:49
+#: views/admin/categories-view.php:60
+#: views/admin/categories-view.php:103
+#: views/admin/fields-view.php:13
+#: views/admin/fields-view.php:54
+#: views/admin/fields-view.php:70
+#: views/admin/fields-view.php:131
+#: views/admin/roles-view.php:12
+#: views/admin/roles-view.php:36
+#: views/admin/roles-view.php:50
+#: views/admin/roles-view.php:97
+#: views/admin/templates-view.php:7
+#: views/admin/templates-view.php:18
+#: views/admin/templates-view.php:58
+#: views/admin/users-view.php:11
+#: views/admin/users-view.php:72
+#: views/admin/users-view.php:88
+#: views/admin/users-view.php:155
+#: views/admin/wizard-view.php:13
+#: views/admin/wizard-view.php:48
+#: views/admin/wizard-view.php:60
+#: views/admin/wizard-view.php:112
+#: views/admin/wizard-view.php:122
+#@ maven-member
+msgid "Name"
+msgstr "Nombre"
+
+#: views/admin/categories-view.php:36
+#: views/admin/fields-view.php:39
+#: views/admin/fields-view.php:115
+#: views/admin/roles-view.php:23
+#: views/admin/settings-view.php:68
+#: views/admin/settings-view.php:92
+#: views/admin/settings-view.php:115
+#: views/admin/settings-view.php:138
+#: views/admin/settings-view.php:342
+#: views/admin/users-view.php:56
+#: views/admin/wizard-view.php:149
+#@ maven-member
+msgid "Save"
+msgstr "Guardar"
+
+#: views/admin/categories-view.php:38
+#: views/admin/categories-view.php:122
+#: views/admin/dashboard-view.php:29
+#: views/admin/fields-view.php:41
+#: views/admin/fields-view.php:142
+#: views/admin/roles-view.php:25
+#: views/admin/roles-view.php:106
+#: views/admin/templates-view.php:77
+#: views/admin/users-view.php:58
+#: views/admin/users-view.php:188
+#@ maven-member
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: views/admin/categories-view.php:121
+#: views/admin/fields-view.php:139
+#: views/admin/roles-view.php:105
+#: views/admin/templates-view.php:76
+#: views/admin/users-view.php:187
+#@ maven-member
+msgid "Update"
+msgstr "Actualizar"
+
+#: views/admin/dashboard-view.php:5
+#@ maven-member
+msgid "Status"
+msgstr "Estado"
+
+#: views/admin/dashboard-view.php:11
+#@ maven-member
+msgid "Registration enabled"
+msgstr "Registro Habilitado"
+
+#: views/admin/dashboard-view.php:23
+#@ maven-member
+msgid "Registration successful page"
+msgstr "Pagina de registro exitoso"
+
+#: views/admin/dashboard-view.php:27
+#: views/admin/settings-view.php:43
+#@ maven-member
+msgid "Page"
+msgstr "Pagina"
+
+#: views/admin/dashboard-view.php:35
+#: views/admin/settings-view.php:99
+#@ maven-member
+msgid "Enable auto-log out"
+msgstr "Habilitar auto-log out"
+
+#: views/admin/dashboard-view.php:47
+#: views/admin/settings-view.php:107
+#@ maven-member
+msgid "Idle time limit"
+msgstr "Límite de tiempo de inactividad"
+
+#: views/admin/dashboard-view.php:51
+#: views/admin/settings-view.php:109
+#@ maven-member
+msgid "(minutes)"
+msgstr "(minutos)"
+
+#: views/admin/dashboard-view.php:65
+#@ maven-member
+msgid "I need your help!"
+msgstr "Necesito su ayuda!"
+
+#: views/admin/dashboard-view.php:68
+#@ maven-member
+msgid "Please, send me your feedback so I can improve the plugin!"
+msgstr "Por favor, envien sus comentarios para poder mejorar el plugin!"
+
+#: views/admin/dashboard-view.php:69
+#@ maven-member
+msgid "It just sents an email to <a href=\"mailto:mavenmember@gmail.com\" >mavenmember@gmail.com</a>, please add an email account if you want me to answer you, or you can use the <a href=\"http://wordpress.org/tags/maven-member#postform\" target=\"_blank\" >Forum</a> to make your questions"
+msgstr "Envie un email a <a href=\"mailto:mavenmember@gmail.com\" >mavenmember@gmail.com</a>, por favor agregue una direccion de correo electronico si quiere que le responda, o puede usar el <a href=\"http://wordpress.org/tags/maven-member#postform\" target=\"_blank\" >Foro</a> para realizar sus preguntas"
+
+#: views/admin/dashboard-view.php:77
+#@ maven-member
+msgid "Your Email"
+msgstr "Su Email"
+
+#: views/admin/dashboard-view.php:81
+#@ maven-member
+msgid "I'll use it to response your emails."
+msgstr "Usaré esto para responder su email."
+
+#: views/admin/dashboard-view.php:86
+#@ maven-member
+msgid "Question"
+msgstr "Pregunta"
+
+#: views/admin/dashboard-view.php:95
+#@ maven-member
+msgid "Thanks! Your question will be answer soon!"
+msgstr "Gracias! Su pregunta será respondida a la brevedad!"
+
+#: views/admin/dashboard-view.php:98
+#@ maven-member
+msgid "The question will be posted into the forum, without any information about where it comes from."
+msgstr "La pregunta será exhibida en el foro, sin ningún tipo de información acerca de quien la envió."
+
+#: views/admin/dashboard-view.php:101
+#@ maven-member
+msgid "Send"
+msgstr "Enviar"
+
+#: views/admin/fields-view.php:1
+#@ maven-member
+msgid "Determine which fields will display. This includes all fields, both native WP fields and Maven Members custom fields."
+msgstr "Determinar qué campos se mostrarán. Esto incluye todos los campos, campos WP nativos y los campos personalizados de Maven Member."
+
+#: views/admin/fields-view.php:2
+#@ maven-member
+msgid "(Note: Email, login and password are always mandatory. and cannot be changed.)"
+msgstr "(Nota: E-mail, nombre de usuario y contraseña son siempre obligatorias y no se puede cambiar.)."
+
+#: views/admin/fields-view.php:7
+#@ maven-member
+msgid "Field details"
+msgstr "Detalles del campo"
+
+#: views/admin/fields-view.php:21
+#: views/admin/fields-view.php:60
+#: views/admin/fields-view.php:76
+#@ maven-member
+msgid "Display"
+msgstr "Mostrar"
+
+#: views/admin/fields-view.php:29
+#: views/admin/fields-view.php:63
+#: views/admin/fields-view.php:79
+#@ maven-member
+msgid "Required"
+msgstr "Requerido"
+
+#: views/admin/fields-view.php:57
+#: views/admin/fields-view.php:73
+#@ maven-member
+msgid "WP Field"
+msgstr "Campos WP"
+
+#: views/admin/fields-view.php:116
+#@ maven-member
+msgid "Reset to defaults"
+msgstr "Restablecer los valores predeterminados"
+
+#: views/admin/fields-view.php:119
+#@ maven-member
+msgid "You can drag and drop your fields to set the order"
+msgstr "Puede arrastrar y soltar los campos para establecer el orden"
+
+#: views/admin/help-view.php:5
+#@ maven-member
+msgid "FAQs"
+msgstr ""
+
+#: views/admin/import-view.php:7
+#: views/admin/import-view.php:66
+#@ maven-member
+msgid "Import users"
+msgstr "Importar Usuarios"
+
+#: views/admin/import-view.php:13
+#@ maven-member
+msgid "File"
+msgstr "Archivo"
+
+#: views/admin/import-view.php:18
+#@ maven-member
+msgid "Upload file"
+msgstr "Subir Archivo"
+
+#: views/admin/import-view.php:25
+#@ maven-member
+msgid "Default Roles"
+msgstr "Roles por defecto"
+
+#: views/admin/import-view.php:39
+#@ maven-member
+msgid "Default Active"
+msgstr "Activo por defecto"
+
+#: views/admin/import-view.php:69
+#@ maven-member
+msgid "Remove imported users"
+msgstr "Eliminar usuarios importados"
+
+#: views/admin/roles-view.php:6
+#: views/admin/wizard-view.php:7
+#@ maven-member
+msgid "Role details"
+msgstr "Detalles del rol"
+
+#: views/admin/roles-view.php:39
+#: views/admin/roles-view.php:53
+#@ maven-member
+msgid "Shortcode"
+msgstr ""
+
+#: views/admin/roles-view.php:78
+#@ maven-member
+msgid "My protected content"
+msgstr "Mi contenido protegido"
+
+#: views/admin/settings-view.php:8
+#@ maven-member
+msgid "General settings"
+msgstr "Configuraciones generales"
+
+#: views/admin/settings-view.php:9
+#@ maven-member
+msgid "Dialogs"
+msgstr "Diálogos"
+
+#: views/admin/settings-view.php:10
+#@ maven-member
+msgid "Auto Log out"
+msgstr ""
+
+#: views/admin/settings-view.php:11
+#@ maven-member
+msgid "Login Template"
+msgstr "Plantilla de login"
+
+#: views/admin/settings-view.php:12
+#@ maven-member
+msgid "Registration"
+msgstr "Registro"
+
+#: views/admin/settings-view.php:13
+#@ maven-member
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: views/admin/settings-view.php:38
+#@ maven-member
+msgid "Login url"
+msgstr "URL de login"
+
+#: views/admin/settings-view.php:53
+#@ maven-member
+msgid "Use the shortcut <strong>[mvn-login]</strong> to show the form in your page."
+msgstr "Usar el shortcut <strong>[mvn-login]</strong> para mostrar el formulario en su pagina."
+
+#: views/admin/settings-view.php:55
+#@ maven-member
+msgid "Can use the attribute 'redirect_to' in the shortcut to redirect after the login."
+msgstr "Puede utilizar el atributo 'redirect_to' en el shortcut para redireccionar luego de iniciar sesión."
+
+#: views/admin/settings-view.php:57
+#@ maven-member
+msgid "For example <strong>[mvn-login redirect_to='http://example.com/']</strong>"
+msgstr "Por ejemplo <strong>[mvn-login redirect_to='http://example.com/']</strong>"
+
+#: views/admin/settings-view.php:74
+#@ maven-member
+msgid "Maven members dialogs and error messages"
+msgstr "Dialogos y mensajes de error de Maven Mamber"
+
+#: views/admin/settings-view.php:79
+#@ maven-member
+msgid "Restricted post (or page)"
+msgstr "Post restringido"
+
+#: views/admin/settings-view.php:83
+#@ maven-member
+msgid "Restricted title"
+msgstr "Titulo restringido"
+
+#: views/admin/settings-view.php:124
+#@ maven-member
+msgid "Please, remember to use <b>\"pwd\"</b> and <b>\"log\"</b> as input's names"
+msgstr "Recuerde usar <b>\"pwd\"</b> y <b>\"log\"</b> como nombre de los campos"
+
+#: views/admin/settings-view.php:126
+#@ maven-member
+msgid "You can use a special variable <b>{register_page}</b>. Eg. Don't you have a user yet? &lt;a href=\"{register_page}\" &gt;Register! &lt;/a&gt;"
+msgstr "Puede utilizar una variable especial <b>{register_page}</b>. Por ej. No esta registrado aun? &lt;a href=\"{register_page}\" &gt; registrese!&lt;/a&gt"
+
+#: views/admin/settings-view.php:127
+#@ maven-member
+msgid "Or <b>{password_reminder_page}</b>. Eg. Lost your password? &lt;a href=\"{password_reminder_page}\" &gt;Click here &lt;/a&gt;"
+msgstr "o <b>{password_reminder_page}</b>. Por ej. Olvido su contraseña? &lt;a href=\"{password_reminder_page}\" &gt;Click aqui &lt;/a&gt;"
+
+#: views/admin/settings-view.php:146
+#@ maven-member
+msgid "Options"
+msgstr "Opciones"
+
+#: views/admin/settings-view.php:148
+#@ maven-member
+msgid "Captcha"
+msgstr "Captcha"
+
+#: views/admin/settings-view.php:155
+#@ maven-member
+msgid "Disable registration"
+msgstr "Deshabilitar registro"
+
+#: views/admin/settings-view.php:159
+#@ maven-member
+msgid "Disable the registration process, only allows login"
+msgstr "Deshabilitar el proceso de registro, solo permite loguin"
+
+#: views/admin/settings-view.php:164
+#@ maven-member
+msgid "Registration page"
+msgstr "Pagina de registro"
+
+#: views/admin/settings-view.php:167
+#@ maven-member
+msgid "Use the shortcut <b>[mvn-registration]</b> to show the form in your page"
+msgstr " Utilice el shortcut <b> [mvn-registration] </ b> para mostrar el formulario en su página"
+
+#: views/admin/settings-view.php:171
+#@ maven-member
+msgid "Successful registration page"
+msgstr "Página de registro exitoso"
+
+#: views/admin/settings-view.php:177
+#@ maven-member
+msgid "Default registration role"
+msgstr "Rol por defecto al registrarse"
+
+#: views/admin/settings-view.php:187
+#@ maven-member
+msgid "New registration user will have this role"
+msgstr "Los proximos registrados tendran este rol"
+
+#: views/admin/settings-view.php:192
+#@ maven-member
+msgid "Activate users by default"
+msgstr "Usuario activo por defecto"
+
+#: views/admin/settings-view.php:196
+#@ maven-member
+msgid "User is activated by default upon registration"
+msgstr "Los usuarios son activos por defecto al regstrarse"
+
+#: views/admin/settings-view.php:200
+#@ maven-member
+msgid "Send email to a user by default"
+msgstr "Enviar email al usuario por defecto"
+
+#: views/admin/settings-view.php:204
+#@ maven-member
+msgid "User will receive an email when it is activated"
+msgstr "Los usuario recibirán un correo electrónico cuando se activen"
+
+#: views/admin/settings-view.php:209
+#@ maven-member
+msgid "Activation page"
+msgstr "Página de activación"
+
+#: views/admin/settings-view.php:215
+#@ maven-member
+msgid "User is redirected to this page, if he is not activated yet."
+msgstr "Los usuarios son redirigidos a esta página, si no estan activados aun"
+
+#: views/admin/settings-view.php:231
+#@ maven-member
+msgid "Container template"
+msgstr "Plantilla contenedora"
+
+#: views/admin/settings-view.php:237
+#@ maven-member
+msgid "Use <b>{$fields},{$captcha}</b> in your template to set the place where fields and reCaptcha will be set."
+msgstr "Utilice <b>{$fields},{$captcha}</b> en la plantilla para establecer el lugar donde se mostraran los campos y ReCaptcha."
+
+#: views/admin/settings-view.php:243
+#@ maven-member
+msgid "Container field template"
+msgstr "Plantilla del contenedor de campos"
+
+#: views/admin/settings-view.php:249
+#@ maven-member
+msgid "Use <b>{$field_name},{$required},{$field_control}</b> in your template to set the place where property fields will appear."
+msgstr "Utilice <b>{$field_name},{$required},{$field_control}</b> en su plantilla para establecer donde se mostraran dichos campos."
+
+#: views/admin/settings-view.php:254
+#@ maven-member
+msgid "Required template"
+msgstr "Pantilla requerida"
+
+#: views/admin/settings-view.php:262
+#@ maven-member
+msgid "Template for email user activation"
+msgstr "Plantilla para el email de activación de usuario"
+
+#: views/admin/settings-view.php:264
+#@ maven-member
+msgid "The user will receive this message when the account is activated"
+msgstr "El usuario recibirá este mensaje cuando la cuenta esté activa"
+
+#: views/admin/settings-view.php:267
+#@ maven-member
+msgid "Use <b>{user_name} or {blog_name}</b> in your template to set the place where user and blog name will appear."
+msgstr "Use <b>{user_name} o {blog_name}</b> en su plantilla para configurar el lugar donde se mostrara el nombre de usuario y blog."
+
+#: views/admin/settings-view.php:279
+#@ maven-member
+msgid "Enable Captcha"
+msgstr "Habilitar Captcha"
+
+#: views/admin/settings-view.php:288
+#@ maven-member
+msgid "Choose the captcha you want to use"
+msgstr "Seleccione el captcha que desea utilizar"
+
+#: views/admin/settings-view.php:303
+#@ maven-member
+msgid "Captchas options"
+msgstr "Opciones de Captchas"
+
+#: views/admin/settings-view.php:349
+#: views/admin/settings-view.php:373
+#@ maven-member
+msgid "Reset"
+msgstr "Restablecer"
+
+#: views/admin/settings-view.php:356
+#@ maven-member
+msgid "Clicking in the reset button, you will <b>lose all your configuration</b>, including"
+msgstr "Al hacer clic en el botón de restablecer, <b> perderá toda la configuración </ b>, incluyendo"
+
+#: views/admin/settings-view.php:359
+#@ maven-member
+msgid "Registration fields configuration"
+msgstr "Configuración de los campos de registro"
+
+#: views/admin/settings-view.php:362
+#@ maven-member
+msgid "Custom Registration fields"
+msgstr "Los campos personalizados de registro"
+
+#: views/admin/settings-view.php:365
+#@ maven-member
+msgid "Reset all category roles"
+msgstr "restablecer todos los roles de categorias"
+
+#: views/admin/users-view.php:5
+#@ maven-member
+msgid "User details"
+msgstr "Detalles del usuario"
+
+#: views/admin/users-view.php:31
+#@ maven-member
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: views/admin/users-view.php:78
+#: views/admin/users-view.php:94
+#: views/admin/wizard-view.php:51
+#: views/admin/wizard-view.php:63
+#@ maven-member
+msgid "Active"
+msgstr "Activo"
+
+#: views/admin/wizard-view.php:1
+#@ maven-member
+msgid "Welcome to the Maven Member Wizard! It will help you throw the process of protecting pages and posts!"
+msgstr "Bienvenido al asistente de Maven Member! Esto lo ayudará durante el proceso de proteger sus paginas y posts!"
+
+#: views/admin/wizard-view.php:24
+#@ maven-member
+msgid "Create new role and continue"
+msgstr "Crear un nuevo rol y continuar"
+
+#: views/admin/wizard-view.php:30
+#@ maven-member
+msgid "Role"
+msgstr "Rol"
+
+#: views/admin/wizard-view.php:40
+#@ maven-member
+msgid "Choose the users you want to assign a role"
+msgstr "Seleccione los usuarios a los que desea asignarle un rol"
+
+#: views/admin/wizard-view.php:92
+#@ maven-member
+msgid "Add users to role and continue"
+msgstr "Agregar rol al los usuario y continuar"
+
+#: views/admin/wizard-view.php:103
+#@ maven-member
+msgid "Choose the categories you want to protect"
+msgstr "Seleccione las categorias que desea proteger"
+
+#: views/admin/wizard-view.php:155
+#@ maven-member
+msgid "Finish!"
+msgstr "Finalizado!"
+
+#: views/admin/wizard-view.php:157
+#@ maven-member
+msgid "You have configured your WP Site!"
+msgstr "Ha configurado si sitio Wordpress"
+
+#: views/admin/wizard-view.php:157
+#@ maven-member
+msgid "Use the wizard again!"
+msgstr "Volver a usar el asistente!"
+
+#: views/admin/wp-user-form-roles-view.php:2
+#@ maven-member
+msgid "Maven Member Roles"
+msgstr "Roles de Maven Member"
+
+#: views/admin/wp-user-form-roles-view.php:4
+#@ maven-member
+msgid "<strong>Note:</strong> Administrators has always access to all posts and pages."
+msgstr "<strong>Nota:</strong> Los Administradores siempre podrán acceder a todos los posts y las paginas"
+
+#: views/admin/wp-user-form-view.php:2
+#@ maven-member
+msgid "Maven Member Fields"
+msgstr "Campos de Maven Member"
+
+#: views/admin/settings-view.php:28
+#@ maven-member
+msgid "Block title"
+msgstr "Bloquear titulo"
+
+#: views/admin/settings-view.php:32
+#@ maven-member
+msgid "If user doesn't have rights to see the content, also block the title"
+msgstr "Si el usuario no tiene permisos para ver el contenido, tambien se bloqueara el titulo"
+
+#: views/admin/import-view.php:20
+#@ maven-member
+msgid "Download CSV example"
+msgstr "Descargar CSV de ejemplo"
+
+#: views/admin/users-view.php:69
+#: views/admin/users-view.php:85
+#@ maven-member
+msgid "User"
+msgstr "Usuario"
+
+#: addons/widgets/logout/mvn_widget_logout.php:36
+msgid "Redirect URL"
+msgstr ""
+
+#: addons/widgets/logout/mvn_widget_logout.php:40
+msgid "Use to redirect after login."
+msgstr ""
+
+#: controllers/maven-member-blocker-class.php:246
+msgid "You are not allowed to edit this item."
+msgstr ""
+

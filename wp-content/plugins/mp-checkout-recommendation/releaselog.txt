@@ -1,0 +1,6 @@
+version 1.0.1 -
+	WP 3.8 compatible
+
+version 1.0 - 25th Jun 2013
+
+	first release

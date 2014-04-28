@@ -1,0 +1,149 @@
+
+
+#maven-roles-container{
+	width:620px;
+}
+
+.maven-check-image{
+	vertical-align: middle; 
+	padding: 0 5px 0 0;
+	margin-bottom: 4px;
+}
+
+.buttons
+{
+float: right;
+}
+
+.mvn-listing
+{
+list-style-type: none;
+margin: 0; padding: 0;
+}
+
+.mvn-listing li
+{
+
+margin-right: 1%;
+width: 290px;
+padding: 5px;
+border-radius: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius:6px;
+background-color: #eee;
+color: #333;
+}
+
+.mvn-listing li h3
+{
+text-align: center;
+margin: 0;
+padding: 0;
+}
+
+.mvn-listing li p
+{
+font-size: 0.8em;
+text-align: center;
+}
+
+.mvn-listing li ul
+{
+  list-style-type: none;
+  margin: 0; padding: 0;
+  min-height: 2em;
+}
+
+.mvn-listing li ul li
+{
+    float: none;
+    margin: 3px 0px;
+    border: none;
+    padding: 5px;
+    width: 280px;
+	background-color: #fff;
+}
+
+.settings .help
+{
+  font-style: italic;  
+  font-size: 0.9em;
+  margin-top: 1em;
+  line-height: 1.2;
+  
+}
+
+.mvn-listing .help
+{
+font-style: italic;  
+font-size: 0.9em;
+margin-top: 1em;
+line-height: 1.2;
+}
+
+.mvn-listing a
+{
+border: none;
+text-decoration: underline;
+}
+
+
+.setting-box
+{
+	border-color: #989FA9;
+	border-style: solid;
+	border-width: 1px;
+	margin: 2px;
+	padding: 8px;
+}
+
+.setting-box .title
+{
+	font-weight: bold;
+	
+}
+
+.setting-box .short_desc
+{
+	
+}
+
+
+.setting-box ul{
+	list-style-type: circle;
+	padding-left: 20px;
+}
+
+#faqs
+{
+    
+}
+
+
+
+#faqs li
+{
+    margin-bottom: 15px;
+}
+
+
+#faqs li label
+{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+ 
+
+.form-field input.maven-check {
+width: 20px;
+}
+
+.wrap-content{
+	 margin-bottom: 35px;
+}
+
+#maven-donate{
+	bottom: 40px;
+    position: absolute;
+    right: 14px;
+}

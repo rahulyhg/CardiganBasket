@@ -6,7 +6,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'update' ) {
 	if ( is_array($result) ) {
 		?><div class="updated fade"><p><?php _e('Update data successfully refreshed from WPMU DEV.', 'wpmudev'); ?></p></div><?php
 	} else {
-		?><div class="error fade"><p><?php _e('There was a problem refreshing data from WPMU DEV.', 'wpmudev'); ?></p></div><?php
+		?><div class="error fade"><p><?php printf(__('There was a problem refreshing data from WPMU DEV: "%s"', 'wpmudev'), $this->api_error); ?></p></div><?php
 	}
 
 } else {
@@ -61,7 +61,7 @@ switch( $tab ) {
 		?>
 		<h2><?php _e('WPMU DEV Updates Available', 'wpmudev') ?></h2>
 		<?php
-		$last_run = get_site_option('wdp_un_last_run');
+		$last_run = get_site_option('wdp_un_last_run_updates');
 		$projects = array();
 		if ( is_array( $data ) ) {
 			$remote_projects = isset($data['projects']) ? $data['projects'] : array();

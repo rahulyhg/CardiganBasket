@@ -26,7 +26,7 @@ class WPMUDEV_Notifications_Output {
 
 			if ( $count > 0 && !get_site_option('wdp_un_hide_upgrades') ) {
 				$data = $wpmudev_un->get_updates();
-				$msg = !empty($data['text_admin_notice']) ? $data['text_admin_notice'] : __('<strong>WPMU DEV updates are available</strong>: These may be critical for the security or performance of this site so please review your available updates today &raquo;', 'wpmudev');
+				$msg = !empty($data['text_admin_notice']) ? $data['text_admin_notice'] : __('<strong>WPMU DEV updates are available</strong>: These may be critical for the security or performance of this site so please review your available updates today &raquo;', 'wpmudev');					  	  	 	  	 
 				echo '
 					<div class="update-nag">
 						<a href="' . $wpmudev_un->updates_url . '">' . $msg . '</a>

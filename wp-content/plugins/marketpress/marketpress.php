@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: MarketPress
-Version: 2.9.3.8
+Version: 2.9.4.1
 Plugin URI: https://premium.wpmudev.org/project/e-commerce/
 Description: The complete WordPress ecommerce plugin - works perfectly with BuddyPress and Multisite too to create a social marketplace, where you can take a percentage! Activate the plugin, adjust your settings then add some products to your store.
 Author: WPMU DEV
@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA	 02111-1307	 USA
 
 class MarketPress {
 
-	var $version = '2.9.3.8';
+	var $version = '2.9.4.1';
 	var $location;
 	var $plugin_dir = '';
 	var $plugin_url = '';
@@ -125,6 +125,7 @@ class MarketPress {
 		//custom post type
 		add_action( 'init', array(&$this, 'register_custom_posts'), 0 ); //super high priority
 		add_filter( 'request', array(&$this, 'handle_edit_screen_filter') );
+		add_filter( 'post_updated_messages', array(&$this, 'post_updated_messages') );
 
 		//edit products page
 		add_filter( 'manage_product_posts_columns', array(&$this, 'edit_products_columns') );
@@ -200,6 +201,39 @@ class MarketPress {
 		add_action( 'edit_user_profile', array(&$this, 'user_profile_fields') );
 		add_action( 'show_user_profile', array(&$this, 'user_profile_fields') );
 	}
+	
+	
+	
+	
+	
+	
+
+	function post_updated_messages( $messages ) {
+		global $post, $post_ID;
+
+		$post_type = get_post_type($post_ID);
+
+		if ( $post_type != 'mp_order' && $post_type != 'product' ) { return $messages; }
+
+		$obj = get_post_type_object($post_type);
+		$singular = $obj->labels->singular_name;
+
+		$messages[$post_type] = array(
+			0 => '', // Unused. Messages start at index 1.
+			1 => sprintf(__($singular.' updated. <a href="%s">View ' . strtolower($singular) . '</a>'), esc_url(get_permalink($post_ID))),
+			2 => __('Custom field updated.'),
+			3 => __('Custom field deleted.'),
+			4 => __($singular.' updated.'),
+			5 => isset($_GET['revision']) ? sprintf(__($singular . ' restored to revision from %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+			6 => sprintf(__($singular.' published. <a href="%s">View ' . strtolower($singular).'</a>'), esc_url(get_permalink($post_ID))),
+			7 => __('Page saved.'),
+			8 => sprintf(__($singular . ' submitted. <a target="_blank" href="%s">Preview ' . strtolower($singular).'</a>'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+			9 => sprintf(__($singular . ' scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview ' . strtolower($singular).'</a>'), date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
+			10 => sprintf(__($singular . ' draft updated. <a target="_blank" href="%s">Preview ' . strtolower($singular).'</a>'), esc_url(add_query_arg( 'preview', 'true', get_permalink($post_ID)))),
+		);
+
+		return $messages;
+	}
 
 	function admin_start_session() {
 		$screen = get_current_screen();
@@ -225,7 +259,7 @@ class MarketPress {
 
 	 //our default settings
 	 $default_settings = array (
-		'base_country' => 'USA',
+		'base_country' => 'US',
 		'tax' => array (
 			'rate' => 0,
 				'label' => __('Taxes', 'mp'),
@@ -791,6 +825,7 @@ Thanks again!", 'mp')
 	 	'imgUrl' => $this->plugin_url.'images/loading.gif',
 	 	'addingMsg' => __('Adding to your cart...', 'mp'),
 	 	'outMsg' => __('In Your Cart', 'mp'),
+	 	'addToCartErrorMsg' => __('Oops... it looks like something went wrong and we couldn\'t add an item to your cart. Please check your cart for any missing items and try again.', 'mp'),
 	 	'showFilters' => $this->get_setting('show_filters'),
 	 	'links' => array('-1' => home_url($this->get_setting('slugs->store') . '/' . $this->get_setting('slugs->products'))),
 	 	'countriesNoPostCode' => $this->countries_no_postcode,
@@ -820,6 +855,7 @@ Thanks again!", 'mp')
 	 if ( !$this->get_setting('show_lightbox') )
 		return;
 
+	 wp_enqueue_script('jquery');
 	 wp_enqueue_style('mp-lightbox', $this->plugin_url . 'lightbox/style/lumebox.css', false, $this->version);	//we enqueue styles on every page just in case of shortcodes http://wp.mu/8ou
 	 wp_register_script('mp-lightbox', $this->plugin_url . 'lightbox/js/jquery.lumebox.min.js', array('jquery'), $this->version, true);	//we just register the script here - we can output selectively later
 
@@ -2921,16 +2957,24 @@ Thanks again!", 'mp')
 
 				$full_cart[$bid][$product_id] = array();
 
+				$var_names = maybe_unserialize(get_post_meta($product_id, 'mp_var_name', true));
+
 				foreach ( $variations as $variation => $quantity ) {
+					if ( is_array($var_names) && count($var_names) > 1 ) {
+						$name = get_the_title($product_id) . ': ' . $var_names[$variation];
+					} else {
+						$name = get_the_title($product_id);
+					}
+
 					//check stock
-					if (get_post_meta($product_id, 'mp_track_inventory', true)) {
+					if ( get_post_meta($product_id, 'mp_track_inventory', true) ) {
 						$stock = maybe_unserialize(get_post_meta($product_id, 'mp_inventory', true));
 
-						if ( !is_array($stock) )
+						if ( ! is_array($stock) )
 						 	$stock[0] = $stock;
 
-					 	if ($stock[$variation] < $quantity) {
-							$this->cart_checkout_error( sprintf(__("Sorry, we don't have enough of %1$s in stock. Your cart quantity has been changed to %2$s.", 'mp'), $product->post_title, number_format_i18n($stock[$variation])) );
+					 	if ( $stock[$variation] < $quantity ) {
+							$this->cart_checkout_error( sprintf(__('Sorry, we don\'t have enough of <strong>%1$s</strong> in stock. Your cart quantity has been changed to <strong>%2$s</strong>.', 'mp'), $name, number_format_i18n($stock[$variation])) );
 							$quantity = $stock[$variation];
 						}
 					}
@@ -2953,12 +2997,6 @@ Thanks again!", 'mp')
 				 	$skus = maybe_unserialize(get_post_meta($product_id, 'mp_sku', true));
 				 	if ( !is_array($skus) )
 						$skus[0] = $skus;
-
-					$var_names = maybe_unserialize(get_post_meta($product_id, 'mp_var_name', true));
-					if ( is_array($var_names) && count($var_names) > 1 )
-						$name = $product->post_title . ': ' . $var_names[$variation];
-					else
-						$name = $product->post_title;
 
 					//get if downloadable
 					if ( $download_url = get_post_meta($product_id, 'mp_file', true) )
@@ -3449,12 +3487,19 @@ Thanks again!", 'mp')
 
 	//check to be sure each product is still available
 	$final_cart = $this->get_cart_contents( $this->global_cart );
-	if( is_array( $final_cart ) ) {
-		foreach($final_cart as $prod_id => $details) {
-			if (get_post_meta( $prod_id, 'mp_track_inventory', true ) ) {
-					$stock = maybe_unserialize(get_post_meta($prod_id, 'mp_inventory', true));
-				if( isset( $stock[0] ) && $stock[0] === 0 ) {
-					$this->cart_checkout_error( __("Sorry, one or more products are no longer available. Please review your cart.", 'mp') );
+	if ( is_array( $final_cart ) ) {
+		foreach ( $final_cart as $prod_id => $details ) {
+			if ( get_post_meta( $prod_id, 'mp_track_inventory', true ) ) {
+				$stock = get_post_meta($prod_id, 'mp_inventory', true);
+
+				if ( ! is_array($stock) ) {
+					$stock = array($stock);
+				}
+
+				foreach ( $details as $variation => $data ) {
+					if ( $data['quantity'] > $stock[$variation] ) {
+						$this->cart_checkout_error( __("Sorry, one or more products are no longer available. Please review your cart.", 'mp') );
+					}
 				}
 			}
 		}
@@ -4292,6 +4337,9 @@ Thanks again!", 'mp')
 	 $user_id =	 $_REQUEST['user_id'];
 		$fields = array( 'email', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone' );
 
+
+
+
 		//shipping fields
 		$meta = array();
 		foreach ( $fields as $field ) {
@@ -4312,6 +4360,9 @@ Thanks again!", 'mp')
 		}
 		update_user_meta($user_id, 'mp_billing_info', $meta);
 	}
+
+
+
 
 	function user_profile_fields() {
 	 global $current_user;
@@ -4337,6 +4388,12 @@ Thanks again!", 'mp')
 		$country = $this->get_setting('base_country');
 
 	 ?>
+     
+     
+     
+     
+ <!--  MD
+ 
 	 <h3><?php _e('Shipping Info', 'mp'); ?></h3>
 	 <table class="form-table">
 			<tr>
@@ -4396,6 +4453,11 @@ Thanks again!", 'mp')
 				<input size="20" id="mp_shipping_info_phone" name="mp_shipping_info[phone]" type="text" value="<?php echo esc_attr($phone); ?>" /></td>
 		</tr>
 	 </table>
+     
+     
+     -->
+     
+     
 		<?php
 
 	 //initialize variables
@@ -4411,6 +4473,12 @@ Thanks again!", 'mp')
 		if ( empty($country) )
 		$country = $this->get_setting('base_country');
 	 ?>
+     
+     
+     
+     
+     <!-- MD
+     
 	 <h3><?php _e('Billing Info', 'mp'); ?> <a class="add-new-h2" href="javascript:mp_copy_billing('mp_billing_info');"><?php _e('Same as Shipping', 'mp'); ?></a></h3>
 	 <table class="form-table">
 		<tr>
@@ -4470,6 +4538,13 @@ Thanks again!", 'mp')
 				<input size="20" id="mp_billing_info_phone" name="mp_billing_info[phone]" type="text" value="<?php echo esc_attr($phone); ?>" /></td>
 		</tr>
 	 </table>
+     
+     
+     -->
+     
+     
+     
+     
 	 <script type="text/javascript">
 	 function mp_copy_billing(prefix) {
 		_mp_profile_billing_fields = ['email', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone'];
@@ -5978,22 +6053,22 @@ Notification Preferences: %s', 'mp');
 
 					<?php
 					switch ($this->get_setting('base_country')) {
-					 /*case 'US':
+					 case 'US':
 						$list = $this->usa_states;
 						break;
 
 					 case 'CA':
 						$list = $this->canadian_provinces;
 						break;
-*/
+
 					 case 'GB':
 						$list = $this->uk_counties;
 						break;
-/*
+
 					 case 'AU':
 						$list = $this->australian_states;
-					break;
-*/
+						break;
+
 					 default:
 						$list = false;
 					}
@@ -6018,7 +6093,7 @@ Notification Preferences: %s', 'mp');
 					if ( is_array($list) || in_array( $this->get_setting('base_country'), array('UM','AS','FM','GU','MH','MP','PW','PR','PI') )	) {
 					?>
 					 <tr>
-							<th scope="row"><?php _e('Postal Code', 'mp') ?></th>
+							<th scope="row"><?php _e('Base Zip/Postal Code', 'mp') ?></th>
 							<td>
 						<input value="<?php echo esc_attr($this->get_setting('base_zip')); ?>" size="10" name="mp[base_zip]" type="text" />
 			 			</td>
@@ -6941,9 +7016,9 @@ Notification Preferences: %s', 'mp');
 							<th scope="row"><?php _e('Relate Products By', 'mp') ?></th>
 							<td>
 								<select name="mp[related_products][relate_by]">
-									<option value="both" <?php checked($this->get_setting('related_products->relate_by'), 'both'); ?>><?php _e('Category &amp; Tags', 'mp'); ?></option>
-									<option value="category" <?php checked($this->get_setting('related_products->relate_by'), 'category'); ?>><?php _e('Category Only', 'mp'); ?></option>
-									<option value="tags" <?php checked($this->get_setting('related_products->relate_by'), 'tags'); ?>><?php _e('Tags Only', 'mp'); ?></option>
+									<option value="both" <?php selected($this->get_setting('related_products->relate_by'), 'both'); ?>><?php _e('Category &amp; Tags', 'mp'); ?></option>
+									<option value="category" <?php selected($this->get_setting('related_products->relate_by'), 'category'); ?>><?php _e('Category Only', 'mp'); ?></option>
+									<option value="tags" <?php selected($this->get_setting('related_products->relate_by'), 'tags'); ?>><?php _e('Tags Only', 'mp'); ?></option>
 								</select>
 							</td>
 						</tr>
@@ -7399,7 +7474,7 @@ Notification Preferences: %s', 'mp');
 								<tr>
 							<th scope="row"><?php _e('Measurement System', 'mp') ?></th>
 							<td>
-						<label><input value="english" name="mp[shipping][system]" type="radio"<?php checked($this->get_setting('shipping->system'), 'english') ?> /> <?php _e('Engish (Pounds)', 'mp') ?></label>
+						<label><input value="english" name="mp[shipping][system]" type="radio"<?php checked($this->get_setting('shipping->system'), 'english') ?> /> <?php _e('English (Pounds)', 'mp') ?></label>
 						<label><input value="metric" name="mp[shipping][system]" type="radio"<?php checked($this->get_setting('shipping->system'), 'metric') ?> /> <?php _e('Metric (Kilograms)', 'mp') ?></label>
 							</td>
 					 </tr>
@@ -7833,7 +7908,7 @@ class MarketPress_Shopping_Cart extends WP_Widget {
 		$size = !empty($instance['size']) ? intval($instance['size']) : 25;
 		*/
 	?>
-		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'mp') ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
+		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'mp') ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
 		<p><label for="<?php echo $this->get_field_id('custom_text'); ?>"><?php _e('Custom Text:', 'mp') ?><br />
 	 <textarea class="widefat" id="<?php echo $this->get_field_id('custom_text'); ?>" name="<?php echo $this->get_field_name('custom_text'); ?>"><?php echo esc_attr($custom_text); ?></textarea></label>
 	 </p>
@@ -7857,7 +7932,7 @@ class MarketPress_Product_List extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
-	 global $mp;
+	 global $mp, $post;
 
 		if ($instance['only_store_pages'] && !mp_is_shop_page())
 			return;
@@ -7912,14 +7987,16 @@ class MarketPress_Product_List extends WP_Widget {
 	 $custom_query = new WP_Query('post_type=product' . $taxonomy_query . $paginate_query . $order_by_query . $order_query);
 
 	 //do we have products?
-	 if (count($custom_query->posts)) {
-		echo '<ul id="mp_product_list">';
-		foreach ($custom_query->posts as $post) {
+	 if ( $custom_query->have_posts() ) {
+		echo '<ul id="mp_product_list" class="hfeed">';
+		while ( $custom_query->have_posts() ) : $custom_query->the_post();
 
-			echo '<li '.mp_product_class(false, 'mp_product', $post->ID).'>';
-			echo '<h3 class="mp_product_name"><a href="' . get_permalink( $post->ID ) . '">' . esc_attr($post->post_title) . '</a></h3>';
+			echo '<li itemscope itemtype="http://schema.org/Product" ' . mp_product_class(false, array('mp_product', 'hentry'), $post->ID) . '>';
+			echo '<h3 class="mp_product_name entry-title" itemprop="name"><a href="' . get_permalink( $post->ID ) . '">' . esc_attr($post->post_title) . '</a></h3>';
 			if ($instance['show_thumbnail'])
 			 mp_product_image( true, 'widget', $post->ID, $instance['size'] );
+
+			echo '<div class="entry-content" style="margin:0;padding:0;width:auto;">';
 
 			if ($instance['show_excerpt'])
 			 echo '<div class="mp_product_content">' . $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID) . '</div>';
@@ -7933,10 +8010,17 @@ class MarketPress_Product_List extends WP_Widget {
 			 if ($instance['show_button'])
 				echo mp_buy_button(false, 'list', $post->ID);
 
-			 echo '</div>';
+			echo '</div>';
 			}
+
+			echo '</div>';
+			echo '<div style="display:none">
+							<time class="updated">' . get_the_time('Y-m-d\TG:i') . '</time> by
+							<span class="author vcard"><span class="fn">' . get_the_author_meta('display_name') . '</span></span>
+						</div>';
 			echo '</li>';
-		}
+		endwhile;
+		wp_reset_postdata();
 		echo '</ul>';
 	 } else {
 		?>
@@ -7990,7 +8074,7 @@ class MarketPress_Product_List extends WP_Widget {
 
 		$only_store_pages = isset( $instance['only_store_pages'] ) ? (bool) $instance['only_store_pages'] : false;
 	?>
-		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'mp') ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
+		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'mp') ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
 		<p><label for="<?php echo $this->get_field_id('custom_text'); ?>"><?php _e('Custom Text:', 'mp') ?><br />
 	 <textarea class="widefat" id="<?php echo $this->get_field_id('custom_text'); ?>" name="<?php echo $this->get_field_name('custom_text'); ?>"><?php echo esc_attr($custom_text); ?></textarea></label>
 	 </p>
@@ -8172,3 +8256,6 @@ class MarketPress_Tag_Cloud_Widget extends WP_Widget {
 	<?php
 	}
 }
+
+
+

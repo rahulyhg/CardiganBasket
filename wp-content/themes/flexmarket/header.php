@@ -27,6 +27,7 @@
 
 	<?php mpt_load_header_code(); ?>
 
+
 </head>
 
 <body id="body-wrapper" <?php body_class(); ?>>
@@ -45,8 +46,7 @@
 				<div class="span2">
 					<?php mpt_load_site_logo(); ?>
 				</div>
-				
-            
+                            
                 
 				<!-- Nav -->
 				<div class="span10">
@@ -69,6 +69,7 @@
 										'walker' => new twitter_bootstrap_nav_walker()
 										)); 
 						?>
+                        
 
 					</div>
 

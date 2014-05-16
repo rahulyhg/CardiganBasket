@@ -97,7 +97,7 @@ class Simplify_Customer extends Simplify_Object {
         */
         static public function listCustomer($criteria = null, $publicKey = null, $privateKey = null) {
             $val = new Simplify_Customer();
-            $list = Simplify_PaymentsApi::listObject($val, $criteria, $publicKey, $privateKey);
+            $list = Simplify_PaymentsApi::listObject($val, $criteria, $publicKey, $privateKey);					  	  		 	 		
 
             return $list;
         }

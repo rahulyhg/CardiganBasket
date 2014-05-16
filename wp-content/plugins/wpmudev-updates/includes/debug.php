@@ -123,6 +123,9 @@ class WPMUDEV_Debug {
 		foreach ( $this->php_vars as $setting )
 			$this->data['php']['variables'][$setting] = @ini_get( $setting );
 
+		$this->data['php']['extensions'] = get_loaded_extensions();
+		natcasesort( $this->data['php']['extensions'] );
+
 		$this->data['php']['error_reporting'] = error_reporting();
 
 		# @TODO put WP's other debugging constants in here, eg. SCRIPT_DEBUG
@@ -164,7 +167,6 @@ class WPMUDEV_Debug {
 			'host'    => @php_uname( 'n' )
 		);
 
-
 		$remote_get = wp_remote_get($wpmudev_un->server_url);
 		$remote_post = wp_remote_post($wpmudev_un->server_url);
 		$remote_paypal = wp_remote_post("https://api-3t.paypal.com/nvp", array('body'=>'"METHOD=SetExpressCheckout&VERSION=63.0&USER=xxxxx&PWD=xxxxx&SIGNATURE=xxxxx'));
@@ -202,11 +204,17 @@ class WPMUDEV_Debug {
 				}
 
 				$error_levels = implode( '<br/>', self::get_error_levels( $this->data['php']['error_reporting'] ) );
-
 				echo '<tr>';
 				echo '<td>error_reporting</td>';
 				echo "<td>{$this->data['php']['error_reporting']}<br><span class='qm-info'>{$error_levels}</span></td>";
 				echo '</tr>';
+
+				$extensions = implode( ', ', $this->data['php']['extensions'] );
+				echo '<tr>';
+				echo '<td>Extensions</td>';
+				echo "<td><span class='qm-info'>{$extensions}</span></td>";
+				echo '</tr>';
+
 			echo '</table>';
 
 		echo '</td></tr>';

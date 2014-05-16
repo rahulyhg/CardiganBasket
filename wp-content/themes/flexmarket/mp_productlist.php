@@ -20,7 +20,8 @@
 		<div class="content-section">
 			<div class="outercontainer">
 				<div class="clear padding30"></div>	
-				<div class="container" style="min-height: 450px;">			
+				<div class="container" style="min-height: 450px;">	
+                		
 
 					<?php if ( class_exists( 'MarketPress' ) ) { ?>
 

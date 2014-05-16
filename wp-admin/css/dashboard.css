@@ -129,8 +129,23 @@ h3.dashboard-widget-title small a:hover {
 	line-height: 2.1em;
 }
 
+
+#shortcuts-icons{
+	position: relative;
+	padding: 20px;
+	top:30px;
+}
+
+#shortcuts-icons img{
+	position:absolute;
+	display:block;
+	width: 122px;
+	height: 85px;
+		
+}
+
 .welcome-panel h3 {
-	margin: 0;
+	margin: 10;
 	font-size: 21px;
 	font-weight: normal;
 	line-height: 1.2;

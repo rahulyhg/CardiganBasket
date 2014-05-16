@@ -5,6 +5,31 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+- Fixed: product list widget doesn't show price for products with variations http://wp.mu/9ai
+- Fixed: spelling error in shipping settings http://wp.mu/9aj
+- Fixed: lightbox no longer works on product images
+- Fixed: not able to use both categories and tags in [mp_list_products] http://wp.mu/9ao
+- Fixed: grid view broken in 2014 theme
+- Fixed: related products "Relate Products By" dropdown doesn't accurately show selected value
+- Added: custom update messages for products and orders
+- Added: additional schema.org markup for Google Rich Snippets
+
+2.9.4 - 4/16/2014
+----------------------------------------------------------------------
+- Fixed: grid view doesn't work when displaying global product list
+- Fixed: products on are not added to cart when using buy now button on single product page
+- Fixed: product categories not properly assigning when using global marketplace http://wp.mu/970
+- Added: Bitpay Bitcoin gateway (alpha)
+
+2.9.3.9 - 4/12/2014
+----------------------------------------------------------------------
+- Fixed: incorrect URL in Simplify gateway settings
+- Fixed: incorrect URL in Authorize.net gateway settings
+- Fixed: when logged in, order status links are incorrect
+- Fixed: when using Authorize.net in sandbox mode API calls are being made in test mode
+- Fixed: when completing checkout, in-stock items some times show as out of stock (when using variations)
+- Fixed: when quickly adding multiple items to cart not all of the items get added http://wp.mu/96f
+
 2.9.3.8 - 4/5/2014 - Jonathan Cowher 
 ----------------------------------------------------------------------
 - Fixed: prices not showing up after 2.9.3.7 release
@@ -819,4 +844,4 @@ Change Log:
 - Initial Release
 
 
-127451-1397048440-au
+127451-1398945516-au

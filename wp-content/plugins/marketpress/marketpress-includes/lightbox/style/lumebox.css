@@ -15,7 +15,7 @@
 #lumebox-bg {
     display: none;
     position: fixed;
-    _position: absolute; /* hack for internet explorer 6*/
+    _position: absolute; /* hack for internet explorer 6*/					  	  		 	 		
     height: 100%;
     width: 100%;
     top: 0;
@@ -174,4 +174,4 @@
 }
 
 
-/* 127451-1397048440-au */
+/* 127451-1398945516-au */

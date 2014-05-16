@@ -83,7 +83,7 @@ class Simplify_Subscription extends Simplify_Object {
         */
         static public function listSubscription($criteria = null, $publicKey = null, $privateKey = null) {
             $val = new Simplify_Subscription();
-            $list = Simplify_PaymentsApi::listObject($val, $criteria, $publicKey, $privateKey);					  	  		 	 		
+            $list = Simplify_PaymentsApi::listObject($val, $criteria, $publicKey, $privateKey);
 
             return $list;
         }

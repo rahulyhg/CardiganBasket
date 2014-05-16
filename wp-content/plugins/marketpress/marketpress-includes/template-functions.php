@@ -988,7 +988,7 @@ function _mp_cart_payment($type, $echo = false) {
 						$content .= '<div class="mp_checkout_error">' . sprintf(__('Whoops, looks like you skipped a step! Please <a href="%s">go back and try again</a>.', 'mp'), mp_checkout_step_url('checkout')) . '</div>';
 						return $content;
 				}
-				$content .= '<form id="mp_payment_form" method="post" action="' . mp_checkout_step_url('confirm-checkout') . '">';
+				$content .= '<form id="mp_payment_form" method="post" action="' . add_query_arg(array()) . '">';
 
 				$content .= apply_filters('mp_checkout_confirm_payment_' . $_SESSION['mp_payment_method'], $cart, $_SESSION['mp_shipping_info']);
 
@@ -997,12 +997,6 @@ function _mp_cart_payment($type, $echo = false) {
 				$content .= '</p>';
 				$content .= '</form>';
 		} else if ($type == 'confirmation') {
-
-				//if skipping a step
-				if (empty($_SESSION['mp_payment_method'])) {
-						//$content .= '<div class="mp_checkout_error">' . sprintf(__('Whoops, looks like you skipped a step! Please <a href="%s">go back and try again</a>.', 'mp'), mp_checkout_step_url('checkout')) . '</div>';
-				}
-
 				//gateway plugin message hook
 				$content .= apply_filters('mp_checkout_payment_confirmation_' . $_SESSION['mp_payment_method'], '', $mp->get_order($_SESSION['mp_order']));
 
@@ -1455,7 +1449,7 @@ function mp_order_status( $echo = true ) {
 					}
 
 					$content .= '
-						<form action="<?php mp_orderstatus_link(true, true); ?>" method="get">
+						<form action="' . mp_orderstatus_link(false, true) . '" method="get">
 								<label>' . apply_filters('mp_order_status_label_or_enter_order_number', __('Or enter your 12-digit Order ID number:', 'mp'), $order) . '<br />
 										<input type="text" name="order_id" id="order_id" class="input" value="" size="20" /></label>
 								<input type="submit" id="order-id-submit" value="' . apply_filters('mp_order_status_label_look_up_button', __('Look Up &raquo;', 'mp'), $order) . '" />
@@ -1605,23 +1599,24 @@ function mp_list_products() {
 		'post_type' => 'product',
 		'post_status' => 'publish',
 	);
+	$tax_query = array();
 
 	//setup taxonomies if possible
 	if ( $wp_query->get('taxonomy') == 'product_category' ) {
-		$query['tax_query'][] = array(
+		$tax_query[] = array(
 			'taxonomy' => 'product_category',
 			'field' => 'slug',
 			'terms' => $wp_query->get('term'),
 		);
 	} elseif ( $wp_query->get('taxonomy') == 'product_tag' ) {
-		$query['tax_query'][] = array(
+		$tax_query[] = array(
 			'taxonomy' => 'product_tag',
 			'field' => 'slug',
 			'terms' => $wp_query->get('term'),
 		);
 	} elseif ( !is_null($args['category']) || !is_null($args['tag']) ) {
 		if ( !is_null($args['category']) ) {
-			$query['tax_query'][] = array(
+			$tax_query[] = array(
 				'taxonomy' => 'product_category',
 				'field' => 'slug',
 				'terms' => sanitize_title($args['category']),
@@ -1629,7 +1624,7 @@ function mp_list_products() {
 		}
 
 		if ( !is_null($args['tag']) ) {
-			$query['tax_query'][] = array(
+			$tax_query[] = array(
 				'taxonomy' => 'product_tag',
 				'field' => 'slug',
 				'terms' => sanitize_title($args['tag']),
@@ -1637,10 +1632,10 @@ function mp_list_products() {
 		}
 	}
 
-	if ( isset($query['tax_query']) && count($query['tax_query']) > 1 ) {
-		$query['tax_query'][] = array(
-			'relation' => 'AND',
-		);
+	if ( count($tax_query) > 1 ) {
+		$query['tax_query'] = array_merge(array('relation' => 'AND'), $tax_query);
+	} elseif ( count($tax_query) == 1 ) {
+		$query['tax_query'] = $tax_query;
 	}
 
 	//setup pagination
@@ -1821,14 +1816,14 @@ function _mp_products_html_grid($custom_query) {
 							<div class="mp_product_detail"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
 								' . $img . '
 								' . $pinit .'
-								<h3 class="mp_product_name entry-title">
+								<h3 class="mp_product_name entry-title" itemprop="name">
 									<a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a>
 								</h3>
 
 								<div>' . $mp_product_list_content . '</div>
 							</div>
 
-							<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px; margin-left:-' . $width . 'px;"' : '') . '>
+							<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
 								' . mp_product_price(false, $post->ID) . '
 								' . mp_buy_button(false, 'list', $post->ID) . '
 								' . apply_filters('mp_product_list_meta', '', $post->ID) . '
@@ -1841,6 +1836,8 @@ function _mp_products_html_grid($custom_query) {
 							</div>
 						</div>
 					</div>';
+					
+					
 		endwhile;
 
 		$html .= ($custom_query->found_posts > 0) ? '<div class="clear"></div>' : '';
@@ -2028,12 +2025,10 @@ function mp_product($echo = true, $product_id, $title = true, $content = 'full',
 		}
 
 		if ($meta) {
-				$return .= '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mp_product_meta">';
-				//price
-				$return .= mp_product_price(false, $post->ID);
-				//button
-				$return .= mp_buy_button(false, 'single', $post->ID);
-				$return .= '</div>';
+			//price
+			$return .= mp_product_price(false, $post->ID);
+			//button
+			$return .= mp_buy_button(false, 'single', $post->ID);
 		}
 		$return .= '</div>';
 
@@ -2194,7 +2189,7 @@ function mp_product_price($echo = true, $post_id = NULL, $label = true) {
 
 		$label = ($label === true) ? __('Price: ', 'mp') : $label;
 
-		$meta = get_post_custom($post_id);
+		$meta = (array) get_post_custom($post_id);
 		//unserialize
 		foreach ($meta as $key => $val) {
 				$meta[$key] = maybe_unserialize($val[0]);
@@ -2209,7 +2204,7 @@ function mp_product_price($echo = true, $post_id = NULL, $label = true) {
 				} else {
 						$price = '<span itemprop="price" class="mp_normal_price"><span class="mp_current_price">' . $mp->format_currency('', $meta["mp_price"][0]) . '</span></span>';
 				}
-		} else if (is_array($meta["mp_price"]) && count($meta["mp_price"]) > 1 && !is_singular('product')) { //only show from price in lists
+		} else if (is_array($meta["mp_price"]) && count($meta["mp_price"])) { //only show from price in lists
 				if ($meta["mp_is_sale"]) {
 						//do some crazy stuff here to get the lowest price pair ordered by sale prices
 						asort($meta["mp_sale_price"], SORT_NUMERIC);
@@ -2227,7 +2222,7 @@ function mp_product_price($echo = true, $post_id = NULL, $label = true) {
 				return '';
 		}
 
-		$price_html = _mp_apply_deprecated_filters('mp_product_price_tag', array('<span class="mp_product_price">' . $label . $price . '</span>', $post_id, $label), '2.9.3.7', 'mp_product_price_html');
+		$price_html = _mp_apply_deprecated_filters('mp_product_price_tag', array('<span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mp_product_price">' . $label . $price . '</span>', $post_id, $label), '2.9.3.7', 'mp_product_price_html');
 		$price_html = apply_filters('mp_product_price_html', $price_html, $post_id, $label, $price);
 
 		if ( $echo )
@@ -2330,7 +2325,7 @@ function mp_buy_button($echo = true, $context = 'list', $post_id = NULL) {
 		global $id, $mp;
 		$post_id = ( NULL === $post_id ) ? $id : $post_id;
 
-		$meta = get_post_custom($post_id);
+		$meta = (array) get_post_custom($post_id);
 		//unserialize
 		foreach ($meta as $key => $val) {
 				$meta[$key] = maybe_unserialize($val[0]);
@@ -2578,7 +2573,7 @@ function mp_product_image($echo = true, $context = 'list', $post_id = NULL, $siz
 			$image = '
 				<div itemscope class="hmedia">
 					<div style="display:none"><span class="fn">' . get_the_title(get_post_thumbnail_id()) . '</span></div>
-					<a rel="enclosure" id="product_image-' . $post_id . '"' . $class . ' href="' . $link . '">' . $image . '</a>
+					<a rel="lightbox enclosure" id="product_image-' . $post_id . '"' . $class . ' href="' . $link . '">' . $image . '</a>
 				</div>';
 		}
 
@@ -2683,7 +2678,7 @@ function mp_cart_link($echo = true, $url = false, $link_text = '') {
 		}
 
 		if (!$url) {
-				$text = ($link_text) ? $link_text : __('Shopping Cart', 'mp');
+				$text = ($link_text) ? $link_text : __(' | Checkout', 'mp');	/* was Shopping Cart MARKDAVIES*/
 				$link = '<a href="' . $link . '" class="mp_cart_link">' . $text . '</a>';
 		}
 

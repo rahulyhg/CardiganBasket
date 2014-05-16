@@ -16,7 +16,7 @@ if ($default_name == 'admin')
 				?><div class="registered_error"><p><i class="icon-warning-sign icon-large"></i>&nbsp;&nbsp;&nbsp;<?php _e('Invalid Username or Password. Please try again.', 'wpmudev'); ?><br /><a href="http://premium.wpmudev.org/wp-login.php?action=lostpassword" target="_blank"><?php _e('Forgot your password?', 'wpmudev'); ?></a></p></div><?php
 			} ?>
 			<?php if (isset($connection_error) && $connection_error) { ?>
-				<div class="registered_error"><p><i class="icon-warning-sign icon-large"></i> <?php _e('Your server had a problem connecting to WPMU DEV. Please try again.', 'wpmudev'); ?><br><?php _e('If this problem continues, please contact your host and ask:', 'wpmudev'); ?><br><em><?php _e('"Is php on my server properly configured to be able to contact http://premium.wpmudev.org/wdp-un.php with a GET HTTP request via fsockopen or CURL?"', 'wpmudev'); ?></em></p></div>
+				<div class="registered_error"><p><i class="icon-warning-sign icon-large"></i> <?php printf(__('Your server had a problem connecting to WPMU DEV: "%s" Please try again.', 'wpmudev'), $this->api_error); ?><br><?php _e('If this problem continues, please contact your host and ask:', 'wpmudev'); ?><br><em><?php _e('"Is php on my server properly configured to be able to contact http://premium.wpmudev.org/wdp-un.php with a GET HTTP request via fsockopen or CURL?"', 'wpmudev'); ?></em></p></div>
 			<?php } else if (isset($key_valid) && !$key_valid) { ?>
 				<div class="registered_error"><p><i class="icon-warning-sign icon-large"></i> <?php _e('Your API Key was invalid. Please try again.', 'wpmudev'); ?></p></div>
 			<?php } ?>

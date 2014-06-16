@@ -111,9 +111,11 @@ class MP_Gateway_PayWay extends MP_Gateway_API {
 		$total = array_sum($totals);
 
 		//shipping line
-		if ( ($shipping_price = $mp->shipping_price()) !== false ) {
+    $shipping_tax = 0;
+    if ( ($shipping_price = $mp->shipping_price(false)) !== false ) {
 			$total += $shipping_price;
-			$shipping_tax_price = $mp->shipping_tax_price($shipping_price);
+			$shipping_tax = ($mp->shipping_tax_price($shipping_price) - $shipping_price);
+
 			$parameters["Shipping"] = '1,'.$shipping_price;
 			//Add shipping as separate product
 			$items[] = array(
@@ -123,13 +125,16 @@ class MP_Gateway_PayWay extends MP_Gateway_API {
 				'itemPrice'.$i => round($shipping_price*100) // Product price in cents
 			);
 			$i++;
-		}
+    }
 
-		//tax line
-		if ( ($tax_price = $mp->tax_price()) !== false ) {
-			$total = $total + $tax_price;
-			if(!empty($tax_price))
+    //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
+    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+    	$tax_price = ($mp->tax_price(false) + $shipping_tax);
+			$total += $tax_price;
+
+			if ( ! empty($tax_price) )
 				$parameters["Tax"] = '1,'.$tax_price;
+
 			//Add tax as separate product
 			$items[] = array(
 				'itemNumber'.$i => '99999999', // Product number
@@ -137,7 +142,7 @@ class MP_Gateway_PayWay extends MP_Gateway_API {
 				'itemQuantity'.$i => 1, // Quantity
 				'itemPrice'.$i => round($tax_price*100)  // Product price in cents
 			);
-		}
+    }
 
 		$total = round($total * 100);
 

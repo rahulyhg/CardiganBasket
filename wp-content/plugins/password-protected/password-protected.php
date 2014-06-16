@@ -3,11 +3,11 @@
 /*
 Plugin Name: Password Protected
 Plugin URI: http://wordpress.org/extend/plugins/password-protected/
-Description: A very simple way to quickly password protect your WordPress site with a single password. Integrates seamlessly into your WordPress privacy settings.
-Version: 1.7.1
+Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work on WP Engine or with some caching setups.
+Version: 1.7.2
 Author: Ben Huson
 Text Domain: password-protected
-Author URI: http://www.benhuson.co.uk/
+Author URI: http://github.com/benhuson/password-protected/
 License: GPLv2
 */
 
@@ -53,6 +53,7 @@ class Password_Protected {
 		$this->errors = new WP_Error();
 		register_activation_hook( __FILE__, array( &$this, 'install' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'disable_caching' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), 1 );
@@ -73,19 +74,28 @@ class Password_Protected {
 	}
 
 	/**
+	 * Disable Page Caching
+	 */
+	function disable_caching() {
+		if ( $this->is_active() && ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}	
+	}
+
+	/**
 	 * Is Active?
 	 *
 	 * @return  boolean  Is password protection active?
 	 */
 	function is_active() {
+		global $wp_query;
 
 		// Always allow access to robots.txt
-		if ( is_robots() )
+		if ( isset( $wp_query ) && is_robots() ) {
 			return false;
+		}
 
 		if ( (bool) get_option( 'password_protected_status' ) ) {
-			if ( ! defined( 'DONOTCACHEPAGE' ) )
-				define( 'DONOTCACHEPAGE', true );
 			return true;
 		}
 		return false;
@@ -122,8 +132,9 @@ class Password_Protected {
 	 * @return  boolean         True/false.
 	 */
 	function allow_feeds( $bool ) {
-		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) )
+		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) ) {
 			return 0;
+		}
 		return $bool;
 	}
 
@@ -134,8 +145,9 @@ class Password_Protected {
 	 * @return  boolean         True/false.
 	 */
 	function allow_administrators( $bool ) {
-		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) )
+		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) ) {
 			return 0;
+		}
 		return $bool;
 	}
 
@@ -146,8 +158,9 @@ class Password_Protected {
 	 * @return  boolean         True/false.
 	 */
 	function allow_users( $bool ) {
-		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_users' ) )
+		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_users' ) ) {
 			return 0;
+		}
 		return $bool;
 	}
 
@@ -171,8 +184,10 @@ class Password_Protected {
 			// If correct password...
 			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 				$this->set_auth_cookie();
-				if ( ! empty( $_REQUEST['redirect_to'] ) ) {
-					$this->safe_redirect( $_REQUEST['redirect_to'] );
+				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
+				if ( ! empty( $redirect_to ) ) {
+					$this->safe_redirect( $redirect_to );
 					exit;
 				}
 			} else {
@@ -204,13 +219,16 @@ class Password_Protected {
 	 * Maybe Show Login
 	 */
 	function maybe_show_login() {
+
 		// Don't show login if not enabled
-		if ( ! $this->is_active() )
+		if ( ! $this->is_active() ) {
 			return;
+		}
 
 		// Logged in
-		if ( $this->validate_auth_cookie() )
+		if ( $this->validate_auth_cookie() ) {
 			return;
+		}
 
 		// Show login form
 		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
@@ -266,8 +284,9 @@ class Password_Protected {
 		$expired = $expiration;
 
 		// Allow a grace period for POST and AJAX requests
-		if ( defined( 'DOING_AJAX' ) || 'POST' == $_SERVER['REQUEST_METHOD'] )
+		if ( defined( 'DOING_AJAX' ) || 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 			$expired += 3600;
+		}
 
 		// Quick check to see if an honest cookie has expired
 		if ( $expired < time() ) {
@@ -286,8 +305,9 @@ class Password_Protected {
 			return false;
 		}
 
-		if ( $expiration < time() ) // AJAX/POST grace period set above
+		if ( $expiration < time() ) { // AJAX/POST grace period set above
 			$GLOBALS['login_grace_period'] = 1;
+		}
 
 		return true;
 	}
@@ -321,14 +341,16 @@ class Password_Protected {
 		if ( empty( $cookie ) ) {
 			$cookie_name = $this->cookie_name();
 	
-			if ( empty( $_COOKIE[$cookie_name] ) )
+			if ( empty( $_COOKIE[$cookie_name] ) ) {
 				return false;
+			}
 			$cookie = $_COOKIE[$cookie_name];
 		}
 
 		$cookie_elements = explode( '|', $cookie );
-		if ( count( $cookie_elements ) != 3 )
+		if ( count( $cookie_elements ) != 3 ) {
 			return false;
+		}
 
 		list( $site_id, $expiration, $hmac ) = $cookie_elements;
 
@@ -351,15 +373,17 @@ class Password_Protected {
 			$expire = 0;
 		}
 
-		if ( '' === $secure )
+		if ( '' === $secure ) {
 			$secure = is_ssl();
+		}
 
 		$secure_password_protected_cookie = apply_filters( 'password_protected_secure_password_protected_cookie', false, $secure );
 		$password_protected_cookie = $this->generate_auth_cookie( $expiration, 'password_protected' );
 
 		setcookie( $this->cookie_name(), $password_protected_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
-		if ( COOKIEPATH != SITECOOKIEPATH )
+		if ( COOKIEPATH != SITECOOKIEPATH ) {
 			setcookie( $this->cookie_name(), $password_protected_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
+		}
 	}
 
 	/**
@@ -408,6 +432,24 @@ class Password_Protected {
 		$location = wp_sanitize_redirect( $location );
 		$location = wp_validate_redirect( $location, home_url() );
 		wp_redirect( $location, $status );
+	}
+
+	/**
+	 * Is Plugin Supported?
+	 *
+	 * Check to see if there are any known reasons why this plugin may not work in
+	 * the user's hosting environment.
+	 *
+	 * @return  boolean
+	 */
+	static function is_plugin_supported() {
+
+		// WP Engine
+		if ( class_exists( 'WPE_API', false ) ) {
+			return new WP_Error( 'PASSWORD_PROTECTED_SUPPORT', __( 'The Password Protected plugin does not work with WP Engine hosting. Please disable it.', 'password-protected' ) );
+		}
+
+		return true;
 	}
 
 }

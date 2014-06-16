@@ -104,14 +104,17 @@ class MP_Gateway_Bitpay extends MP_Gateway_API {
 		$total = array_sum( $totals );
 
 		//shipping line
-		if ( $shipping_price = $mp->shipping_price() ) {
+    $shipping_tax = 0;
+    if ( ($shipping_price = $mp->shipping_price(false)) !== false ) {
 			$total += $shipping_price;
-		}
+			$shipping_tax = ($mp->shipping_tax_price($shipping_price) - $shipping_price);
+    }
 
-		//tax line
-		if ( $tax_price = $mp->tax_price() ) {
+    //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
+    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+    	$tax_price = ($mp->tax_price(false) + $shipping_tax);
 			$total += $tax_price;
-		}
+    }
 
 		$order_id          = $mp->generate_order_id();
 		$notificationURL   = $this->ipn_url;
@@ -383,7 +386,7 @@ class MP_Gateway_Bitpay extends MP_Gateway_API {
 							<br/>
 
 							<p><label><?php _e( 'Message', 'mp' ) ?><br/>
-								<textarea rows="5" cols="50" name="mp[gateways][bitpay][redirectMessage]"><?php echo esc_textarea($redirectMessage); ?></textarea><br/>
+								<textarea rows="5" cols="50" name="mp[gateways][bitpay][redirectMessage]"><?php echo stripslashes(esc_textarea($redirectMessage)); ?></textarea><br/>
 									<small><?php _e( 'Displayed on payment page.', 'mp' ); ?></small>
 								</label>
 							</p>

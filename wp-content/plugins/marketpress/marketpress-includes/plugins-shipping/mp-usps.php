@@ -100,9 +100,6 @@ class MP_Shipping_USPS extends MP_Shipping_API {
 		'First-Class Mail Parcel' =>
 		new USPS_Service( 0, __('First-Class Mail Parcel', 'mp'),                               __('(2-4 days)','mp') ),
 
-		'Parcel Post' =>
-		new USPS_Service( 4, __('Parcel Post', 'mp'),                                           __('(4-7 days)','mp') ),
-
 		'Media Mail' =>
 		new USPS_Service( 6, __('Media Mail', 'mp'),                                            ''),
 
@@ -1036,8 +1033,13 @@ class MP_Shipping_USPS extends MP_Shipping_API {
 
 		$price = is_numeric($price) ? $price : 0;
 		$handling = is_numeric($handling) ? $handling : 0;
+		$total = $price + $handling;
 
-		$option .=  sprintf(__(' %1$s - %2$s', 'mp'), $delivery, $mp->format_currency('', $price + $handling) );
+		if ( $mp->get_setting('tax->tax_inclusive') && $mp->get_setting('tax->tax_shipping') ) {
+			$total = $mp->shipping_tax_price($total);
+		}
+
+		$option .=  sprintf(__(' %1$s - %2$s', 'mp'), $delivery, $mp->format_currency('', $total));
 		return $option;
 	}
 

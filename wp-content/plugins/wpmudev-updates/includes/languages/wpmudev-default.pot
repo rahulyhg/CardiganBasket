@@ -1,14 +1,14 @@
-# Copyright (C) 2013 
+# Copyright (C) 2014 
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://premium.wpmudev.org/\n"
-"POT-Creation-Date: 2013-12-16 18:18:55+00:00\n"
+"POT-Creation-Date: 2014-05-01 22:39:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -16,19 +16,19 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: includes/debug.php:181
+#: includes/debug.php:183
 msgid "Environment"
 msgstr ""
 
-#: includes/debug.php:182
+#: includes/debug.php:184
 msgid "Configuration Details"
 msgstr ""
 
-#: includes/debug.php:270
+#: includes/debug.php:278
 msgid "Web Server"
 msgstr ""
 
-#: includes/debug.php:297
+#: includes/debug.php:305
 msgid "Remote HTTP Requests"
 msgstr ""
 
@@ -44,12 +44,12 @@ msgstr ""
 msgid "Get Started"
 msgstr ""
 
-#: includes/notifications.php:83 update-notifications.php:1484
+#: includes/notifications.php:83 update-notifications.php:1530
 msgid "Go Now"
 msgstr ""
 
 #: includes/notifications.php:95 includes/notifications.php:102
-#: update-notifications.php:1494 update-notifications.php:1499
+#: update-notifications.php:1540 update-notifications.php:1545
 msgid "Upgrade Now"
 msgstr ""
 
@@ -66,27 +66,27 @@ msgid "New WPMU DEV Release:"
 msgstr ""
 
 #: includes/notifications.php:133 includes/notifications.php:148
-#: update-notifications.php:1519 update-notifications.php:1534
+#: update-notifications.php:1565 update-notifications.php:1581
 msgid "More Information &raquo;"
 msgstr ""
 
 #: includes/notifications.php:140 includes/templates/listings.php:213
-#: update-notifications.php:1526
+#: update-notifications.php:1572
 msgid "Setup your WPMU DEV account to install"
 msgstr ""
 
 #: includes/notifications.php:140 includes/notifications.php:142
 #: includes/templates/listings.php:213 includes/templates/listings.php:215
-#: update-notifications.php:1526 update-notifications.php:1528
+#: update-notifications.php:1572 update-notifications.php:1574
 msgid "INSTALL"
 msgstr ""
 
 #: includes/notifications.php:144 includes/templates/listings.php:217
-#: update-notifications.php:1530
+#: update-notifications.php:1576
 msgid "DOWNLOAD"
 msgstr ""
 
-#: includes/notifications.php:146 update-notifications.php:1532
+#: includes/notifications.php:146 update-notifications.php:1578
 msgid "Upgrade to Install"
 msgstr ""
 
@@ -108,19 +108,19 @@ msgstr ""
 
 #: includes/templates/community.php:9 includes/templates/dashboard-free.php:71
 #: includes/templates/dashboard-single.php:77
-#: includes/templates/support.php:262
+#: includes/templates/support.php:259
 msgid "Find out more &raquo;"
 msgstr ""
 
 #: includes/templates/community.php:12
 #: includes/templates/dashboard-signup.php:88
-#: includes/templates/support.php:265
+#: includes/templates/support.php:262
 msgid "Already a member?"
 msgstr ""
 
 #: includes/templates/community.php:23
-#: includes/templates/dashboard-full.php:261 update-notifications.php:1222
-#: update-notifications.php:1473
+#: includes/templates/dashboard-full.php:261 update-notifications.php:1257
+#: update-notifications.php:1519
 msgid "Community"
 msgstr ""
 
@@ -339,12 +339,12 @@ msgstr ""
 msgid "VIEW ALL ACTIVITY"
 msgstr ""
 
-#: includes/templates/dashboard-full.php:121 includes/templates/support.php:277
-#: update-notifications.php:1215 update-notifications.php:1474
+#: includes/templates/dashboard-full.php:121 includes/templates/support.php:274
+#: update-notifications.php:1247 update-notifications.php:1520
 msgid "Support"
 msgstr ""
 
-#: includes/templates/dashboard-full.php:123 includes/templates/support.php:285
+#: includes/templates/dashboard-full.php:123 includes/templates/support.php:282
 msgid "Search support"
 msgstr ""
 
@@ -356,16 +356,16 @@ msgstr ""
 msgid "Ask a question"
 msgstr ""
 
-#: includes/templates/dashboard-full.php:128 includes/templates/support.php:398
+#: includes/templates/dashboard-full.php:128 includes/templates/support.php:396
 msgid "YOUR LATEST Q&A ACTIVITY:"
 msgstr ""
 
 #: includes/templates/dashboard-full.php:128
-#: includes/templates/dashboard-full.php:270 includes/templates/support.php:398
+#: includes/templates/dashboard-full.php:270 includes/templates/support.php:396
 msgid "HIDE"
 msgstr ""
 
-#: includes/templates/dashboard-full.php:133 includes/templates/support.php:403
+#: includes/templates/dashboard-full.php:133 includes/templates/support.php:401
 msgid "Resolved"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr ""
 msgid "Enter your API key to show activity"
 msgstr ""
 
-#: includes/templates/dashboard-full.php:143 includes/templates/support.php:410
+#: includes/templates/dashboard-full.php:143 includes/templates/support.php:408
 msgid "No support activity yet."
 msgstr ""
 
@@ -445,7 +445,7 @@ msgid "Forgot your password?"
 msgstr ""
 
 #: includes/templates/dashboard-signup.php:19
-msgid "Your server had a problem connecting to WPMU DEV. Please try again."
+msgid "Your server had a problem connecting to WPMU DEV: \"%s\" Please try again."
 msgstr ""
 
 #: includes/templates/dashboard-signup.php:19
@@ -477,8 +477,7 @@ msgid "Not a member yet?"
 msgstr ""
 
 #: includes/templates/dashboard-signup.php:40
-#: includes/templates/dashboard-signup.php:88
-msgid "Click here"
+msgid "Create a free account"
 msgstr ""
 
 #: includes/templates/dashboard-signup.php:50
@@ -523,6 +522,10 @@ msgstr ""
 
 #: includes/templates/dashboard-signup.php:87
 msgid "Get your API key &raquo;"
+msgstr ""
+
+#: includes/templates/dashboard-signup.php:88
+msgid "Click here"
 msgstr ""
 
 #: includes/templates/dashboard-signup.php:97
@@ -701,7 +704,7 @@ msgstr ""
 #: includes/templates/listings.php:235 includes/templates/support.php:156
 #: includes/templates/support.php:211 includes/templates/updates.php:173
 #: includes/templates/updates.php:246 includes/templates/updates.php:404
-#: includes/templates/updates.php:459 update-notifications.php:1159
+#: includes/templates/updates.php:459 update-notifications.php:1184
 msgid "%s Installation & Use Instructions"
 msgstr ""
 
@@ -738,12 +741,12 @@ msgstr ""
 msgid "Settings Saved!"
 msgstr ""
 
-#: includes/templates/settings.php:24 update-notifications.php:1616
-#: update-notifications.php:1641
+#: includes/templates/settings.php:24 update-notifications.php:1659
+#: update-notifications.php:1687
 msgid "This site is not enabled for automatic updates, one-click installations, and direct support through the WPMU DEV Dashboard plugin. You may <a href=\"http://premium.wpmudev.org/wp-admin/profile.php?page=wdpun\">change which sites are enabled or upgrade to a higher membership level here &raquo;</a>"
 msgstr ""
 
-#: includes/templates/settings.php:29 update-notifications.php:1233
+#: includes/templates/settings.php:29 update-notifications.php:1269
 msgid "Manage"
 msgstr ""
 
@@ -851,7 +854,7 @@ msgstr ""
 msgid "Update data successfully refreshed from WPMU DEV."
 msgstr ""
 
-#: includes/templates/status.php:9 includes/templates/updates.php:9
+#: includes/templates/status.php:9
 msgid "There was a problem refreshing data from WPMU DEV."
 msgstr ""
 
@@ -918,35 +921,35 @@ msgstr ""
 #: includes/templates/support.php:105 includes/templates/support.php:175
 #: includes/templates/updates.php:201 includes/templates/updates.php:274
 #: includes/templates/updates.php:353 includes/templates/updates.php:423
-#: update-notifications.php:1117 update-notifications.php:1127
+#: update-notifications.php:1139 update-notifications.php:1149
 msgid "Name"
 msgstr ""
 
 #: includes/templates/support.php:106 includes/templates/updates.php:202
 #: includes/templates/updates.php:275 includes/templates/updates.php:354
-#: includes/templates/updates.php:424 update-notifications.php:1118
-#: update-notifications.php:1128
+#: includes/templates/updates.php:424 update-notifications.php:1140
+#: update-notifications.php:1150
 msgid "Links"
 msgstr ""
 
 #: includes/templates/support.php:107 includes/templates/support.php:177
 #: includes/templates/updates.php:203 includes/templates/updates.php:276
 #: includes/templates/updates.php:355 includes/templates/updates.php:425
-#: update-notifications.php:1119 update-notifications.php:1129
+#: update-notifications.php:1141 update-notifications.php:1151
 msgid "Installed Version"
 msgstr ""
 
 #: includes/templates/support.php:108 includes/templates/support.php:178
 #: includes/templates/updates.php:204 includes/templates/updates.php:277
 #: includes/templates/updates.php:356 includes/templates/updates.php:426
-#: update-notifications.php:1120 update-notifications.php:1130
+#: update-notifications.php:1142 update-notifications.php:1152
 msgid "Latest Version"
 msgstr ""
 
 #: includes/templates/support.php:109 includes/templates/support.php:179
 #: includes/templates/updates.php:205 includes/templates/updates.php:278
 #: includes/templates/updates.php:357 includes/templates/updates.php:427
-#: update-notifications.php:1121 update-notifications.php:1131
+#: update-notifications.php:1143 update-notifications.php:1153
 msgid "Actions"
 msgstr ""
 
@@ -956,54 +959,56 @@ msgstr ""
 #: includes/templates/updates.php:226 includes/templates/updates.php:229
 #: includes/templates/updates.php:371 includes/templates/updates.php:373
 #: includes/templates/updates.php:441 includes/templates/updates.php:443
-#: update-notifications.php:1141 update-notifications.php:1143
+#: update-notifications.php:1163 update-notifications.php:1165
 msgid "Auto Update"
 msgstr ""
 
 #: includes/templates/support.php:127 includes/templates/support.php:197
 #: includes/templates/updates.php:144 includes/templates/updates.php:232
 #: includes/templates/updates.php:375 includes/templates/updates.php:445
-#: update-notifications.php:1145
+#: update-notifications.php:1167
 msgid "Download Update"
 msgstr ""
 
 #: includes/templates/support.php:129 includes/templates/support.php:199
 #: includes/templates/updates.php:146 includes/templates/updates.php:234
 #: includes/templates/updates.php:377 includes/templates/updates.php:447
+#: update-notifications.php:1170
 msgid "Setup your WPMU DEV account to update"
 msgstr ""
 
 #: includes/templates/support.php:129 includes/templates/support.php:199
 #: includes/templates/updates.php:146 includes/templates/updates.php:234
 #: includes/templates/updates.php:377 includes/templates/updates.php:447
+#: update-notifications.php:1170
 msgid "Configure to Update"
 msgstr ""
 
 #: includes/templates/support.php:131 includes/templates/support.php:201
 #: includes/templates/updates.php:148 includes/templates/updates.php:236
 #: includes/templates/updates.php:379 includes/templates/updates.php:449
-#: update-notifications.php:1148
+#: update-notifications.php:1173
 msgid "Upgrade to Update"
 msgstr ""
 
 #: includes/templates/support.php:155 includes/templates/support.php:210
 #: includes/templates/updates.php:172 includes/templates/updates.php:245
 #: includes/templates/updates.php:403 includes/templates/updates.php:458
-#: update-notifications.php:1158
+#: update-notifications.php:1183
 msgid "%s Details"
 msgstr ""
 
 #: includes/templates/support.php:156 includes/templates/support.php:211
 #: includes/templates/updates.php:173 includes/templates/updates.php:246
 #: includes/templates/updates.php:404 includes/templates/updates.php:459
-#: update-notifications.php:1159
+#: update-notifications.php:1184
 msgid "Installation & Use Instructions"
 msgstr ""
 
 #: includes/templates/support.php:158 includes/templates/support.php:213
 #: includes/templates/updates.php:175 includes/templates/updates.php:248
 #: includes/templates/updates.php:406 includes/templates/updates.php:461
-#: update-notifications.php:1161
+#: update-notifications.php:1186
 msgid "View version %s details"
 msgstr ""
 
@@ -1019,256 +1024,260 @@ msgstr ""
 msgid "No installed WPMU DEV themes"
 msgstr ""
 
-#: includes/templates/support.php:235
+#: includes/templates/support.php:234
 msgid "Here are some ways you can solve your problem right now!"
 msgstr ""
 
-#: includes/templates/support.php:237
+#: includes/templates/support.php:236
 msgid "Make sure you're running the latest version of WordPress."
 msgstr ""
 
-#: includes/templates/support.php:238
+#: includes/templates/support.php:237
 msgid "<a href='admin.php?page=wpmudev-updates'>Make sure</a> you are using the latest version of our product."
 msgstr ""
 
-#: includes/templates/support.php:239
+#: includes/templates/support.php:238
 msgid "Have you read the <a href='admin.php?page=wpmudev-updates&tab=installed'>'Usage' instructions</a>? It's like a mini manual."
 msgstr ""
 
-#: includes/templates/support.php:240
+#: includes/templates/support.php:239
 msgid "Have you tried searching? Use the field in the top right to search our support."
 msgstr ""
 
-#: includes/templates/support.php:242
+#: includes/templates/support.php:241
 msgid "And if you're feeling a bit more technical:"
 msgstr ""
 
-#: includes/templates/support.php:244
+#: includes/templates/support.php:243
 msgid "Disable and re-activate the plugin or theme."
 msgstr ""
 
-#: includes/templates/support.php:245
+#: includes/templates/support.php:244
 msgid "Check for a plugin conflict - try disabling other plugins and see if that fixes it... if it does, notify us &amp; we'll find a fix."
 msgstr ""
 
-#: includes/templates/support.php:246
+#: includes/templates/support.php:245
 msgid "Check for a theme conflict - try another theme (like Twenty Eleven) and see if it fixes it... if it does, notify us &amp; we'll find a fix."
 msgstr ""
 
-#: includes/templates/support.php:260
+#: includes/templates/support.php:257
 msgid "members get unlimited, comprehensive support for <br/>all our products and any <br />WordPress related Queries"
 msgstr ""
 
-#: includes/templates/support.php:295
+#: includes/templates/support.php:292
 msgid "Success!"
 msgstr ""
 
-#: includes/templates/support.php:296
+#: includes/templates/support.php:293
 msgid "Thanks for contacting Support, we'll get back to you as soon as possible."
 msgstr ""
 
-#: includes/templates/support.php:297
+#: includes/templates/support.php:294
 msgid "You can view or add to your support request here &raquo;"
 msgstr ""
 
-#: includes/templates/support.php:303
+#: includes/templates/support.php:300
 msgid "Question? Bug? Feature request? <br />Let's see how we can help."
 msgstr ""
 
-#: includes/templates/support.php:304
+#: includes/templates/support.php:301
 msgid "Before you post, please read"
 msgstr ""
 
-#: includes/templates/support.php:304
+#: includes/templates/support.php:301
 msgid "these tips"
 msgstr ""
 
-#: includes/templates/support.php:309
+#: includes/templates/support.php:306
 msgid "This site is not enabled for direct dashboard support. You may <a href=\"http://premium.wpmudev.org/wp-admin/profile.php?page=wdpun\">change which sites are enabled or upgrade to a higher membership level here &raquo;</a>"
 msgstr ""
 
-#: includes/templates/support.php:313
+#: includes/templates/support.php:310
 msgid "Only the admin user \"%s\" has access to WPMU DEV support."
 msgstr ""
 
-#: includes/templates/support.php:317
+#: includes/templates/support.php:314
 msgid "Please enter your question title."
 msgstr ""
 
-#: includes/templates/support.php:320
+#: includes/templates/support.php:317
 msgid "There was a problem posting your support question:"
 msgstr ""
 
-#: includes/templates/support.php:325
+#: includes/templates/support.php:322
 msgid "Sorry, please add a bit more detail to your question or subject - we require this so that we can offer the best possible support and member experience."
 msgstr ""
 
-#: includes/templates/support.php:329
+#: includes/templates/support.php:326
 msgid "Ask a question - the more detail the better"
 msgstr ""
 
-#: includes/templates/support.php:332
+#: includes/templates/support.php:329
 msgid "Please select what you need support for."
 msgstr ""
 
-#: includes/templates/support.php:335
+#: includes/templates/support.php:332
 msgid "Select an Installed Product:"
 msgstr ""
 
-#: includes/templates/support.php:351
+#: includes/templates/support.php:348
 msgid "Plugins:"
 msgstr ""
 
-#: includes/templates/support.php:354
+#: includes/templates/support.php:352
 msgid "Themes:"
 msgstr ""
 
-#: includes/templates/support.php:357
+#: includes/templates/support.php:355
 msgid "General Topic:"
 msgstr ""
 
-#: includes/templates/support.php:358
+#: includes/templates/support.php:356
 msgid "General"
 msgstr ""
 
-#: includes/templates/support.php:359
+#: includes/templates/support.php:357
 msgid "BuddyPress"
 msgstr ""
 
-#: includes/templates/support.php:360
+#: includes/templates/support.php:358
 msgid "Beginners WordPress Discussion"
 msgstr ""
 
-#: includes/templates/support.php:361
+#: includes/templates/support.php:359
 msgid "Advanced WordPress Discussion"
 msgstr ""
 
-#: includes/templates/support.php:362
+#: includes/templates/support.php:360
 msgid "Feature Suggestions &amp; Feedback"
 msgstr ""
 
-#: includes/templates/support.php:367
+#: includes/templates/support.php:365
 msgid "Please enter your support question."
 msgstr ""
 
-#: includes/templates/support.php:369
+#: includes/templates/support.php:367
 msgid "Ok, go for it..."
 msgstr ""
 
-#: includes/templates/support.php:373
+#: includes/templates/support.php:371
 msgid "Please don't share any private information (passwords, API keys, etc.) here, support staff will ask for these via email if they are required."
 msgstr ""
 
-#: includes/templates/support.php:376
+#: includes/templates/support.php:374
 msgid "Notify me of responses via email"
 msgstr ""
 
-#: includes/templates/support.php:380 includes/templates/support.php:382
+#: includes/templates/support.php:378 includes/templates/support.php:380
 msgid "Post your question"
 msgstr ""
 
-#: includes/templates/support.php:384
+#: includes/templates/support.php:382
 msgid "Posting question..."
 msgstr ""
 
-#: includes/templates/support.php:428
+#: includes/templates/support.php:426
 msgid "System Information"
 msgstr ""
 
-#: includes/templates/support.php:429
+#: includes/templates/support.php:427
 msgid "Here you can find useful system information about this server and WordPress installation that can help support staff with debugging."
 msgstr ""
 
-#: includes/templates/support.php:446
+#: includes/templates/support.php:444
 msgid "How Support Access is Secure"
 msgstr ""
 
-#: includes/templates/support.php:447
+#: includes/templates/support.php:445
 msgid "When you click the \"Grant Access\" button a random 64 character access token is generated that is only good for 72 hours and saved in your db. This token is sent to the WPMU DEV API over an SSL encrypted connection to prevent eavsdropping, and stored on our secure servers. This access token is in no way related to your password, and can only be used from our closed WPMU DEV API system for temporary access to this site."
 msgstr ""
 
-#: includes/templates/support.php:448
+#: includes/templates/support.php:446
 msgid "Only current WPMU DEV support staff can use this token to login as your user account by submitting a special form that only they have access to. This will give them 1 hour of admin access to this site before their login cookie expires. Every support staff login during the 72 hour period is logged locally and you can view the details on this page."
 msgstr ""
 
-#: includes/templates/support.php:449
+#: includes/templates/support.php:447
 msgid "You may at any time revoke this access which invalidates the token and it will no longer be usable. If you have special security concerns and you would like to disable the support access tab and functionality completely and permanently for whatever reason, you may do so by adding this line to your wp-config.php file:"
 msgstr ""
 
-#: includes/templates/support.php:454
+#: includes/templates/support.php:452
 msgid "Support Staff Access"
 msgstr ""
 
-#: includes/templates/support.php:460
+#: includes/templates/support.php:458
 msgid "Support staff access successfully enabled!"
 msgstr ""
 
-#: includes/templates/support.php:462
+#: includes/templates/support.php:460
 msgid "There was a problem enabling support staff access. Please check that you have Admin permissions and that this site is enabled in the API."
 msgstr ""
 
-#: includes/templates/support.php:467
+#: includes/templates/support.php:465
 msgid "Support staff access revoked!"
 msgstr ""
 
-#: includes/templates/support.php:469
+#: includes/templates/support.php:467
 msgid "There was a problem revoking support staff access. Please check that you have Admin permissions."
 msgstr ""
 
-#: includes/templates/support.php:474
+#: includes/templates/support.php:472
 msgid "This site is not enabled for support. You may <a href=\"http://premium.wpmudev.org/wp-admin/profile.php?page=wdpun\">change which sites are enabled or upgrade to a higher membership level here &raquo;</a>"
 msgstr ""
 
-#: includes/templates/support.php:477
+#: includes/templates/support.php:475
 msgid "Here you can grant WPMU DEV support staff temporary admin access to this site, review staff access history, and revoke access. This is completely secure, optional, and fully controlled by you."
 msgstr ""
 
-#: includes/templates/support.php:478
+#: includes/templates/support.php:476
 msgid "More info"
 msgstr ""
 
-#: includes/templates/support.php:486
+#: includes/templates/support.php:484
 msgid "Support access is %s until %s"
 msgstr ""
 
-#: includes/templates/support.php:486
+#: includes/templates/support.php:484
 msgid "ACTIVE"
 msgstr ""
 
-#: includes/templates/support.php:487
+#: includes/templates/support.php:485
 msgid "You may revoke or extend access for another 72 hours."
 msgstr ""
 
-#: includes/templates/support.php:488
+#: includes/templates/support.php:486
 msgid "Revoke"
 msgstr ""
 
-#: includes/templates/support.php:489
+#: includes/templates/support.php:487
 msgid "Extend"
 msgstr ""
 
-#: includes/templates/support.php:491 includes/templates/support.php:507
+#: includes/templates/support.php:489 includes/templates/support.php:505
 msgid "Support access is %s"
 msgstr ""
 
-#: includes/templates/support.php:491 includes/templates/support.php:507
+#: includes/templates/support.php:489 includes/templates/support.php:505
 msgid "INACTIVE"
 msgstr ""
 
-#: includes/templates/support.php:492
+#: includes/templates/support.php:490
 msgid "Your last access grant expired %s."
 msgstr ""
 
-#: includes/templates/support.php:493 includes/templates/support.php:508
+#: includes/templates/support.php:491 includes/templates/support.php:506
 msgid "Grant Access"
 msgstr ""
 
-#: includes/templates/support.php:496
+#: includes/templates/support.php:494
 msgid "Support Staff Logins:"
 msgstr ""
 
-#: includes/templates/support.php:504
+#: includes/templates/support.php:502
 msgid "No staff logins yet for this access grant."
+msgstr ""
+
+#: includes/templates/updates.php:9
+msgid "There was a problem refreshing data from WPMU DEV: \"%s\""
 msgstr ""
 
 #: includes/templates/updates.php:29
@@ -1293,7 +1302,7 @@ msgstr ""
 
 #: includes/templates/updates.php:173 includes/templates/updates.php:246
 #: includes/templates/updates.php:404 includes/templates/updates.php:459
-#: update-notifications.php:1159
+#: update-notifications.php:1184
 msgid "Get Support"
 msgstr ""
 
@@ -1361,182 +1370,186 @@ msgstr ""
 msgid "by Incsub - other plugins and themes are not included here."
 msgstr ""
 
-#: update-notifications.php:173
+#: update-notifications.php:182
 msgid "This is not a valid username"
 msgstr ""
 
-#: update-notifications.php:180
+#: update-notifications.php:189
 msgid "This username is already taken, please try a different one"
 msgstr ""
 
-#: update-notifications.php:192
+#: update-notifications.php:201
 msgid "This is not a valid email"
 msgstr ""
 
-#: update-notifications.php:199
+#: update-notifications.php:208
 msgid "This email is already registered"
 msgstr ""
 
-#: update-notifications.php:210
+#: update-notifications.php:219
 msgid "Your password is too short"
 msgstr ""
 
-#: update-notifications.php:392
+#: update-notifications.php:397
 msgid "Only the admin users \"%s\" have access to the WPMU DEV Dashboard plugin and features on this site."
 msgstr ""
 
-#: update-notifications.php:394
+#: update-notifications.php:399
 msgid "Only the admin user \"%s\" has access to the WPMU DEV Dashboard plugin and features on this site."
 msgstr ""
 
-#: update-notifications.php:886
+#: update-notifications.php:905
 msgid "Return to WPMU DEV Plugins"
 msgstr ""
 
-#: update-notifications.php:895 update-notifications.php:912
+#: update-notifications.php:914 update-notifications.php:931
 msgid "Return to WPMU DEV Available Updates"
 msgstr ""
 
-#: update-notifications.php:903
+#: update-notifications.php:922
 msgid "Return to WPMU DEV Themes"
 msgstr ""
 
-#: update-notifications.php:1062
+#: update-notifications.php:1082
 msgid "There is a new version of %1$s available on WPMU DEV. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">View version %4$s details</a> or <a href=\"%5$s\">automatically update</a>."
 msgstr ""
 
-#: update-notifications.php:1064 update-notifications.php:1095
+#: update-notifications.php:1084 update-notifications.php:1117
 msgid "There is a new version of %1$s available on WPMU DEV. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">View version %4$s details</a> or <a href=\"%5$s\" target=\"_blank\" title=\"Download update from WPMU DEV\">download update</a>."
 msgstr ""
 
-#: update-notifications.php:1066 update-notifications.php:1097
+#: update-notifications.php:1086
+msgid "There is a new version of %1$s available on WPMU DEV. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">View version %4$s details</a> or <a href=\"%5$s\" target=\"_blank\" title=\"Setup your WPMU DEV account to update\">configure to update</a>."
+msgstr ""
+
+#: update-notifications.php:1088 update-notifications.php:1119
 msgid "There is a new version of %1$s available on WPMU DEV. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">View version %4$s details</a> or <a href=\"%5$s\" target=\"_blank\" title=\"Upgrade your WPMU DEV membership\">upgrade to update</a>."
 msgstr ""
 
-#: update-notifications.php:1068
+#: update-notifications.php:1090
 msgid "There is a new version of %1$s available on WPMU DEV. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">View version %4$s details</a>."
 msgstr ""
 
-#: update-notifications.php:1107 update-notifications.php:1112
+#: update-notifications.php:1129 update-notifications.php:1134
 msgid "WPMU DEV Plugins/Themes"
 msgstr ""
 
-#: update-notifications.php:1108
+#: update-notifications.php:1130
 msgid "Your plugins/themes from WPMU DEV are all up to date."
 msgstr ""
 
-#: update-notifications.php:1113
+#: update-notifications.php:1135
 msgid "The following plugins/themes from WPMU DEV have new versions available."
 msgstr ""
 
-#: update-notifications.php:1158
+#: update-notifications.php:1183
 msgid "You have version %1$s installed. Update to %2$s."
 msgstr ""
 
-#: update-notifications.php:1194 update-notifications.php:1198
-#: update-notifications.php:1433
+#: update-notifications.php:1222 update-notifications.php:1226
+#: update-notifications.php:1477
 msgid "WPMU DEV Dashboard"
 msgstr ""
 
-#: update-notifications.php:1194
+#: update-notifications.php:1222
 msgid "WPMU DEV"
 msgstr ""
 
-#: update-notifications.php:1198 update-notifications.php:1467
+#: update-notifications.php:1226 update-notifications.php:1511
 msgid "Dashboard"
 msgstr ""
 
-#: update-notifications.php:1201
+#: update-notifications.php:1232
 msgid "WPMU DEV Plugins"
 msgstr ""
 
-#: update-notifications.php:1201 update-notifications.php:1468
-#: update-notifications.php:1691
+#: update-notifications.php:1232 update-notifications.php:1512
+#: update-notifications.php:1737
 msgid "Plugins"
 msgstr ""
 
-#: update-notifications.php:1208
+#: update-notifications.php:1239
 msgid "WPMU DEV Themes"
 msgstr ""
 
-#: update-notifications.php:1208 update-notifications.php:1469
-#: update-notifications.php:1739
+#: update-notifications.php:1239 update-notifications.php:1513
+#: update-notifications.php:1786
 msgid "Themes"
 msgstr ""
 
-#: update-notifications.php:1215
+#: update-notifications.php:1247
 msgid "WPMU DEV Support"
 msgstr ""
 
-#: update-notifications.php:1222
+#: update-notifications.php:1257
 msgid "WPMU DEV Community"
 msgstr ""
 
-#: update-notifications.php:1227
+#: update-notifications.php:1262
 msgid "WPMU DEV Updates"
 msgstr ""
 
-#: update-notifications.php:1227 update-notifications.php:1471
+#: update-notifications.php:1262 update-notifications.php:1515
 msgid "Updates"
 msgstr ""
 
-#: update-notifications.php:1233
+#: update-notifications.php:1269
 msgid "WPMU DEV Settings"
 msgstr ""
 
-#: update-notifications.php:1384 update-notifications.php:1389
-#: update-notifications.php:1394
+#: update-notifications.php:1435 update-notifications.php:1440
+#: update-notifications.php:1445
 msgid "Notice dismissed."
 msgstr ""
 
-#: update-notifications.php:1434
+#: update-notifications.php:1478
 msgid "WPMU DEV News"
 msgstr ""
 
-#: update-notifications.php:1466
+#: update-notifications.php:1510
 msgid "Quick Links:"
 msgstr ""
 
-#: update-notifications.php:1467
+#: update-notifications.php:1511
 msgid "View your WPMU DEV Dashboard"
 msgstr ""
 
-#: update-notifications.php:1468
+#: update-notifications.php:1512
 msgid "Browse and install WPMU DEV Plugins"
 msgstr ""
 
-#: update-notifications.php:1469
+#: update-notifications.php:1513
 msgid "Browse and install WPMU DEV Themes"
 msgstr ""
 
-#: update-notifications.php:1471
+#: update-notifications.php:1515
 msgid "Update your WPMU DEV Plugins and Themes"
 msgstr ""
 
-#: update-notifications.php:1473
+#: update-notifications.php:1519
 msgid "Participate in the WPMU DEV community"
 msgstr ""
 
-#: update-notifications.php:1474
+#: update-notifications.php:1520
 msgid "Get support for WPMU DEV Plugins and Themes"
 msgstr ""
 
-#: update-notifications.php:1517
+#: update-notifications.php:1563
 msgid "Latest WPMU DEV Release:"
 msgstr ""
 
-#: update-notifications.php:1550
+#: update-notifications.php:1597
 msgid "<strong>RSS Error</strong>: %s"
 msgstr ""
 
-#: update-notifications.php:1847 update-notifications.php:1853
+#: update-notifications.php:1896 update-notifications.php:1902
 msgid "There has been an error contacting remote server"
 msgstr ""
 
-#: update-notifications.php:1867
+#: update-notifications.php:1916
 msgid "You do not have permissions for this."
 msgstr ""
 
-#: update-notifications.php:1888
+#: update-notifications.php:1937
 msgid "There has been a temporary error contacting the remote server."
 msgstr ""

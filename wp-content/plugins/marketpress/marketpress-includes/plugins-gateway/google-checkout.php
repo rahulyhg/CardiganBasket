@@ -161,20 +161,23 @@ class MP_Gateway_GoogleCheckout extends MP_Gateway_API {
     $params = array_merge($params, $item_params);
 
 		//shipping line
-		if ( ($shipping_price = $mp->shipping_price()) !== false ) {
-			$total = $total + $shipping_price;
+    $shipping_tax = 0;
+    if ( ($shipping_price = $mp->shipping_price(false)) !== false ) {
+			$total += $shipping_price;
+			$shipping_tax = ($mp->shipping_tax_price($shipping_price) - $shipping_price);
 			$params["checkout-flow-support.merchant-checkout-flow-support.shipping-methods.flat-rate-shipping-1.price"] = $shipping_price;
 			$params["checkout-flow-support.merchant-checkout-flow-support.shipping-methods.flat-rate-shipping-1.price.currency"] = $this->currencyCode;
 			$params["checkout-flow-support.merchant-checkout-flow-support.shipping-methods.flat-rate-shipping-1.name"] = __('Standard Shipping', 'mp');
-		}
+    }
 
-		//tax line
-		if ( $tax_price = $mp->tax_price() ) {
-			$total = $total + $tax_price;
-			$params["checkout-flow-support.merchant-checkout-flow-support.tax-tables.default-tax-table.tax-rules.default-tax-rule-1.rate"] = $settings['tax']['rate'];
-		} else {
+    //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
+    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+    	$tax_price = ($mp->tax_price(false) + $shipping_tax);
+			$total += $tax_price;
+     	$params["checkout-flow-support.merchant-checkout-flow-support.tax-tables.default-tax-table.tax-rules.default-tax-rule-1.rate"] = $tax_price;
+    } else {
       $params["checkout-flow-support.merchant-checkout-flow-support.tax-tables.default-tax-table.tax-rules.default-tax-rule-1.rate"] = '0.00';
-		}
+    }
 
 		$param_list = array();
 		foreach ($params as $k => $v) {

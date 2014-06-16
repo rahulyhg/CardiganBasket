@@ -83,9 +83,10 @@ class MP_Gateway_Stripe extends MP_Gateway_API {
 
 						$totals = array();
 						$description = '';
+						$coupon = $mp->get_coupon_code();
 						foreach ($cart as $product_id => $variations) {
 								foreach ($variations as $variation => $data) {
-										$totals[] = $mp->before_tax_price($data['price'], $product_id) * $data['quantity'];
+										$totals[] = $mp->coupon_value_product($coupon, $data['price'] * $data['quantity'], $product_id) ;
 								}
 						}
 
@@ -567,14 +568,17 @@ class MP_Gateway_Stripe extends MP_Gateway_API {
 				$total = array_sum($totals);
 
 				//shipping line
-				if ($shipping_price = $mp->shipping_price()) {
-						$total += $shipping_price;
-				}
+		    $shipping_tax = 0;
+		    if ( ($shipping_price = $mp->shipping_price(false)) !== false ) {
+					$total += $shipping_price;
+					$shipping_tax = ($mp->shipping_tax_price($shipping_price) - $shipping_price);
+		    }
 
-				//tax line
-				if ($tax_price = $mp->tax_price()) {
-						$total += $tax_price;
-				}
+		    //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
+		    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+		    	$tax_price = ($mp->tax_price(false) + $shipping_tax);
+					$total += $tax_price;
+		    }
 
 				$order_id = $mp->generate_order_id();
 

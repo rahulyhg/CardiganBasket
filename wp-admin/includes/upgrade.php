@@ -219,12 +219,6 @@ As a new WordPress user, you should go to <a href=\"%s\">your dashboard</a> to d
 								'post_content_filtered' => ''
 								));
 	$wpdb->insert( $wpdb->postmeta, array( 'post_id' => 2, 'meta_key' => '_wp_page_template', 'meta_value' => 'default' ) );
-	
-	
-	
-	
-	
-	
 
 	// Set up default widgets for default theme.
 	update_option( 'widget_search', array ( 2 => array ( 'title' => '' ), '_multiwidget' => 1 ) );

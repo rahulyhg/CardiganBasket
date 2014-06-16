@@ -297,7 +297,7 @@ function mp_related_products() {
 	//we only want to run the query if we have categories or tags to look for.
 	if ( count($tag_list) > 0 || count($categories) > 0 ) {
 		//make the query
-		$related_query = new WP_Query( $query_args );
+		$related_query = new WP_Query($query_args);
 
 		//how are we formatting the output
 		if( $args['simple_list'] ) {
@@ -316,7 +316,6 @@ function mp_related_products() {
 			}
 
 			$output .= '</div>';
-
 		} else {
 			//we'll use the $mp settings and functions
 			$layout_type = $mp->get_setting('list_view');
@@ -415,7 +414,7 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 						foreach ($cart as $product_id => $variations) {
 								foreach ($variations as $variation => $data) {
 										$price = $data['price'] * $data['quantity'];
-										$discount_price = $mp->coupon_value_product($coupon_code, $data['price'] * $data['quantity'], $product_id);
+										$discount_price = $mp->coupon_value_product($coupon_code, $price, $product_id);
 										$totals[] = $discount_price;
 
 										$content .= '<tr>';
@@ -442,14 +441,18 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 						if (($shipping_tax_price = $mp->shipping_tax_price($shipping_price)) !== false)
 								$shipping_tax_prices[] = $shipping_tax_price;
 
-						if (($tax_price = $mp->tax_price()) !== false)
-								$tax_prices[] = $tax_price;
+						$tax_prices[] =  $mp->tax_price();
 				}
+
 				//go back to original blog
 				if (is_multisite())
 						switch_to_blog($current_blog_id);
 
 				$total = array_sum($totals);
+
+				if ( $mp->get_setting('tax->tax_inclusive') && $mp->get_setting('tax->tax_shipping') ) {
+					$total += array_sum($shipping_tax_prices) - array_sum($shipping_prices);
+				}
 
 				//coupon line TODO - figure out how to apply them on global checkout
 				if ( !empty($coupon_code) ) {
@@ -482,27 +485,30 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 
 				//shipping line
 				if ($shipping_price = array_sum($shipping_prices)) {
-						$shipping_tax_price = array_sum($shipping_tax_prices);
-						if (!$mp->global_cart && apply_filters('mp_shipping_method_lbl', ''))
-								$shipping_method = apply_filters('mp_shipping_method_lbl', '');
-						else
-								$shipping_method = '';
-						$content .= '<tr>';
-						$content .= '	 <td class="mp_cart_subtotal_lbl" colspan="2">' . __('Shipping:', 'mp') . '</td>';
-						$content .= '	 <td class="mp_cart_col_shipping">' . $mp->format_currency('', $shipping_tax_price) . '</td>';
-						$content .= '	 <td>' . $shipping_method . '</td>';
-						$content .= '</tr>';
-						$total = $total + $shipping_price;
+					$shipping_tax_price = array_sum($shipping_tax_prices);
+					if (!$mp->global_cart && apply_filters('mp_shipping_method_lbl', ''))
+							$shipping_method = apply_filters('mp_shipping_method_lbl', '');
+					else
+							$shipping_method = '';
+					$content .= '<tr>';
+					$content .= '	 <td class="mp_cart_subtotal_lbl" colspan="2">' . __('Shipping:', 'mp') . '</td>';
+					$content .= '	 <td class="mp_cart_col_shipping">' . $mp->format_currency('', $shipping_tax_price) . '</td>';
+					$content .= '	 <td>' . $shipping_method . '</td>';
+					$content .= '</tr>';
+					$total = $total + $shipping_price;
 				}
 
 				//tax line
 				if ($tax_price = array_sum($tax_prices)) {
-						$content .= '<tr>';
-						$content .= '	 <td class="mp_cart_subtotal_lbl" colspan="2">' . esc_html($mp->get_setting('tax->label', __('Taxes', 'mp'))) . ':</td>';
-						$content .= '	 <td class="mp_cart_col_tax">' . $mp->format_currency('', $tax_price) . '</td>';
-						$content .= '	 <td>&nbsp;</td>';
-						$content .= '</tr>';
+					$content .= '<tr>';
+					$content .= '	 <td class="mp_cart_subtotal_lbl" colspan="2">' . esc_html($mp->get_setting('tax->label', __('Taxes', 'mp'))) . ':</td>';
+					$content .= '	 <td class="mp_cart_col_tax">' . $mp->format_currency('', $tax_price) . '</td>';
+					$content .= '	 <td>&nbsp;</td>';
+					$content .= '</tr>';
+
+					if ( ! $mp->get_setting('tax->tax_inclusive') ) {
 						$total = $total + $tax_price;
+					}
 				}
 
 				$content .= '</tbody><tfoot><tr>';
@@ -581,14 +587,21 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 						if (($shipping_tax_price = $mp->shipping_tax_price($shipping_price)) !== false)
 								$shipping_tax_prices[] = $shipping_tax_price;
 
-						if (($tax_price = $mp->tax_price()) !== false)
-								$tax_prices[] = $tax_price;
+						$tax_prices[] = $mp->tax_price();
 				}
 				//go back to original blog
 				if (is_multisite())
 						switch_to_blog($current_blog_id);
 
 				$total = array_sum($totals);
+
+				if ( $mp->get_setting('tax->tax_inclusive') ) {
+					$total -= array_sum($tax_prices);
+				}
+
+				if ( $mp->get_setting('tax->tax_inclusive') && $mp->get_setting('tax->tax_shipping') ) {
+					$total += array_sum($shipping_tax_prices) - array_sum($shipping_prices);
+				}
 
 				//coupon line TODO - figure out how to apply them on global checkout
 				if ( !empty($coupon_code) ) {
@@ -1433,7 +1446,7 @@ function mp_order_status( $echo = true ) {
 					$resave_meta = false;
 					foreach ($orders as $timestamp => $order) {
 						if( $mp->get_order( $order['id'] ) ) {
-									$content .= '	 <li><strong>' . $mp->format_date($timestamp) . ':</strong> <a href="./' . trailingslashit($order['id']) . '">' . $order['id'] . '</a> - ' . $mp->format_currency('', $order['total']) . '</li>';
+							$content .= '	 <li><strong>' . $mp->format_date($timestamp) . ':</strong> ' . mp_orderstatus_link(false, false, $order['id'], $order['id']) . ' - ' . $mp->format_currency('', $order['total']) . '</li>';
 						}else{
 							unset( $orders[$timestamp] );
 							$resave_meta = true;
@@ -1728,11 +1741,12 @@ function mp_list_products() {
 endif;
 
 if (!function_exists('_mp_products_html_list')) :
-function _mp_products_html_list($custom_query) {
+function _mp_products_html_list( $custom_query ) {
 		global $mp,$post;
 		$html = '';
 		$total = $custom_query->post_count;
 		$count = 0;
+		$current_post = $post;
 
 		while ( $custom_query->have_posts() ) : $custom_query->the_post();
 				$count = $custom_query->current_post + 1;
@@ -1775,16 +1789,17 @@ function _mp_products_html_list($custom_query) {
 					</div>';
 		endwhile;
 
-		$post = NULL; //wp_reset_postdata() doesn't work here
+		$post = $current_post; //wp_reset_postdata() doesn't work here for some reason
 
 		return apply_filters('_mp_products_html_list', $html, $custom_query);
 }
 endif;
 
 if (!function_exists('_mp_products_html_grid')) :
-function _mp_products_html_grid($custom_query) {
+function _mp_products_html_grid( $custom_query ) {
 		global $mp,$post;
 		$html = '';
+		$current_post = $post;
 
 		//get image width
 		if ($mp->get_setting('list_img_size') == 'custom') {
@@ -1797,52 +1812,50 @@ function _mp_products_html_grid($custom_query) {
 		$inline_style = !( $mp->get_setting('store_theme') == 'none' || current_theme_supports('mp_style') );
 
 		while ( $custom_query->have_posts() ) : $custom_query->the_post();
-				$img = mp_product_image(false, 'list', $post->ID);
-				$excerpt = $mp->get_setting('show_excerpt') ?
-								'<p class="mp_excerpt">' . $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID, '') . '</p>' :
-								'';
-				$mp_product_list_content = apply_filters('mp_product_list_content', $excerpt, $post->ID);
+			$img = mp_product_image(false, 'list', $post->ID);
+			$excerpt = $mp->get_setting('show_excerpt') ?
+							'<p class="mp_excerpt">' . $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID, '') . '</p>' :
+							'';
+			$mp_product_list_content = apply_filters('mp_product_list_content', $excerpt, $post->ID);
 
-				$pinit = mp_pinit_button($post->ID, 'all_view');
+			$pinit = mp_pinit_button($post->ID, 'all_view');
 
-				$class = array();
-				$class[] = strlen($img) > 0 ? 'mp_thumbnail' : '';
-				$class[] = strlen($excerpt) > 0 ? 'mp_excerpt' : '';
-				$class[] = mp_has_variations($post->ID) ? 'mp_price_variations' : '';
+			$class = array();
+			$class[] = strlen($img) > 0 ? 'mp_thumbnail' : '';
+			$class[] = strlen($excerpt) > 0 ? 'mp_excerpt' : '';
+			$class[] = mp_has_variations($post->ID) ? 'mp_price_variations' : '';
 
-				$html .= '
-					<div itemscope itemtype="http://schema.org/Product" class="hentry mp_one_tile ' . implode($class, ' ') . '">
-						<div class="mp_one_product"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
-							<div class="mp_product_detail"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
-								' . $img . '
-								' . $pinit .'
-								<h3 class="mp_product_name entry-title" itemprop="name">
-									<a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a>
-								</h3>
+			$html .= '
+				<div itemscope itemtype="http://schema.org/Product" class="hentry mp_one_tile ' . implode($class, ' ') . '">
+					<div class="mp_one_product"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
+						<div class="mp_product_detail"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
+							' . $img . '
+							' . $pinit .'
+							<h3 class="mp_product_name entry-title" itemprop="name">
+								<a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a>
+							</h3>
 
-								<div>' . $mp_product_list_content . '</div>
-							</div>
-
-							<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
-								' . mp_product_price(false, $post->ID) . '
-								' . mp_buy_button(false, 'list', $post->ID) . '
-								' . apply_filters('mp_product_list_meta', '', $post->ID) . '
-							</div>
-
-							<div style="display:none" >
-								<span class="entry-title">' . get_the_title() . '</span> was last modified:
-								<time class="updated">' . get_the_time('Y-m-d\TG:i') . '</time> by
-								<span class="author vcard"><span class="fn">' . get_the_author_meta('display_name') . '</span></span>
-							</div>
+							<div>' . $mp_product_list_content . '</div>
 						</div>
-					</div>';
-					
-					
+
+						<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
+							' . mp_product_price(false, $post->ID) . '
+							' . mp_buy_button(false, 'list', $post->ID) . '
+							' . apply_filters('mp_product_list_meta', '', $post->ID) . '
+						</div>
+
+						<div style="display:none" >
+							<span class="entry-title">' . get_the_title() . '</span> was last modified:
+							<time class="updated">' . get_the_time('Y-m-d\TG:i') . '</time> by
+							<span class="author vcard"><span class="fn">' . get_the_author_meta('display_name') . '</span></span>
+						</div>
+					</div>
+				</div>';
 		endwhile;
 
 		$html .= ($custom_query->found_posts > 0) ? '<div class="clear"></div>' : '';
 
-		$post = NULL; //wp_reset_postdata() doesn't work here
+		$post = $current_post; //wp_reset_postdata() doesn't work here for some reason
 
 		return apply_filters('_mp_products_html_grid', $html, $custom_query);
 }
@@ -2678,7 +2691,7 @@ function mp_cart_link($echo = true, $url = false, $link_text = '') {
 		}
 
 		if (!$url) {
-				$text = ($link_text) ? $link_text : __(' | Checkout', 'mp');	/* was Shopping Cart MARKDAVIES*/
+				$text = ($link_text) ? $link_text : __('Shopping Cart', 'mp');
 				$link = '<a href="' . $link . '" class="mp_cart_link">' . $text . '</a>';
 		}
 
@@ -2779,10 +2792,11 @@ if (!function_exists('mp_orderstatus_link')) :
  * @param bool $echo Optional, whether to echo. Defaults to true
  * @param bool $url Optional, whether to return a link or url. Defaults to show link.
  * @param string $link_text Optional, text to show in link.
+ * @param string $order Optional, the order id to append to the link
  */
-function mp_orderstatus_link($echo = true, $url = false, $link_text = '') {
+function mp_orderstatus_link( $echo = true, $url = false, $link_text = '', $order_id = '' ) {
 		global $mp;
-		$link = home_url($mp->get_setting('slugs->store') . '/' . $mp->get_setting('slugs->orderstatus') . '/');
+		$link = home_url($mp->get_setting('slugs->store') . '/' . $mp->get_setting('slugs->orderstatus') . '/' . $order_id);
 
 		if (!$url) {
 				$text = ($link_text) ? $link_text : __('Check Order Status', 'mp');

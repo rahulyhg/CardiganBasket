@@ -26,10 +26,10 @@ add_thickbox();
 if ( wp_is_mobile() )
 	wp_enqueue_script( 'jquery-touch-punch' );
 
-$title = __('Getting Started');
+$title = __('Dashboard');
 $parent_file = 'index.php';
 
-$help = '<p>' . __( 'Welcome to your Dashboard! This is the screen you will see when you log in to your site, and gives you tutorials on setting up your shop.' ) . '</p>';
+$help = '<p>' . __( 'Welcome to your WordPress Dashboard! This is the screen you will see when you log in to your site, and gives you access to all the site management features of WordPress. You can get help for any screen by clicking the Help tab in the upper corner.' ) . '</p>';
 
 // Not using chaining here, so as to be parseable by PHP4.
 $screen = get_current_screen();
@@ -42,8 +42,8 @@ $screen->add_help_tab( array(
 
 // Help tabs
 
-$help  = '<p>' . __( 'The left-hand navigation menu provides links to all of the administration screens, with submenu items displayed on hover. You can minimize this menu to a narrow icon strip by clicking on the Collapse Menu arrow at the bottom.' ) . '</p>';
-$help .= '<p>' . __( 'Links in the Toolbar at the top of the screen connect your dashboard and the front end of your site, and provide access to your profile and helpful site information.' ) . '</p>';
+$help  = '<p>' . __( 'The left-hand navigation menu provides links to all of the WordPress administration screens, with submenu items displayed on hover. You can minimize this menu to a narrow icon strip by clicking on the Collapse Menu arrow at the bottom.' ) . '</p>';
+$help .= '<p>' . __( 'Links in the Toolbar at the top of the screen connect your dashboard and the front end of your site, and provide access to your profile and helpful WordPress information.' ) . '</p>';
 
 $screen->add_help_tab( array(
 	'id'      => 'help-navigation',
@@ -106,11 +106,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 
 	<div id="welcome-panel" class="<?php echo esc_attr( $classes ); ?>">
 		<?php wp_nonce_field( 'welcome-panel-nonce', 'welcomepanelnonce', false ); ?>
-	
-    
-    <!-- DISMISS CLOSE BUTTON	<a class="welcome-panel-close" href="--><?php /*echo esc_url( admin_url( '?welcome=0' ) ); ?>"><?php _e( 'Dismiss' );*/ ?><!--</a>-->
-    
-    
+		<a class="welcome-panel-close" href="<?php echo esc_url( admin_url( '?welcome=0' ) ); ?>"><?php _e( 'Dismiss' ); ?></a>
 		<?php
 		/**
 		 * Add content to the welcome panel on the admin dashboard.

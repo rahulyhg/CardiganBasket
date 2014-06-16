@@ -1,0 +1,365 @@
+/*
+
+Theme Name: CardiganBasket
+Theme Date: 01/06/2014
+Version: 1.5.6
+Theme URI: http://www.markisonline.co.uk/
+Description: CardiganBasket - A custom Wordpress Theme to be used with MarketPress. This theme inherits framemarket
+Author: Mark Davies
+Author URI: http://www.markisonline.co.uk
+Tags: buddypress, fixed-width, custom-background, custom-menu, theme-options, sticky-post, translation-ready, threaded-comments, left-sidebar, two-columns
+License: GNU General Public License, v2 (or newer)
+License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+Uses BP-Default theme files and styling for BuddyPress components with some customisation for theme.
+Included in theme to allow for own child themes rather than being child of BP-Default
+
+Template: framemarket
+*/
+
+
+/* 127451-1401181458 */
+
+#wrapper{
+	background-color:#4b7880;/*#504b43; */
+	height:120px;
+	width:100%;
+	
+}
+#header{
+position:relative;
+top:10px;
+	
+}
+
+#header img{
+	float:left;
+	position:relative;
+	top:5px;
+}
+
+#orders-and-deliveries{
+	position:relative;
+	float:left;
+	top:10px;
+	color:#d7d7d7;
+	right:-100px;
+}
+
+
+
+#header-tools{
+	position:relative;
+	top:10px;
+	width:100%;
+}
+
+#cart-contents{
+position:relative;
+/*float:left;*/
+/*height: 50px;*/
+/*width: 1000px;*/
+color:#ffffff;
+}
+
+#custom-cart-contents{
+position:relative;
+float:left;
+color:#fff;
+margin-right:20px;	
+font-size:14px;
+top:4px;
+}
+
+#mp-cartsmall{
+	position:relative;
+	top:4px;
+}
+
+#searchform{
+float:right;
+margin-right:6px;
+position:relative;
+}
+#s{
+	width:220px;
+}
+
+#mp-storepicker{
+	position:relative;
+	top:4px;
+	color:#fff;
+}
+
+#mp-storepicker select{
+	height:25px;
+	width:150px;
+}
+
+#mp-storepicker option{
+	width:150px;
+}
+
+
+
+
+nav{
+	float:right;
+	position:relative;	
+	
+}
+
+nav ul{
+
+    list-style-type:none;
+    text-align:center;
+
+}
+
+nav li{
+	list-style-type: none;
+    display: inline-block;
+	color:#FFF;
+	/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+	font-size: 14px;
+	text-decoration: none; 
+   	margin-left: 20px;
+
+
+}
+
+nav li a{
+	text-decoration:none;
+	color:#FFF;
+	border:none;
+}
+ nav li.active{
+	color:#FFF;
+	border:none;
+	text-decoration: underline;
+}
+
+nav p{
+	color:#FFF;
+	/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+	font-size: 14px;
+	float:right;
+	position:relative;
+	margin-right:30px;
+	/*margin-top:15px;*/
+}
+
+nav p a{
+	text-decoration:none;
+	color:#FFF;
+}
+
+nav img{
+	float:left;
+	position:relative;
+	margin-left:30px;
+	/*margin-top:4px;*/
+}
+
+#branding-wrapper{
+}
+
+/*
+.mp_excerpt p{
+	max-height:110px;
+}
+*/
+
+
+
+/******  ABOUT PAGE  **********/
+
+
+#what{
+	position:relative;
+	/*margin-top:30px;*/
+	height:600px;/*740px;*/
+	width:100%;
+	/*background:#f0ece1;*/
+
+}
+
+
+
+#what-content{
+position:relative;
+top:30px;
+}
+
+#what h1{
+position: relative;
+line-height:44px;
+width:100%;	
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:26px;
+color:#6a645a;
+margin-left:40px;
+
+
+}
+
+#what p{
+	position:relative;
+/*	font-family: "Helvetica Neue";*/
+	margin-top:20px;
+	width:100%;
+	color:#6a645a;
+	font-size:14px;
+	display:block;
+	margin-left:40px;
+
+
+	}
+
+#what img{
+	position:relative;
+	width:530px;
+	height:354px;
+	top:60px;
+		
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#how-it-works{
+	/*height:428px;*/
+	width:100%;
+	/*background:#f0ece1;*/
+
+}
+#how-content{
+position:relative;
+margin-left:40px;
+top:30px;
+
+}
+#how-content h1{
+line-height:44px;
+width:100%;	
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:26px;
+color:#6a645a;
+
+}
+
+#how-content-steps{
+	width: 100%;
+	margin-left:35px;
+	
+}
+
+#step{
+position:relative;
+top:50px;
+height:100%;
+width:300px;
+display:block;/*inline-block;*/
+}
+
+#step h1{
+line-height:18px;
+width:300px;	
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:18px;
+color:#6a645a;
+	
+}
+
+#step p{
+	position:absolute;
+/* 	font-family: "Helvetica Neue";*/
+	margin-top:20px;
+	width:260px;
+	color:#6a645a;
+	font-size:13px;
+}
+
+#shop-now{
+	width:100%;
+	height: 150px;
+	background:#dad5c6;
+}
+
+#shop-now h1{
+position:relative;
+text-align:center;
+line-height:44px;
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:26px;
+color:#6a645a;
+top: 20px;
+}
+
+#shop-now img{
+	position:relative;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	width:134px;
+	height:46px;
+	top:35px;
+}
+
+
+/******  JOIN PAGE  **********/
+
+
+#signup{
+display:block;
+position:relative;
+width: 100%;
+top:30px;
+margin-left:40px;
+
+}
+
+#signup h1{
+font-size: 28px;
+line-height: 32px;
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+color:#6a645a;
+}
+
+#signup p{
+margin-top:20px;
+font-size: 14px;
+line-height: 18px;
+/*font-family: "Helvetica Neue";*/
+width:100%;
+color:#6a645a;
+}
+
+#signup h4{
+position:relative;
+display:inline-block;
+margin-top:10px;
+font-size: 11px;
+line-height: 18px;
+/*font-family: "Helvetica Neue";*/
+width:100%;
+color:#6a645a;
+}
+
+#signup h4 a{
+color:#5b9aa9;
+}
+
+
+
+
+#signup img{
+	position:relative;
+	margin-top:20px;
+
+}
+
+
+
+
+

@@ -5,6 +5,11 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+3.4.4 - 5/1/2014
+----------------------------------------------------------------------
+- Fix: Change upgrade urls to route through login on WPMU DEV
+- Fix: Fix numerous upgrade/install messages to link to configure instead if no API key set
+
 3.4.3 - 4/17/2014
 ----------------------------------------------------------------------
 - New: Added plugin icon as font for WP3.8+ versions
@@ -218,4 +223,4 @@ Added option to disable admin notices.
 Initial Release.
 
 
-127451-1398945531-au
+319485-1401816213

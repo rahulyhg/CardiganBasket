@@ -216,7 +216,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 					} else if ($this->user_can_install($project['id'])) { //has permission, but it's not autoinstallable
 						?><a href="<?php echo esc_url($project['url']); ?>" target="_blank" class="wpmu-button icon"><i class="icon-download icon-large"></i><?php _e('DOWNLOAD', 'wpmudev'); ?></a><?php
 					} else { //needs to upgrade
-						?><a href="<?php echo apply_filters('wpmudev_project_upgrade_url', esc_url($project['url'] . '#signup'), (int)$project['id']); ?>" target="_blank" class="wpmu-button icon"><i class="icon-arrow-up icon-large"></i><?php _e('UPGRADE TO INSTALL', 'wpmudev'); ?></a><?php
+						?><a href="<?php echo apply_filters('wpmudev_project_upgrade_url', esc_url('https://premium.wpmudev.org/wp-login.php?redirect_to=' . urlencode($project['url']) . '#signup'), (int)$project['id']); ?>" target="_blank" class="wpmu-button icon"><i class="icon-arrow-up icon-large"></i><?php _e('UPGRADE TO INSTALL', 'wpmudev'); ?></a><?php
 					}
 					?>
 					</span>

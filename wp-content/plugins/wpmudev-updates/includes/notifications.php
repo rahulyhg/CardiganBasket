@@ -26,7 +26,7 @@ class WPMUDEV_Notifications_Output {
 
 			if ( $count > 0 && !get_site_option('wdp_un_hide_upgrades') ) {
 				$data = $wpmudev_un->get_updates();
-				$msg = !empty($data['text_admin_notice']) ? $data['text_admin_notice'] : __('<strong>WPMU DEV updates are available</strong>: These may be critical for the security or performance of this site so please review your available updates today &raquo;', 'wpmudev');					  	  	 	  	 
+				$msg = !empty($data['text_admin_notice']) ? $data['text_admin_notice'] : __('<strong>WPMU DEV updates are available</strong>: These may be critical for the security or performance of this site so please review your available updates today &raquo;', 'wpmudev');
 				echo '
 					<div class="update-nag">
 						<a href="' . $wpmudev_un->updates_url . '">' . $msg . '</a>
@@ -143,7 +143,7 @@ class WPMUDEV_Notifications_Output {
 									} else if ($wpmudev_un->user_can_install($data['latest_release'])) { //has permission, but it's not autoinstallable
 										?><a id="wdv-release-install" href="<?php echo esc_url($project['url']); ?>" target="_blank" class="wpmu-button"><i class="icon-download icon-large"></i> <?php _e('DOWNLOAD', 'wpmudev'); ?></a><?php
 									} else { //needs to upgrade
-										?><a id="wdv-release-install" href="<?php echo apply_filters('wpmudev_project_upgrade_url', esc_url($project['url'] . '#signup'), $data['latest_release']); ?>" target="_blank" class="wpmu-button"><i class="icon-arrow-up icon-large"></i> <?php _e('Upgrade to Install', 'wpmudev'); ?></a><?php
+										?><a id="wdv-release-install" href="<?php echo apply_filters('wpmudev_project_upgrade_url', esc_url('https://premium.wpmudev.org/wp-login.php?redirect_to=' . urlencode($project['url']) . '#signup'), $data['latest_release']); ?>" target="_blank" class="wpmu-button"><i class="icon-arrow-up icon-large"></i> <?php _e('Upgrade to Install', 'wpmudev'); ?></a><?php
 									} ?>
 									<a id="wdv-release-info" href="<?php echo $info_url; ?>"><?php _e( 'More Information &raquo;', 'wpmudev' ); ?></a>
 								</div>

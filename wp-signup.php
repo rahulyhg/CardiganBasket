@@ -1,26 +1,11 @@
 <?php
- /**
- * Template Name: traders-signup
- *
- * @package WordPress
- */
-/**
- * Add additional custom field to profile page
- */
-$root_path = realpath($_SERVER["DOCUMENT_ROOT"]);
-
-
 
 /** Sets up the WordPress Environment. */
-//require( dirname(__FILE__) . site_url().$root_path.'/wp-load.php' );
-require($root_path.'/wp-load.php' );
+require( dirname(__FILE__) . '/wp-load.php' );
 
 add_action( 'wp_head', 'wp_no_robots' );
 
-
-//require( dirname( __FILE__ ) .$root_path.'/wp-blog-header.php' );
-require($root_path.'/wp-blog-header.php');
-
+require( dirname( __FILE__ ) . '/wp-blog-header.php' );
 
 if ( is_array( get_site_option( 'illegal_names' )) && isset( $_GET[ 'new' ] ) && in_array( $_GET[ 'new' ], get_site_option( 'illegal_names' ) ) == true ) {
 	wp_redirect( network_home_url() );
@@ -40,8 +25,6 @@ function do_signup_header() {
 	 */
 	do_action( 'signup_header' );
 }
-
-
 add_action( 'wp_head', 'do_signup_header' );
 
 if ( !is_multisite() ) {
@@ -50,7 +33,7 @@ if ( !is_multisite() ) {
 }
 
 if ( !is_main_site() ) {
-	wp_redirect( network_site_url( '<?php echo $permalink; ?>' ) );
+	wp_redirect( network_site_url( 'wp-signup.php' ) );
 	die();
 }
 
@@ -84,18 +67,6 @@ function wpmu_signup_stylesheet() {
 
 add_action( 'wp_head', 'wpmu_signup_stylesheet' );
 get_header();
-
-$permalink = '';
-
-if( have_posts() ) {
-
-the_post();
-
-$permalink = get_permalink();
-
-}
-
-
 
 /**
  * Fires before the site sign-up form.
@@ -152,8 +123,8 @@ function show_blog_form( $blogname = '', $blog_title = '', $errors = '' ) {
 
 	<div id="privacy">
         <p class="privacy-intro">
-            <label for="blog_public_on"><?php _e('Privacy:') ?></label>
-            <?php _e( 'Allow search engines to index this site.' ); ?>
+            <label for="blog_public_on"><?php _e('Cardigan Basket Marketplace:') ?></label>
+            <?php _e( 'As well as selling items on YOUR site, do you also want to sell items through the Cardigan Marketplace?' ); ?>
             <br style="clear:both" />
             <label class="checkbox" for="blog_public_on">
                 <input type="radio" id="blog_public_on" name="blog_public" value="1" <?php if ( !isset( $_POST['blog_public'] ) || $_POST['blog_public'] == '1' ) { ?>checked="checked"<?php } ?> />
@@ -308,7 +279,7 @@ function signup_another_blog( $blogname = '', $blog_title = '', $errors = '' ) {
 	<?php } ?>
 
 	<p><?php _e( 'If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!' ) ?></p>
-	<form id="setupform" method="post" action="<?php echo $permalink; ?>">
+	<form id="setupform" method="post" action="wp-signup.php">
 		<input type="hidden" name="stage" value="gimmeanotherblog" />
 		<?php
 		/**
@@ -457,11 +428,11 @@ function signup_user( $user_name = '', $user_email = '', $errors = '' ) {
 
 	?>
 
-	<h2><?php printf( __( 'Create your account and shop' ), get_current_site()->site_name ) ?></h2>
-	<form id="setupform" method="post" action="<?php echo $permalink; ?>">
+	<h2><?php printf( __( 'Get your own %s account in seconds' ), get_current_site()->site_name ) ?></h2>
+	<form id="setupform" method="post" action="wp-signup.php">
 		<input type="hidden" name="stage" value="validate-user-signup" />
 		<?php
-		/** This action is documented in <?php echo $permalink; ?> */
+		/** This action is documented in wp-signup.php */
 		do_action( 'signup_hidden_fields', 'validate-user' );
 		?>
 		<?php show_user_form($user_name, $user_email, $errors); ?>
@@ -473,8 +444,10 @@ function signup_user( $user_name = '', $user_email = '', $errors = '' ) {
 			<input id="signupblog" type="hidden" name="signup_for" value="user" />
 		<?php } else { ?>
 			<input id="signupblog" hidden="true" type="radio" name="signup_for" value="blog" <?php checked( $signup_for, 'blog' ); ?> />
+		<!--<label class="checkbox" for="signupblog"><?php _e('Gimme a site!') ?></label> -->
 			<br />
-			
+<!--			<input id="signupuser" type="radio" name="signup_for" value="user" <?php checked( $signup_for, 'user' ); ?> />
+			<label class="checkbox" for="signupuser"><?php _e('Just a username, please.') ?></label> -->
 		<?php } ?>
 		</p>
 
@@ -507,7 +480,7 @@ function validate_user_signup() {
 		return false;
 	}
 
-	/** This filter is documented in <?php echo $permalink; ?> */
+	/** This filter is documented in wp-signup.php */
 	wpmu_signup_user( $user_name, $user_email, apply_filters( 'add_signup_meta', array() ) );
 
 	confirm_user_signup($user_name, $user_email);
@@ -529,7 +502,7 @@ function confirm_user_signup($user_name, $user_email) {
 	<p><?php printf( __( 'Check your inbox at <strong>%s</strong> and click the link given.' ), $user_email ); ?></p>
 	<p><?php _e( 'If you do not activate your username within two days, you will have to sign up again.' ); ?></p>
 	<?php
-	/** This action is documented in <?php echo $permalink; ?> */
+	/** This action is documented in wp-signup.php */
 	do_action( 'signup_finished' );
 }
 
@@ -584,12 +557,12 @@ function signup_blog($user_name = '', $user_email = '', $blogname = '', $blog_ti
 	if ( empty($blogname) )
 		$blogname = $user_name;
 	?>
-	<form id="setupform" method="post" action="<?php echo $permalink; ?>">
+	<form id="setupform" method="post" action="wp-signup.php">
 		<input type="hidden" name="stage" value="validate-blog-signup" />
 		<input type="hidden" name="user_name" value="<?php echo esc_attr($user_name) ?>" />
 		<input type="hidden" name="user_email" value="<?php echo esc_attr($user_email) ?>" />
 		<?php
-		/** This action is documented in <?php echo $permalink; ?> */
+		/** This action is documented in wp-signup.php */
 		do_action( 'signup_hidden_fields', 'validate-site' );
 		?>
 		<?php show_blog_form($blogname, $blog_title, $errors); ?>
@@ -631,7 +604,7 @@ function validate_blog_signup() {
 	$public = (int) $_POST['blog_public'];
 	$meta = array ('lang_id' => 1, 'public' => $public);
 
-	/** This filter is documented in <?php echo $permalink; ?> */
+	/** This filter is documented in wp-signup.php */
 	$meta = apply_filters( 'add_signup_meta', $meta );
 
 	wpmu_signup_blog($domain, $path, $blog_title, $user_name, $user_email, $meta);
@@ -668,7 +641,7 @@ function confirm_blog_signup( $domain, $path, $blog_title, $user_name = '', $use
 		</ul>
 	</p>
 	<?php
-	/** This action is documented in <?php echo $permalink; ?> */
+	/** This action is documented in wp-signup.php */
 	do_action( 'signup_finished' );
 }
 
@@ -699,7 +672,7 @@ $current_user = wp_get_current_user();
 if ( $active_signup == 'none' ) {
 	_e( 'Registration has been disabled.' );
 } elseif ( $active_signup == 'blog' && !is_user_logged_in() ) {
-	$login_url = site_url( 'wp-login.php?redirect_to=' . urlencode( network_site_url( '<?php echo $permalink; ?>' ) ) );
+	$login_url = site_url( 'wp-login.php?redirect_to=' . urlencode( network_site_url( 'wp-signup.php' ) ) );
 	echo sprintf( __( 'You must first <a href="%s">log in</a>, and then you can create a new site.' ), $login_url );
 } else {
 	$stage = isset( $_POST['stage'] ) ?  $_POST['stage'] : 'default';

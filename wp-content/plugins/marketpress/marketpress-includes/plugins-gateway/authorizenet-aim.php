@@ -507,27 +507,30 @@ class MP_Gateway_AuthorizeNet_AIM extends MP_Gateway_API {
         $coupon_code = $mp->get_coupon_code();
 
         foreach ($cart as $product_id => $variations) {
-            foreach ($variations as $variation => $data) {
-                $sku = empty($data['SKU']) ? "{$product_id}_{$variation}" : $data['SKU'];
-                //total on tax excluded
-								$price = $mp->coupon_value_product($coupon_code, $data['price'] * $data['quantity'], $product_id);
-                $totals[] = $price;
-                //display as tax inclusive
-                $payment->addLineItem($sku, substr($data['name'], 0, 31), substr($data['name'] . ' - ' . $data['url'], 0, 254), $data['quantity'], $data['price'], 1);
-                $i++;
-            }
+          foreach ($variations as $variation => $data) {
+            $sku = empty($data['SKU']) ? "{$product_id}_{$variation}" : $data['SKU'];
+            //total on tax excluded
+						$price = $mp->coupon_value_product($coupon_code, $data['price'] * $data['quantity'], $product_id);
+            $totals[] = $price;
+            //display as tax inclusive
+            $payment->addLineItem($sku, substr($data['name'], 0, 31), substr($data['name'] . ' - ' . $data['url'], 0, 254), $data['quantity'], $data['price'], 1);
+            $i++;
+          }
         }
         $total = array_sum($totals);
 
-        //shipping line
-        if (($shipping_price = $mp->shipping_price()) !== false) {
-            $total = $total + $shipping_price;
-        }
+				//shipping line
+	      $shipping_tax = 0;
+	      if ( ($shipping_price = $mp->shipping_price(false)) !== false ) {
+					$total += $shipping_price;
+					$shipping_tax = ($mp->shipping_tax_price($shipping_price) - $shipping_price);
+	      }
 
-        //tax line
-        if (($tax_price = $mp->tax_price()) !== false) {
-            $total = $total + $tax_price;
-        }
+	      //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
+	      if ( ! $this->get_setting('tax->tax_inclusive') ) {
+	      	$tax_price = ($mp->tax_price(false) + $shipping_tax);
+					$total += $tax_price;
+	      }
 
         // Billing Info
         $payment->setParameter("x_card_code", $_SESSION['card_code']);
@@ -846,9 +849,27 @@ if (!class_exists('MP_Gateway_Worker_AuthorizeNet_AIM')) {
             $this->params['x_card_num'] = trim($cardnum);
         }
 
-        function addLineItem($id, $name, $description, $quantity, $price, $taxable = 0) {
-            $this->line_items[] = "{$id}<|>{$name}<|>{$description}<|>{$quantity}<|>{$price}<|>{$taxable}";
-        }
+				function clean_string( $str, $length ) {
+					//replace encoded characters with their non-encoded versions
+					$search = array('&#8230;', '&#8216;', '&#8217;', '&#8220;', '&#8221;', '&#8226;', '&#8211;', '&#8212;');
+					$replace = array('...', "'", "'", '"', '"', '•', '-', '-');
+				  $str = str_replace($find, $replace, $str);
+
+				  //remove all other entities
+				  $str = preg_replace("/&.{0,}?;/", '', $str);
+
+				  //shorten length
+				  $str = substr($str, 0, $length);
+
+				  return $str;
+				}
+
+				function addLineItem($id, $name, $description, $quantity, $price, $taxable = 0) {
+					$id = $this->clean_string($id, 31);
+					$name = $this->clean_string($name, 31);
+					$description = $this->clean_string($description, 255);
+					$this->line_items[] = "{$id}<|>{$name}<|>{$description}<|>{$quantity}<|>{$price}<|>{$taxable}";
+				}
 
         function process($retries = 1) {
             global $mp;

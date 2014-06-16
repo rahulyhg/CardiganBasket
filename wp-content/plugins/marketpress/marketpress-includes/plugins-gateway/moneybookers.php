@@ -161,29 +161,29 @@ class MP_Gateway_Moneybookers extends MP_Gateway_API {
         $params["amount{$i}_description"] = sprintf(__('Cart Subtotal for %d Items:', 'mp'), $product_count);
         $i++;
 
-        //shipping line
-        if (($shipping_price = $mp->shipping_price()) !== false) {
-            //adjust price if tax inclusive is on
-            if ($mp->get_setting('tax->tax_inclusive'))
-                $shipping_price = $mp->shipping_tax_price($shipping_price);
+				//shipping line
+		    $shipping_tax = 0;
+		    if ( ($shipping_price = $mp->shipping_price(false)) !== false ) {
+					$total += $shipping_price;
+					$shipping_tax = ($mp->shipping_tax_price($shipping_price) - $shipping_price);
 
-            $total = $total + $shipping_price;
-            $params["amount{$i}"] = $mp->display_currency($shipping_price);
-            $params["amount{$i}_description"] = __('Shipping & Handling:', 'mp');
-            $i++;
-        }
+          $params["amount{$i}"] = $mp->display_currency($shipping_price);
+          $params["amount{$i}_description"] = __('Shipping & Handling:', 'mp');
+          $i++;
+		    }
 
-        //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
-        if (!$mp->get_setting('tax->tax_inclusive') && ($tax_price = $mp->tax_price()) !== false) {
-            $total = $total + $tax_price;
-            $params["amount{$i}"] = $mp->display_currency($tax_price);
-            $params["amount{$i}_description"] = __('Taxes:', 'mp');
-            $i++;
-        } else if (($tax_price = $mp->tax_price()) !== false) { //tax is already in items total, so just add it as a description line item
-            $params["detail3_text"] = $mp->display_currency($tax_price);
-            $params["detail3_description"] = __('Taxes:', 'mp');
-            $i++;
-        }
+		    //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
+		    $tax_price = ($mp->tax_price(false) + $shipping_tax);
+		    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+					$total += $tax_price;
+          $params["amount{$i}"] = $mp->display_currency($tax_price);
+          $params["amount{$i}_description"] = __('Taxes:', 'mp');
+          $i++;
+		    } else {
+          $params["detail3_text"] = $mp->display_currency($tax_price);
+          $params["detail3_description"] = __('Taxes:', 'mp');
+          $i++;
+		    }
 
         $params['amount'] = $total;
 

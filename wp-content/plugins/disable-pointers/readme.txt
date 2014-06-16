@@ -1,16 +1,15 @@
 === Disable Pointers ===
 Contributors: lumpysimon
-Donate link: http://lumpylemon.co.uk/donate
 Tags: admin, pointers, tooltips, disable
 Requires at least: 3.3
-Tested up to: 3.3.1
+Tested up to: 3.9.1
 Stable tag: trunk
 
-Disable the pointers (tooltips) introduced to admin screens in WordPress 3.3
+Disable the pointers (tooltips) shown on WordPress admin screens
 
 == Description ==
 
-When you upgrade to WordPress 3.3 (or later) from an earlier version, all users are shown various helpful pointers (tooltips) when they first log in to the admin screens. This simple plugin disables them for all users. No options, no configuration, just install and activate.
+When new features are introduced into WordPress, various helpful pointers (tooltips) maybe shown to users on the admin screens. This simple plugin disables them for all users. No options, no configuration, just install and activate.
 
 == Frequently Asked Questions ==
 
@@ -20,10 +19,17 @@ Yes.
 
 == Installation ==
 
-1. Unzip disable-pointers.zip and upload the folder and its files to your wp-content/plugins directory.
-2. Activate the plugin through the Plugins menu in WordPress.
+1. Search for 'disable pointers' from the 'Add new plugin' page in your WordPress website.
+2. Click 'Install Now'.
+2. Activate the plugin.
 
 == Changelog ==
 
-= 0.1 =
+= 0.2 (29th May 2014) =
+* Change plugin page from Lumpy Lemon to GitHub
+* Minor readme.txt updates
+* Miniscule code changes
+* Bump compatibility to 3.9.1
+
+= 0.1 (17th January 2012) =
 * Initial release

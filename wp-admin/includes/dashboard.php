@@ -1157,7 +1157,7 @@ function wp_welcome_panel() {
     
     <div id="shortcuts-icons">
     	<a href="profile.php"><img src='icons/password-icon.png' /></a>
-   		<a href="options-general.php"><img src='icons/title-icon.png' /></a>
+   		<!--<a href="options-general.php"><img src='icons/title-icon.png' /></a>-->
         <a href="themes.php?page=siteoptions"><img src='icons/site-icon.png' /> </a>
         <a href="wp-admin/edit.php?post_type=product&page=marketpress"><img src='icons/storesettings-icon.png' /> </a>
 
@@ -1165,7 +1165,7 @@ function wp_welcome_panel() {
         <a href="wp-admin/wp-admin/edit.php?post_type=product"><img src='icons/listproducts-icon.png' /> </a>
         <a href="edit.php?post_type=product&page=marketpress-orders"><img src='icons/orders-icon.png' /></a>
         
-        <a href="wp-admin/wp-admin/themes.php?page=aq-page-builder"><img src='icons/pagebuilder-icon.png' /> </a>
+        <!--<a href="wp-admin/wp-admin/themes.php?page=aq-page-builder"><img src='icons/pagebuilder-icon.png' /> </a>-->
         <a href="wp-admin/wp-admin/post-new.php?post_type=page"><img src='icons/addpage-icon.png' /> </a>
 
         <a href="wp-admin/wp-admin/nav-menus.php"><img src='icons/navmenu-icon.png' /> </a>
@@ -1194,11 +1194,11 @@ function wp_welcome_panel() {
             
 	</div>
 	</div>
-    
+    <!--
 	<div class="welcome-panel-content">
      <br /> <br />
-	<h3><?php _e( 'Video Tutorials' ); ?></h3>
-	<p class="about-description"><?php _e( 'Here are some video tutorials to help you with setting up your account and shop.' ); ?></p>
+	<h3><?php _e( 'Video Tutorial' ); ?></h3>
+	<p class="about-description"><?php _e( 'Here is a video tutorial to help you with setting up your account and shop.' ); ?></p>
 	<div class="welcome-panel-column-container">
 	<div class="welcome-panel-column">
     
@@ -1207,39 +1207,7 @@ function wp_welcome_panel() {
               <source src="videos/introduction.mp4" type="video/mp4">
          </video>
          
-		<h4><?php _e( '1. Setting up your store' ); ?></h4>
-          <video width="604" height="494" controls>
-              <source src="videos/1-updating profile.mp4" type="video/mp4">
-         </video>
-        <h4><?php _e( '2. Creating a homepage' ); ?></h4>
-        <video width="604" height="494" controls>
-              <source src="videos/1.mp4" type="video/mp4">
-         </video>
-        <h4><?php _e( '4. Adding products/items to your store' ); ?></h4>
-        <video width="604" height="494" controls>
-              <source src="videos/2.mp4" type="video/mp4">
-         </video>
-        <h4><?php _e( '4. Creating a products page' ); ?></h4>
-        <video width="604" height="494" controls>
-              <source src="videos/3.mp4" type="video/mp4">
-         </video>
-        <h4><?php _e( '5. Adding a shopping cart' ); ?></h4>
-        <video width="604" height="494" controls>
-              <source src="videos/4.mp4" type="video/mp4">
-         </video>
-        <h4><?php _e( '5. Creating a navigation bar' ); ?></h4>
-        <video width="604" height="494" controls>
-              <source src="videos/5.mp4" type="video/mp4">
-         </video>
-        <h4><?php _e( '6. Creating an "about page"' ); ?></h4>
-        <video width="604" height="494" controls>
-              <source src="videos/6.mp4" type="video/mp4">
-         </video>
-        <h4><?php _e( '7. Creating a "contact page"' ); ?></h4>
-        <video width="604" height="494" controls>
-              <source src="videos/7.mp4" type="video/mp4">
-         </video>
-
+	-->
 
 
         <!--

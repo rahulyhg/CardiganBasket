@@ -128,7 +128,7 @@ switch( $tab ) {
 				} else if (!$this->get_apikey()) { //no api key yet
 					$upgrade_button_code = "<a href='" . $this->dashboard_url . "' title='" . __('Setup your WPMU DEV account to update', 'wpmudev') . "' class='button-secondary'><i class='icon-pencil'></i> ".__('Configure to Update', 'wpmudev')."</a>";
 				} else {
-					$upgrade_button_code = "<a href='" . apply_filters('wpmudev_project_upgrade_url', esc_url($project['url'] . '#signup'), $project_id) . "' class='button-secondary' target='_blank'><i class='icon-arrow-up'></i> ".__('Upgrade to Update', 'wpmudev')."</a>";
+					$upgrade_button_code = "<a href='" . apply_filters('wpmudev_project_upgrade_url', esc_url('https://premium.wpmudev.org/wp-login.php?redirect_to=' . urlencode($project['url']) . '#signup'), $project_id) . "' class='button-secondary' target='_blank'><i class='icon-arrow-up'></i> ".__('Upgrade to Update', 'wpmudev')."</a>";
 				}
 
 				$upgrade_button = (version_compare($remote_version, $local_version, '>')) ? $upgrade_button_code : '';
@@ -198,7 +198,7 @@ switch( $tab ) {
 				} else if (!$this->get_apikey()) { //no api key yet
 					$upgrade_button_code = "<a href='" . $this->dashboard_url . "' title='" . __('Setup your WPMU DEV account to update', 'wpmudev') . "' class='button-secondary'><i class='icon-pencil'></i> ".__('Configure to Update', 'wpmudev')."</a>";
 				} else {
-					$upgrade_button_code = "<a href='" . apply_filters('wpmudev_project_upgrade_url', esc_url($project['url'] . '#signup'), $project_id) . "' class='button-secondary' target='_blank'><i class='icon-arrow-up'></i> ".__('Upgrade to Update', 'wpmudev')."</a>";
+					$upgrade_button_code = "<a href='" . apply_filters('wpmudev_project_upgrade_url', esc_url('https://premium.wpmudev.org/wp-login.php?redirect_to=' . urlencode($project['url']) . '#signup'), $project_id) . "' class='button-secondary' target='_blank'><i class='icon-arrow-up'></i> ".__('Upgrade to Update', 'wpmudev')."</a>";
 				}
 
 				$upgrade_button = (version_compare($remote_version, $local_version, '>')) ? $upgrade_button_code : '';

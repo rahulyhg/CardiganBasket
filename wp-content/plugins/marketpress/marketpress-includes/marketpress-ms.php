@@ -3,6 +3,8 @@
 MarketPress Multisite Features
 */
 
+$GLOBALS['mp_wpmu'] = new MarketPress_MS();
+
 class MarketPress_MS {
 
 	var $build = 2;
@@ -209,8 +211,13 @@ class MarketPress_MS {
 		}
 	}
 
-	function add_rewrite_rules($rules){
+	function add_rewrite_rules($rules) {
 		$settings = get_site_option('mp_network_settings');
+
+		//if something happens to our settings bail to prevent an error
+		if ( empty( $settings['slugs']['marketplace'] ) ) {
+			return $rules;
+		}
 
 		$new_rules = array();
 
@@ -458,21 +465,53 @@ class MarketPress_MS {
 	}
 */
 
-	//this is the default theme added to the global product list page
-	function product_list_theme($content) {
-		//don't filter outside of the loop
-		if ( !in_the_loop() )
-			return $content;
+	function product_list_default_args( $echo = false ) {
+		global $mp;
 
-		$args = array();
-		$args['echo'] = false;
+		$args = apply_filters('mp_global_product_list_theme_default_args', array(
+			'echo' => $echo,
+			'paginate' => $mp->get_setting('paginate'),
+			'page' => 1,
+			'per_page' => $mp->get_setting('per_page'),
+			'order_by' => $mp->get_setting('order_by'),
+			'order' => $mp->get_setting('order'),
+			'category' => '',
+			'tag' => '',
+			'show_thumbnail' => $mp->get_setting('show_thumbnail'),
+			'thumbnail_size' => 150,
+			'thumbnail_align' => $mp->get_setting('image_alignment_list'),
+			'show_price' => true,
+			'text' => ( $mp->get_setting('show_excerpt') ) ? 'excerpt' : 'none',
+			'as_list' => ( $mp->get_setting('list_view') == 'list' ),
+			'paginav' => true,
+		));
+
+		//thumbnail size
+		$size = $mp->get_setting('list_img_size');
+		if ( $size == 'custom' ) {
+			$args['thumbnail_size'] = (float) $mp->get_setting('list_img_width');
+		} else {
+			$args['thumbnail_size'] = (float) get_option($size . '_size_w');
+		}
 
 		//check for paging
-		if (get_query_var('paged'))
-			$args['page'] = intval(get_query_var('paged'));
+		if ( get_query_var('paged') ) {
+			$args['page'] = (float) get_query_var('paged');
+		}
 
-		$content = mp_list_global_products( $args );
-		$content .= mp_global_products_nav_link( $args );
+		return $args;
+	}
+
+	//this is the default theme added to the global product list page
+	function product_list_theme( $content ) {
+		if ( ! in_the_loop() ) {
+			//don't filter outside of the loop
+			return $content;
+		}
+
+		$args = $this->product_list_default_args();
+		$content = mp_list_global_products($args);
+		$content .= mp_global_products_nav_link($args);
 
 		return $content;
 	}
@@ -560,22 +599,26 @@ class MarketPress_MS {
 			return;
 		}
 
-		//save settings
-		if (isset($_POST['marketplace_network_settings'])) {
+		//get settings
+		$settings = (array) get_site_option('mp_network_settings');
 
+		//save settings
+		if ( isset($_POST['marketplace_network_settings']) ) {
 			//filter slugs
 			$_POST['mp']['slugs'] = array_map('sanitize_title', $_POST['mp']['slugs']);
 
-			update_site_option( 'mp_network_settings', apply_filters('mp_network_settings_save', $_POST['mp']) );
+			//merge settings
+			$settings = apply_filters('mp_network_settings_save', $mp->parse_args_r($settings, $_POST['mp']));
+
+			update_site_option('mp_network_settings', $settings);
 
 			//flush rewrite rules due to product slugs
 			update_option('mp_flush_rewrite', 1);
 
 			echo '<div class="updated fade"><p>'.__('Settings saved.', 'mp').'</p></div>';
 		}
-		$settings = get_site_option( 'mp_network_settings' );
 
-		if (!isset($settings['global_cart']))
+		if ( ! isset($settings['global_cart']) )
 			$settings['global_cart'] = 0;
 		?>
 		<div class="wrap">
@@ -1041,24 +1084,7 @@ class MarketPress_MS {
 	 * @param string|array $attr Optional. Override default arguments.
 	 */
 	function mp_list_global_products_sc($atts) {
-		$args = shortcode_atts(array(
-			'paginate' => true,
-			'page' => 0,
-			'per_page' => 20,
-			'order_by' => 'date',
-			'order' => 'DESC',
-			'category' => '',
-			'tag' => '',
-			'show_thumbnail' => true,
-			'thumbnail_size' => 50,
-			'show_price' => true,
-			'text' => 'excerpt',
-			'as_list' => false,
-			'paginav' => true,
-		), $atts);
-
-		$args['echo'] = false;
-
+		$args = shortcode_atts($this->product_list_default_args(), $atts);
 		return mp_list_global_products( $args );
 	}
 
@@ -1108,7 +1134,6 @@ class MarketPress_MS {
 	}
 
 }
-$mp_wpmu = new MarketPress_MS();
 
 function mp_main_site_id() {
 	global $current_site;
@@ -1163,7 +1188,14 @@ function mp_global_categories_list( $args = '' ) {
 	else if ($include == 'categories')
 		$where = " WHERE t.type = 'product_category'";
 
-	$tags = $wpdb->get_results( "SELECT name, slug, type, count(post_id) as count FROM {$wpdb->base_prefix}mp_terms t LEFT JOIN {$wpdb->base_prefix}mp_term_relationships r ON t.term_id = r.term_id$where GROUP BY t.term_id ORDER BY $order_by $order LIMIT $limit", ARRAY_A );
+	$tags = $wpdb->get_results("
+		SELECT name, slug, type, count(post_id) as count
+		FROM {$wpdb->base_prefix}mp_terms t
+		LEFT JOIN {$wpdb->base_prefix}mp_term_relationships r ON t.term_id = r.term_id
+		$where
+		GROUP BY t.term_id
+		ORDER BY $order_by $order
+		LIMIT $limit", ARRAY_A);
 
 	if ( !$tags )
 		return;
@@ -1301,29 +1333,11 @@ function mp_global_tag_cloud( $echo = true, $limit = 45, $seperator = ' ', $incl
  *
  * @param string|array $args Optional. Override default arguments.
  */
-function mp_list_global_products( $args = '' ) {
-	global $wpdb, $mp;
+function mp_list_global_products( $args ) {
+	global $wpdb, $mp, $mp_wpmu;
 
-	$defaults = array(
-		'echo' => true,
-		'paginate' => true,
-		'page' => 0,
-		'per_page' => 20,
-		'order_by' => 'date',
-		'order' => 'DESC',
-		'category' => '',
-		'tag' => '',
-		'show_thumbnail' => true,
-		'thumbnail_size' => 150,
-		'context' => 'list',
-		'show_price' => true,
-		'text' => 'excerpt',
-		'as_list' => false,
-		'paginav' => false,
-	);
-
-	$r = wp_parse_args( $args, $defaults );
-	extract( $r );
+	$r = wp_parse_args($args, $mp_wpmu->product_list_default_args(true));
+	extract($r);
 
 	//setup taxonomy if applicable
 	if ($category) {
@@ -1411,7 +1425,7 @@ function mp_list_global_products( $args = '' ) {
 	$content = '<div id="mp_product_list" class="hfeed mp_' . $layout_type . '">';
 
 	if ( count($results) > 0 ) {
-		$content .= $layout_type == 'grid' ? _mp_global_products_html_grid($results) : _mp_global_products_html_list($results);
+		$content .= $layout_type == 'grid' ? _mp_global_products_html_grid($results, $r) : _mp_global_products_html_list($results, $r);
 	} else {
 		$content .= '<div id="mp_no_products">' . apply_filters('mp_product_list_none', __('No Products', 'mp')) . '</div>';
 	}
@@ -1432,11 +1446,13 @@ function mp_list_global_products( $args = '' ) {
 }
 
 if (!function_exists('_mp_global_products_html_list')) :
-function _mp_global_products_html_list( $results ) {
+function _mp_global_products_html_list( $results, $args ) {
 		global $mp,$post;
 		$html = '';
 		$total = count($results);
 		$count = 0;
+		$current_blog_id = get_current_blog_id();
+		$current_post = $post;
 
 		foreach ( $results as $index => $result ) :
 			switch_to_blog($result->blog_id);
@@ -1457,7 +1473,12 @@ function _mp_global_products_html_list( $results ) {
 					<div class="entry-content">
 						<div class="mp_product_content">';
 
-			$product_content = mp_product_image(false, 'list', $post->ID);
+			$product_content = '';
+
+			if ( $args['show_thumbnail'] ) {
+				$product_content = mp_product_image(false, 'list', $post->ID, $args['thumbnail_size']);
+			}
+
 			if ( $mp->get_setting('show_excerpt') ) {
 				$product_content .= $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID);
 			}
@@ -1468,8 +1489,13 @@ function _mp_global_products_html_list( $results ) {
 						</div>
 						<div class="mp_product_meta">';
 
+			$meta = '';
+
 			//price
-			$meta = mp_product_price(false, $post->ID);
+			if ( $args['show_price'] ) {
+				$meta .= mp_product_price(false, $post->ID);
+			}
+
 			//button
 			$meta .= mp_buy_button(false, 'list', $post->ID);
 			$html .= apply_filters('mp_product_list_meta', $meta, $post->ID);
@@ -1483,37 +1509,39 @@ function _mp_global_products_html_list( $results ) {
 				</div>';
 		endforeach;
 
-		$post = NULL; //wp_reset_postdata() doesn't work here
+		$post = $current_post; //wp_reset_postdata() doesn't work here
 
-		restore_current_blog();
+		switch_to_blog($current_blog_id);
 		return apply_filters('_mp_global_products_html_list', $html, $results);
 }
 endif;
 
 if (!function_exists('_mp_global_products_html_grid')) :
-function _mp_global_products_html_grid( $results ) {
+function _mp_global_products_html_grid( $results, $args ) {
 	global $mp,$post;
 	$html = '';
 
-	//get image width
-	if ($mp->get_setting('list_img_size') == 'custom') {
-		$width = $mp->get_setting('list_img_width');
-	} else {
-		$size = $mp->get_setting('list_img_size');
-		$width = get_option($size . "_size_w");
-	}
-
 	$inline_style = !( $mp->get_setting('store_theme') == 'none' || current_theme_supports('mp_style') );
+	$current_blog_id = get_current_blog_id();
+	$current_post = $post;
+
+	//thumbnail width
+	$width = (float) $args['thumbnail_size'];
 
 	foreach ( $results as $index => $result ) :
 		switch_to_blog($result->blog_id);
 		$post = get_post($result->post_id);
 		setup_postdata($post);
 
-		$img = mp_product_image(false, 'list', $post->ID);
-		$excerpt = $mp->get_setting('show_excerpt') ?
-						'<p class="mp_excerpt">' . $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID, '') . '</p>' :
-						'';
+		$img = mp_product_image(false, 'list', $post->ID, $args['thumbnail_size']);
+
+		$excerpt = '';
+		if ( $args['text'] == 'excerpt' ) {
+			$excerpt = '<p class="mp_excerpt">' . $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID, '') . '</p>';
+		} elseif ( $args['text'] == 'content' ) {
+			$excerpt = get_the_content();
+		}
+
 		$mp_product_list_content = apply_filters('mp_product_list_content', $excerpt, $post->ID);
 
 		$pinit = mp_pinit_button($post->ID, 'all_view');
@@ -1536,8 +1564,8 @@ function _mp_global_products_html_grid( $results ) {
 						<div>' . $mp_product_list_content . '</div>
 					</div>
 
-					<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px; margin-left:-' . $width . 'px;"' : '') . '>
-						' . mp_product_price(false, $post->ID) . '
+					<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
+						' . (( $args['show_price'] ) ? mp_product_price(false, $post->ID) : '') . '
 						' . mp_buy_button(false, 'list', $post->ID) . '
 						' . apply_filters('mp_product_list_meta', '', $post->ID) . '
 					</div>
@@ -1553,9 +1581,9 @@ function _mp_global_products_html_grid( $results ) {
 
 	$html .= ($custom_query->found_posts > 0) ? '<div class="clear"></div>' : '';
 
-	$post = NULL; //wp_reset_postdata() doesn't work here
+	$post = $current_post; //wp_reset_postdata() doesn't work here
 
-	restore_current_blog();
+	switch_to_blog($current_blog_id);
 	return apply_filters('_mp_global_products_html_grid', $html, $results);
 }
 endif;
@@ -1657,7 +1685,7 @@ function mp_global_products_nav_link( $args = '', $query = null ) {
 			$prevpage = intval($paged) - 1;
 			if ( $prevpage < 1 )
 				$prevpage = 1;
-			$return .= '<a href="' . "http://cardiganbasket.co.uk/shop/page/" .($prevpage) . "\" $attr>". preg_replace( '/&([^#])(?![a-z]{1,8};)/', '&#038;$1', $prelabel ) .'</a>';
+			$return .= '<a href="' . get_pagenum_link($prevpage) . "\" $attr>". preg_replace( '/&([^#])(?![a-z]{1,8};)/', '&#038;$1', $prelabel ) .'</a>';
 		}
 
 		$return .= preg_replace('/&([^#])(?![a-z]{1,8};)/i', '&#038;$1', $sep);
@@ -1666,12 +1694,10 @@ function mp_global_products_nav_link( $args = '', $query = null ) {
 		if ( $nextpage <= $max_pages ) {
 			$attr = apply_filters( 'next_posts_link_attributes', '' );
 			$nextpage = intval($paged) + 1;
-			$return .= '<a href="'. "http://cardiganbasket.co.uk/shop/page/" .($nextpage) . "\" $attr>" . preg_replace('/&([^#])(?![a-z]{1,8};)/i', '&#038;$1', $nxtlabel ) . ' </a>';
+			$return .= '<a href="' . get_pagenum_link($nextpage) . "\" $attr>" . preg_replace('/&([^#])(?![a-z]{1,8};)/i', '&#038;$1', $nxtlabel ) . '</a>';
 		}
 
 	}
-	
-	/*REPLACED get_pagenum_link WITH http://cardiganbasket.co.uk/shop/page  EDITED BY MARK DAVIES FOR THE CARDIGAN BASKET SHOP PAGE*/
 
 	$return = apply_filters('mp_global_products_nav_link', '<div id="mp_global_products_nav_links">' . $return . '</div>');
 

@@ -71,7 +71,6 @@ class MP_Shipping_UPS extends MP_Shipping_API {
 		// Get settings for convenience sake
 		$this->settings = get_option('mp_settings');
 		$this->ups_settings = $this->settings['shipping']['ups'];
-
 	}
 
 	function default_boxes(){
@@ -291,7 +290,7 @@ class MP_Shipping_UPS extends MP_Shipping_API {
 							<td>
 								<?php foreach($this->services as $name => $service) : ?>
 								<label>
-									<input type="checkbox" name="mp[shipping][ups][services][<?php echo $name; ?>]" value="1" <?php checked($this->ups_settings['services'][$name]); ?> />&nbsp;<?php echo $service->name; ?>
+									<input type="checkbox" name="mp[shipping][ups][services][<?php echo $name; ?>]" value="1" <?php checked($this->ups_settings['services'][$name], 1); ?> />&nbsp;<?php echo $service->name; ?>
 								</label><br />
 								<?php endforeach; ?>
 							</td>
@@ -372,6 +371,13 @@ class MP_Shipping_UPS extends MP_Shipping_API {
 	*  array. Don't forget to return!
 	*/
 	function process_shipping_settings($settings) {
+		foreach ( $this->services as $service => $class ) {
+			if ( isset($_POST['mp']['shipping']['ups']['services'][$service]) ) {
+				$settings['shipping']['ups']['services'][$service] = 1;
+			} else {
+				$settings['shipping']['ups']['services'][$service] = 0;
+			}
+		}
 
 		return $settings;
 	}
@@ -519,7 +525,7 @@ class MP_Shipping_UPS extends MP_Shipping_API {
 	function rate_request() {
 		global $mp;
 
-		$shipping_options = $this->ups_settings['services'];
+		$shipping_options = array_filter($this->ups_settings['services'], create_function('$val', 'return ($val == 1);'));
 
 		//Assume equal size packages. Find the best matching box size
 		$this->ups_settings['max_weight'] = ( empty($this->ups_settings['max_weight'])) ? 50 : $this->ups_settings['max_weight'];
@@ -587,8 +593,9 @@ class MP_Shipping_UPS extends MP_Shipping_API {
 
 		//Shipper
 		$shipment = $root->appendChild($dom->createElement('Shipment'));
+		$shipment->appendChild($dom->createElement('NegotiatedRatesIndicator'));
 		$shipper = $shipment->appendChild($dom->createElement('Shipper'));
-		$shipper->appendChild($dom->createElement('ShipperNumber',$this->ups_settings['shipper_number']));
+		$shipper->appendChild($dom->createElement('ShipperNumber', htmlentities($this->ups_settings['shipper_number'])));
 		$address = $shipper->appendChild($dom->createElement('Address'));
 		$address->appendChild($dom->createElement('StateProvinceCode', $this->settings['base_province']));
 		$address->appendChild($dom->createElement('PostalCode', $this->settings['base_zip']));
@@ -770,14 +777,19 @@ class MP_Shipping_UPS extends MP_Shipping_API {
 	*/
 	private function format_shipping_option($shipping_option = '', $price = '', $delivery = '', $handling=''){
 		global $mp;
-		if ( isset($this->services[$shipping_option])){
+		if ( isset($this->services[$shipping_option]) ) {
 			$option = $this->services[$shipping_option]->name;
 		}
 
 		$price = is_numeric($price) ? $price : 0;
 		$handling = is_numeric($handling) ? $handling : 0;
+		$total = $price + $handling;
 
-		$option .=  sprintf(__(' %1$s - %2$s', 'mp'), $delivery, $mp->format_currency('', $price + $handling) );
+		if ( $mp->get_setting('tax->tax_inclusive') && $mp->get_setting('tax->tax_shipping') ) {
+			$total = $mp->shipping_tax_price($total);
+		}
+
+		$option .=  sprintf(__(' %1$s - %2$s', 'mp'), $delivery, $mp->format_currency('', $total));
 		return $option;
 	}
 

@@ -5,6 +5,59 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+2.9.4.7
+----------------------------------------------------------------------
+- Fixed: errors when checking out using PayPal and global cart is enabled
+- Fixed: incorrect shipping calculations when using tax inclusive pricing and calculated shipping options
+- Fixed: when toggling global cart on/off PayPal settings get wiped out
+- Fixed: PHP warning when checking out using UPS shipping gateway
+
+2.9.4.6
+----------------------------------------------------------------------
+- Fixed: Product and category specific coupons could be used for any product with a mal-formed coupon code http://wp.mu/9qe
+- Fixed: Fatal "Cannot use string offset as an array" error in network admin when enabling global cart http://wp.mu/9qf
+
+2.9.4.5
+----------------------------------------------------------------------
+- Fixed: display issue on product category templates http://wp.mu/9ek
+- Fixed: when checking out every UPS shipping service shows as available instead of only the ones that are selected
+- Fixed: order status links generate page-not-found errors http://wp.mu/9em
+- Fixed: PHP notices when logging out
+- Fixed: random slashes being added to Bitpay message field http://wp.mu/9f6
+
+2.9.4.4
+----------------------------------------------------------------------
+- Fixed: [mp_related_products] some times causes product categories/tags to not display http://wp.mu/9ce
+- Fixed: errors when checking out when using global cart 
+- Fixed: shopping cart shows PHP warning
+- Fixed: some arguments in [mp_list_global_products] don't work http://wp.mu/9dm
+- Fixed: during checkout the shipping name field isn't being validated that a full name was entered http://wp.mu/9e8
+- Fixed: can't unselect shipping options when using UPS gateway
+- Removed Parcel Post shipping option from USPS shipping gateway as this only available through retail outlets
+- New: emails are now sent as HTML - fixes issues with html entities displaying improperly in emails
+
+2.9.4.3
+----------------------------------------------------------------------
+- Fixed: admin bar shows wrong site than what is currently being viewed in multisite setup
+- Fixed: receiving errors when checking out using Fedex http://wp.mu/9c2
+- Fixed: when using UPS shipping, cart is showing one shipping rate while a different rate is being applied to the orders http://wp.mu/9c3
+- Fixed: [mp_related_products] some times causes product categories/tags to not display http://wp.mu/9ce
+- Fixed: PHP warning on product category/tag page
+- Fixed: when changing categories some times no products will display even though there are products in the selected category
+- Fixed: PayPal network settings don't save
+- Fixed: item price in cart is wrong http://wp.mu/9cj
+- Fixed: when using prices inclusive of tax and also taxing shipping fees the total tax is calculated incorrectly http://wp.mu/9cs
+
+2.9.4.2
+----------------------------------------------------------------------
+- Fixed: dashboard stats widget includes orders that are trashed
+- Fixed: can't edit user shipping/billing info on user edit screen
+- Fixed: tax breakdown doesn't display when using tax-inclusive pricing http://wp.mu/9bu
+- Fixed: special characters show as html entities in emails
+- Fixed: errors when checking out using Authorize.net gateway http://wp.mu/9bv
+
+2.9.4.1
+----------------------------------------------------------------------
 - Fixed: product list widget doesn't show price for products with variations http://wp.mu/9ai
 - Fixed: spelling error in shipping settings http://wp.mu/9aj
 - Fixed: lightbox no longer works on product images
@@ -844,4 +897,4 @@ Change Log:
 - Initial Release
 
 
-127451-1398945516-au
+319485-1401983162-au

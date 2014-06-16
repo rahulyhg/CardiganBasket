@@ -113,15 +113,18 @@ class MP_Gateway_CubePoints extends MP_Gateway_API {
     }
     $total = array_sum($totals);
 
-	  //shipping line
-	  if ( ($shipping_price = $mp->shipping_price()) !== false ) {
-	    $total = $total + $shipping_price;
-	  }
+		//shipping line
+    $shipping_tax = 0;
+    if ( ($shipping_price = $mp->shipping_price(false)) !== false ) {
+			$total += $shipping_price;
+			$shipping_tax = ($mp->shipping_tax_price($shipping_price) - $shipping_price);
+    }
 
-	  //tax line
-	  if ( ($tax_price = $mp->tax_price()) !== false ) {
-	    $total = $total + $tax_price;
-	  }
+    //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
+    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+    	$tax_price = ($mp->tax_price(false) + $shipping_tax);
+			$total += $tax_price;
+    }
 
 	  //get CubePoints user
 	  $uid = cp_currentUser();

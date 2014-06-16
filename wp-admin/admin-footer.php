@@ -26,7 +26,7 @@ if ( !defined('ABSPATH') )
 	?>
 	<p id="footer-left" class="alignleft">
 		<?php
-		/*$text = sprintf( __( 'Thank you for creating with <a href="%s">WordPress</a>.' ), __( 'https://wordpress.org/' ) ); MD*/
+		//$text = sprintf( __( 'Thank you for creating with <a href="%s">WordPress</a>.' ), __( 'https://wordpress.org/' ) );
 		/**
 		 * Filter the "Thank you" text displayed in the admin footer.
 		 *
@@ -34,7 +34,7 @@ if ( !defined('ABSPATH') )
 		 *
 		 * @param string $text The content that will be printed.
 		 */
-		/*echo apply_filters( 'admin_footer_text', '<span id="footer-thankyou">' . $text . '</span>' ); md*/
+		//echo apply_filters( 'admin_footer_text', '<span id="footer-thankyou">' . $text . '</span>' );
 		?>
 	</p>
 	<p id="footer-upgrade" class="alignright">
@@ -51,7 +51,7 @@ if ( !defined('ABSPATH') )
 		 *
 		 * @param string $content The content that will be printed.
 		 */
-	/*	echo apply_filters( 'update_footer', '' ); MD */
+		//echo apply_filters( 'update_footer', '' );
 		?>
 	</p>
 	<div class="clear"></div>

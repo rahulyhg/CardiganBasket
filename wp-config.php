@@ -19,10 +19,10 @@
 define('DB_NAME', 'cardiganbasket');
 
 /** MySQL database username */
-define('DB_USER', 'cardiganbasket');
+define('DB_USER', 'DATABASE_USERNAME_GOES_HERE');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'mrlnottingham1!');
+define('DB_PASSWORD', 'PASSWORD_GOES_HERE');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');

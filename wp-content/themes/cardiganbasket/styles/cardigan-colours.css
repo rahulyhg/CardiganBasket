@@ -28,7 +28,7 @@ color:#ffffff !important;
 }
 
 #site-logo{
-color:#ffffff;text-shadow:-2px -2px 0px #3d666e;
+color:#ffffff;/*text-shadow:-2px -2px 0px #3d666e;*/
 }
 
 a.mp_cart_direct_checkout_link:hover{
@@ -52,7 +52,7 @@ border-bottom:1px solid #497881;
 
 #branding-wrapper,
 .nav .current a, .nav li:hover > a, .nav li.current_page_item a, .nav li:hover li a{
-background:#504b43;/*dddddd;*/
+background:#f7f7f7;/*dddddd;*/
 color:#ffffff;
 }
 

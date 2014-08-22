@@ -314,7 +314,7 @@ class MP_Gateway_AuthorizeNet_AIM extends MP_Gateway_API {
             $mp->cart_checkout_error('Please enter your State/Province/Region.', 'state');
 
         if (!$mp->is_valid_zip($_POST['zip'], $_POST['country']))
-            $mp->cart_checkout_error('Please enter a valid Zip/Postal Code.', 'zip');
+            $mp->cart_checkout_error('Please enter a valid Postal Code. SA43 only.', 'zip');
 
         if (empty($_POST['country']) || strlen($_POST['country']) != 2)
             $mp->cart_checkout_error('Please enter your Country.', 'country');
@@ -527,7 +527,7 @@ class MP_Gateway_AuthorizeNet_AIM extends MP_Gateway_API {
 	      }
 
 	      //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
-	      if ( ! $this->get_setting('tax->tax_inclusive') ) {
+	      if ( ! $mp->get_setting('tax->tax_inclusive') ) {
 	      	$tax_price = ($mp->tax_price(false) + $shipping_tax);
 					$total += $tax_price;
 	      }

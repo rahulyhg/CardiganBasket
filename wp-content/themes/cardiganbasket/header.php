@@ -32,22 +32,32 @@
 			<?php endif; ?>
 			<div id="wrapper">
 						<div id="header">
-								    <a href="http://cardiganbasket.co.uk"><img src="<?php bloginfo('template_directory'); ?>/images/logo-navbar-yellow.png" width="160px" height="31px" /></a>
-						    
-					    <div id="orders-and-deliveries">
-					    	<p> Order Deadlines: Thursdays 5pm  |  Deliveries: Friday Evenings
+								    <a href="http://cardiganbasket.co.uk"><img src="<?php bloginfo('template_directory'); ?>/images/logo-navbar-yellow.png" width="235px" height="31px" /></a>
+						
+						<!--    
+					    <div id="we-deliver">
+					    	<img src="<?php bloginfo('template_directory'); ?>/images/van_icon.png" width="43px" height="29px"  /><p> We only deliver to SA43 areas in Cardigan</p>
 					    </div>
+					    -->
 							
 						<nav>
 							<ul>
-					            <li><a href="http://cardiganbasket.co.uk/">Home</a></li>
+					          <!--  <li><a href="http://cardiganbasket.co.uk/">Home</a></li> -->
 					            <li><a href="http://cardiganbasket.co.uk/about/">About</a></li>
+					            <li><a href="http://cardiganbasket.co.uk/deliveries/">Deliveries</a></li>
 					            <li><a href="http://cardiganbasket.co.uk/join/">Join</a></li>
 					            <li><a href="http://cardiganbasket.co.uk/wp-login.php">Sign In</a></li>
 					        </ul>
 					    </nav>
 									
 				<div class="clear"></div>
+				
+				<!--
+				<div id="orders-and-deliveries">
+					   <p> Order Deadlines: Thursdays 5pm  |  Deliveries: Friday Evenings </p>
+				</div>
+				-->
+				
 
 				<div id="header-tools">
 					<?php if ( class_exists( 'MarketPress' ) ) {
@@ -87,13 +97,14 @@
 									if ($showpicker == "Yes"){
 								?>
 						<div id="mp-storepicker">
-							<?php _e( 'Pick a store:', 'framemarket' ) ?>&nbsp;&nbsp;<?php framemarket_listall_shops(); ?>
+							<?php _e( 'Browse by shop:', 'framemarket' ) ?>&nbsp;&nbsp;<?php framemarket_listall_shops(); ?>
 						</div>
 						<?php } ?>
 						<?php } ?>
 						<?php
 					}
 					?>
+					
 									
 					
 					<?php
@@ -121,6 +132,10 @@
 					<?php endif ?>
 					
 					
+				</div>
+				
+				<div id="orders-and-deliveries">
+					   <p> <b>Order Deadlines:</b> Wednesday 5pm  |  <b>Deliveries:</b> Friday's 3pm - 8pm </p>
 				</div>
 		
 					
@@ -179,7 +194,12 @@
 						<div id="site-logo"><a href="<?php echo home_url(); ?>"><?php _e( 'gridmarket', 'framemarket' ) ?></a></div>
 						<?php
 					}
-			*/		?>
+			*/		
+					?>
+					<div id="site-logo">
+						<img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="42px" height="42px"/><h1><?php echo bloginfo('name'); ?></h1>
+					</div>
+					
 					<div id="site-advert">
 						<?php
 						$options = get_option('framemarket_theme_options');

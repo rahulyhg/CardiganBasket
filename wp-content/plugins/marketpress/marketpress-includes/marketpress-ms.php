@@ -1479,10 +1479,13 @@ function _mp_global_products_html_list( $results, $args ) {
 				$product_content = mp_product_image(false, 'list', $post->ID, $args['thumbnail_size']);
 			}
 
-			if ( $mp->get_setting('show_excerpt') ) {
+			if ( $args['text'] == 'excerpt' ) {
 				$product_content .= $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID);
+			} elseif ( $args['text'] == 'content' ) {
+				$product_content .= get_the_content();
 			}
 
+							
 			$html .= apply_filters('mp_product_list_content', $product_content, $post->ID);
 			$html .= mp_pinit_button($post->ID,'all_view');
 			$html .= '
@@ -1497,7 +1500,7 @@ function _mp_global_products_html_list( $results, $args ) {
 			}
 
 			//button
-			$meta .= mp_buy_button(false, 'list', $post->ID);
+			$meta .= '<a class="mp_link_buynow" href="' . get_permalink($post->ID) . '">' . __('Buy Now &raquo;', 'mp') . '</a>';
 			$html .= apply_filters('mp_product_list_meta', $meta, $post->ID);
 			$html .= '
 						</div>
@@ -1566,7 +1569,7 @@ function _mp_global_products_html_grid( $results, $args ) {
 
 					<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
 						' . (( $args['show_price'] ) ? mp_product_price(false, $post->ID) : '') . '
-						' . mp_buy_button(false, 'list', $post->ID) . '
+						<a class="mp_link_buynow" href="' . get_permalink($post->ID) . '">' . __('Buy Now &raquo;', 'mp') . '</a>
 						' . apply_filters('mp_product_list_meta', '', $post->ID) . '
 					</div>
 
@@ -1740,8 +1743,8 @@ class MarketPress_Global_Product_List extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] = wp_filter_nohtml_kses( $new_instance['title'] );
-		$instance['custom_text'] = wp_filter_kses( $new_instance['custom_text'] );
+		$instance['title'] = strip_tags(stripslashes($new_instance['title']));
+		$instance['custom_text'] = stripslashes(wp_filter_kses($new_instance['custom_text']));
 
 		$instance['per_page'] = intval($new_instance['per_page']);
 		$instance['order_by'] = $new_instance['order_by'];

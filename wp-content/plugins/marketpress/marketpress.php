@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: MarketPress
-Version: 2.9.4.6
+Version: 2.9.5.2
 Plugin URI: https://premium.wpmudev.org/project/e-commerce/
 Description: The complete WordPress ecommerce plugin - works perfectly with BuddyPress and Multisite too to create a social marketplace, where you can take a percentage! Activate the plugin, adjust your settings then add some products to your store.
 Author: WPMU DEV
@@ -28,8 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA	 02111-1307	 USA
 */
 
 class MarketPress {
-
-	var $version = '2.9.4.6';
+	var $version = '2.9.5.2';
 	var $location;
 	var $plugin_dir = '';
 	var $plugin_url = '';
@@ -49,7 +48,7 @@ class MarketPress {
 	var $weight_printed = false;
 	var $defaults = array(
 		/*	IMPORTANT! DO NOT CHANGE THE ORDER OF THESE ARGUMENTS!
-				REQUIRED FOR BACKWARDS COMPATABILITY. IF YOU NEED TO
+				REQUIRED FOR BACKWARDS COMPATIBILITY. IF YOU NEED TO
 				ADD AN ADDITIONAL DEFAULT ADD IT TO THE END OF EACH ARRAY */
 		'list_products' => array(
 			'echo' => true,
@@ -100,10 +99,10 @@ class MarketPress {
 	 include_once( $this->plugin_dir . 'marketpress-stats.php' );
 
 	 //load sitewide features if WPMU
-	 if (is_multisite()) {
+	 if ( is_multisite() ) {
 		include_once( $this->plugin_dir . 'marketpress-ms.php' );
 		$network_settings = get_site_option( 'mp_network_settings' );
-			if ( $network_settings['global_cart'] )
+			if ( isset($network_settings['global_cart']) && $network_settings['global_cart'] )
 				$this->global_cart = true;
 	 }
 
@@ -160,6 +159,7 @@ class MarketPress {
 		add_filter( 'query_vars', array(&$this, 'add_queryvars') );
 		add_action( 'option_rewrite_rules', array(&$this, 'check_rewrite_rules') );
 		add_action( 'init', array(&$this, 'flush_rewrite_check'), 99 );
+
 		if ( MP_HIDE_MENUS === false ) { //allows you to hide MP menus
 			add_filter( 'wp_list_pages', array(&$this, 'filter_list_pages'), 10, 2 );
 			add_filter( 'wp_nav_menu_objects', array(&$this, 'filter_nav_menu'), 10, 2 );
@@ -173,10 +173,10 @@ class MarketPress {
 		add_action( 'pre_get_posts', array(&$this, 'handle_gateway_returns'), 1 );
 
 		//Store cart handling
-	 add_action( 'template_redirect', array(&$this, 'store_script') ); //only on front pages
-	 /* use both actions so logged in and not logged in users can send this AJAX request */
-	 add_action( 'wp_ajax_nopriv_mp-update-cart', array(&$this, 'update_cart') );
-	 add_action( 'wp_ajax_mp-update-cart', array(&$this, 'update_cart') );
+		add_action( 'template_redirect', array(&$this, 'store_script') ); //only on front pages
+		/* use both actions so logged in and not logged in users can send this AJAX request */
+		add_action( 'wp_ajax_nopriv_mp-update-cart', array(&$this, 'update_cart') );
+		add_action( 'wp_ajax_mp-update-cart', array(&$this, 'update_cart') );
 		add_action( 'wp_ajax_mp-province-field', 'mp_province_field' ); //province field callback for shipping form
 		add_action( 'wp_ajax_nopriv_mp-province-field', 'mp_province_field' );
 		add_action( 'wp_ajax_mp-orders-export', array(&$this, 'export_orders_csv') );
@@ -189,8 +189,8 @@ class MarketPress {
 		add_action( 'after_setup_theme', array(&$this, 'post_thumbnails'), 9999 );
 
 		//Add widgets
-		if (!$this->get_setting('disable_cart', 0))
-			 add_action( 'widgets_init', create_function('', 'return register_widget("MarketPress_Shopping_Cart");') );
+		if ( ! $this->get_setting('disable_cart', 0) )
+			add_action( 'widgets_init', create_function('', 'return register_widget("MarketPress_Shopping_Cart");') );
 
 		add_action( 'widgets_init', create_function('', 'return register_widget("MarketPress_Product_List");') );
 		add_action( 'widgets_init', create_function('', 'return register_widget("MarketPress_Categories_Widget");') );
@@ -511,55 +511,87 @@ Thanks again!", 'mp')
 	}
 
 	function load_shipping_plugins() {
-
-	 //save shipping method. Put here to be before plugin is loaded
-	 if (isset($_POST['shipping_settings'])) {
-		$settings = get_option('mp_settings');
+		//save shipping method. Put here to be before plugin is loaded
+		if (isset($_POST['shipping_settings'])) {
+		 	$settings = get_option('mp_settings');
 			$settings['shipping']['method'] = $_POST['mp']['shipping']['method'];
 			$settings['shipping']['calc_methods'] = isset($_POST['mp']['shipping']['calc_methods']) ? $_POST['mp']['shipping']['calc_methods'] : array();
-		update_option('mp_settings', $settings);
-	 }
-
-	 //get shipping plugins dir
-	 $dir = $this->plugin_dir . 'plugins-shipping/';
-
-	 //search the dir for files
-	 $shipping_plugins = array();
-		if ( !is_dir( $dir ) )
-			return;
-		if ( ! $dh = opendir( $dir ) )
-			return;
-		while ( ( $plugin = readdir( $dh ) ) !== false ) {
-			if ( substr( $plugin, -4 ) == '.php' )
-				$shipping_plugins[] = $dir . $plugin;
+			update_option('mp_settings', $settings);
 		}
-		closedir( $dh );
-		sort( $shipping_plugins );
+
+		//get shipping plugins dir
+		$dir = $this->plugin_dir . 'plugins-shipping/';
+
+		//search the dir for files
+		$shipping_plugins = array();
+		if ( ! is_dir($dir) ) {
+			return;
+		}
+
+		if ( ! $dh = opendir($dir) ) {
+			return;
+		}
+
+		while ( ($plugin = readdir($dh)) !== false ) {
+			if ( substr( $plugin, -4 ) == '.php' ) {
+				$shipping_plugins[] = $dir . $plugin;
+			}
+		}
+
+		closedir($dh);
+		sort($shipping_plugins);
 
 		//include them suppressing errors
-		foreach ($shipping_plugins as $file)
-		@include_once( $file );
+		foreach ( $shipping_plugins as $file ) {
+			@include_once($file);
+		}
 
 		//allow plugins from an external location to register themselves
 		do_action('mp_load_shipping_plugins');
 
-	 //load chosen plugin class
-	 global $mp_shipping_plugins, $mp_shipping_active_plugins;
-		$shipping = $this->get_setting('shipping');
+		//load chosen plugin class
+		global $mp_shipping_plugins, $mp_shipping_active_plugins;
 
-		if ($this->get_setting('shipping->method') == 'calculated') {
-			//load just the calculated ones
-			foreach ((array)$mp_shipping_plugins as $code => $plugin) {
-				if ($plugin[2]) {
-					if ( isset($shipping['calc_methods'][$code]) && class_exists($plugin[0]) && !$plugin[3] )
-						$mp_shipping_active_plugins[$code] = new $plugin[0];
+		if ( ! is_admin() && $this->global_cart ) {
+			/* global cart is being used so we need to go through the cart contents and
+			get the active shipping method for each blog in the cart */
+
+			$cart = $this->get_cart_contents(true);
+			$blogs = array_keys($cart);
+			$current_blog_id = get_current_blog_id();
+			$methods = array();
+
+			foreach ( $blogs as $blog_id ) {
+				switch_to_blog($blog_id);
+
+				$shipping = $this->get_setting('shipping');
+
+				//load only selected shipping method
+				$class = isset($mp_shipping_plugins[$shipping['method']][0]) ? $mp_shipping_plugins[$shipping['method']][0] : '';
+				if ( class_exists($class) ) {
+					$mp_shipping_active_plugins[$shipping['method']] = new $class;
 				}
 			}
+
+			switch_to_blog($current_blog_id);
 		} else {
-			//load only and all calculated ones
-			$class = isset($mp_shipping_plugins[$shipping['method']][0]) ? $mp_shipping_plugins[$shipping['method']][0] : '';
-			if (class_exists($class))
-				$mp_shipping_active_plugins[$shipping['method']] = new $class;
+			$shipping = $this->get_setting('shipping');
+			if ( $this->get_setting('shipping->method') == 'calculated' ) {
+				//load just the calculated ones
+				foreach ( (array) $mp_shipping_plugins as $code => $plugin ) {
+					if ( $plugin[2] ) {
+						if ( isset($shipping['calc_methods'][$code]) && class_exists($plugin[0]) && !$plugin[3] ) {
+							$mp_shipping_active_plugins[$code] = new $plugin[0];
+						}
+					}
+				}
+			} else {
+				//load only selected shipping method
+				$class = isset($mp_shipping_plugins[$shipping['method']][0]) ? $mp_shipping_plugins[$shipping['method']][0] : '';
+				if ( class_exists($class) ) {
+					$mp_shipping_active_plugins[$shipping['method']] = new $class;
+				}
+			}
 		}
 	}
 
@@ -607,8 +639,6 @@ Thanks again!", 'mp')
 	 global $mp_gateway_plugins, $mp_gateway_active_plugins;
 	 $gateways = $this->get_setting('gateways');
 	 $network_settings = get_site_option( 'mp_network_settings' );
-	
-	
 
 	 foreach ((array)$mp_gateway_plugins as $code => $plugin) {
 		$class = $plugin[0];
@@ -1181,6 +1211,8 @@ Thanks again!", 'mp')
 			remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
 			remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 			add_action('genesis_entry_content', 'the_content');
+			// ultimatum fixes Run this action before loop starts to print
+			add_action('ultimatum_before_post_title','ultimatum_fixes_forMP',1);
 		}
 
 		$this->is_shop_page = true;
@@ -1274,6 +1306,8 @@ Thanks again!", 'mp')
 				add_filter( 'bp_page_title', array(&$this, 'page_title_output'), 99 );
 				add_filter( 'wp_title', array(&$this, 'wp_title_output'), 19, 3 );
 			add_filter( 'the_content', array(&$this, 'checkout_theme'), 99 );
+			// ultimatum fixes Run this action before loop starts to print
+			add_action('ultimatum_before_post_title','ultimatum_fixes_forMP',1);
 		}
 
 		$wp_query->is_page = 1;
@@ -1303,6 +1337,8 @@ Thanks again!", 'mp')
 			add_filter( 'bp_page_title', array(&$this, 'page_title_output'), 99 );
 			add_filter( 'wp_title', array(&$this, 'wp_title_output'), 19, 3 );
 			add_filter( 'the_content', array(&$this, 'orderstatus_theme'), 99 );
+			// ultimatum fixes Run this action before loop starts to print
+			add_action('ultimatum_before_post_title','ultimatum_fixes_forMP',1);
 		}
 
 		$wp_query->is_page = 1;
@@ -1366,12 +1402,16 @@ Thanks again!", 'mp')
 			remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
 			remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 			add_action('genesis_entry_content', 'the_content');
+			// ultimatum fixes Run this action before loop starts to print
+			add_action('ultimatum_before_post_title','ultimatum_fixes_forMP',1);
 		}
 
 		$wp_query->is_page = 1;
 		$wp_query->is_404 = null;
 		$wp_query->post_count = 1;
 		$this->is_shop_page = true;
+		// ultimatum fixes Ultimatum loop checks status with if is_singular() which was missed here
+		$wp_query->is_singular = 1;
 	 }
 
 	 //load proper theme for product category or tag listings
@@ -1444,6 +1484,8 @@ Thanks again!", 'mp')
 			add_filter( 'wp_title', array(&$this, 'wp_title_output'), 19, 3 );
 		} else {
 			$wp_query->post_count = 1;
+			// Ultimatum fix for making page singular so that loop decides it as singular and acts so.
+			$wp_query->is_singular = true;
 
 			//load theme's page.php template
 			$this->product_taxonomy_template = locate_template(array('page.php', 'index.php'));
@@ -1463,6 +1505,8 @@ Thanks again!", 'mp')
 			remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
 			remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 			add_action('genesis_entry_content', 'the_content');
+			// ultimatum fixes Run this action before loop starts to print
+			add_action('ultimatum_before_post_title','ultimatum_fixes_forMP',1);
 		}
 
 		$this->is_shop_page = true;
@@ -2571,10 +2615,22 @@ Thanks again!", 'mp')
 	}
 
 	function is_valid_zip( $zip, $country ) {
-		if ( array_key_exists($country, $this->countries_no_postcode) )
+		//if ( array_key_exists($country, $this->countries_no_postcode) )
 			//given country doesn't use post codes so zip is always valid
-			return true;
-
+		//	return true;
+		// Mark Davies - Taken this out because we are only dealing with Cardigan Postal Codes, so just check if it is an SA43 post code.
+		
+		//UK ^[A-Z]?[A-Z][0-9][A-Z0-9]?\s[0-9][A-Z]{2}$
+		
+		//Get the first 4 characters in the post/zip code
+		$zip_first4 = strtolower(substr( $zip, 0, 4));
+		$cardigan_code = "sa43";
+		
+		//if the first 4 characters is not sa43 return false
+		if ($zip_first4 != $cardigan_code)
+			return false;
+			
+		
 		if ( empty($zip) )
 			//no post code provided
 			return false;
@@ -2591,8 +2647,9 @@ Thanks again!", 'mp')
 		global $mp_shipping_active_plugins;
 
 		//grab cart for just this blog
-		if (!$cart)
+		if ( ! $cart ) {
 			$cart = $this->get_cart_contents();
+		}
 
 	 //get total after any coupons
 	 $coupon_code = $this->get_coupon_code();
@@ -2613,7 +2670,7 @@ Thanks again!", 'mp')
 	 $state = isset($_SESSION['mp_shipping_info']['state']) ? $_SESSION['mp_shipping_info']['state'] : (isset($meta['state']) ? $meta['state'] : '');
 	 $zip = isset($_SESSION['mp_shipping_info']['zip']) ? $_SESSION['mp_shipping_info']['zip'] : (isset($meta['zip']) ? $meta['zip'] : '');
 	 $country = isset($_SESSION['mp_shipping_info']['country']) ? $_SESSION['mp_shipping_info']['country'] : (isset($meta['country']) ? $meta['country'] : '');
-	$selected_option = isset($_SESSION['mp_shipping_info']['shipping_sub_option']) ? $_SESSION['mp_shipping_info']['shipping_sub_option'] : null;
+	 $selected_option = isset($_SESSION['mp_shipping_info']['shipping_sub_option']) ? $_SESSION['mp_shipping_info']['shipping_sub_option'] : null;
 
 	 //check required fields
 	 if ( empty($address1) || empty($city) || !$this->is_valid_zip($zip, $country) || empty($country) || !(is_array($cart) && count($cart)) )
@@ -2625,9 +2682,6 @@ Thanks again!", 'mp')
 	 } else if ( $this->get_setting('shipping->method') == 'calculated' && isset($_SESSION['mp_shipping_info']['shipping_option']) && isset($mp_shipping_active_plugins[$_SESSION['mp_shipping_info']['shipping_option']]) ) {
 			//shipping plugins tie into this to calculate their shipping cost
 			$price = apply_filters( 'mp_calculate_shipping_'.$_SESSION['mp_shipping_info']['shipping_option'], 0, $total, $cart, $address1, $address2, $city, $state, $zip, $country, $selected_option );
-			if ( $this->get_setting('tax->tax_inclusive') && $this->get_setting('tax->tax_shipping') ) {
-				$price = $price * (1 + (float) $this->get_setting('tax->rate'));
-			}
 		} else {
 			//shipping plugins tie into this to calculate their shipping cost
 			$price = apply_filters( 'mp_calculate_shipping_'.$this->get_setting('shipping->method'), 0, $total, $cart, $address1, $address2, $city, $state, $zip, $country, $selected_option );
@@ -2647,10 +2701,6 @@ Thanks again!", 'mp')
 	 //merge
 	 $price = round($price + $extra, 2);
 
-		if ( $this->get_setting('tax->tax_inclusive') && $this->get_setting('tax->tax_shipping') ) {
-			$price = $price / (1 + (float) $this->get_setting('tax->rate'));
-		}
-
 		//boot if shipping plugin didn't return at least 0
 		if (empty($price))
 			return false;
@@ -2658,7 +2708,7 @@ Thanks again!", 'mp')
 		if ($format)
 			return $this->format_currency('', $price);
 		else
-			return $price;
+			return round($price, 2);
 	}
 
 	//returns the calculated price for shipping after tax. For display only.
@@ -2733,10 +2783,9 @@ Thanks again!", 'mp')
 			$price = 0;
 
 	 $price = apply_filters( 'mp_shipping_tax_price', $price, $shipping_price, $country, $state );
+	 $price += $shipping_price;
 
-		$price += $shipping_price;
-
-	 return $price;
+	 return round($price, 2);
 	}
 
 	function get_display_shipping($order) {
@@ -2949,15 +2998,15 @@ Thanks again!", 'mp')
 
 	 //check cache
 	 if ($this->cart_cache) {
-		if ($global) {
+		if ( $global ) {
 			 return $this->cart_cache;
+		} else {
+			if (isset($this->cart_cache[$blog_id])) {
+				return $this->cart_cache[$blog_id];
 			} else {
-				if (isset($this->cart_cache[$blog_id])) {
-					return $this->cart_cache[$blog_id];
-				} else {
-					return array();
-				}
+				return array();
 			}
+		}
 	 }
 
 	 $global_cart = $this->get_cart_cookie(true);
@@ -3070,7 +3119,7 @@ Thanks again!", 'mp')
 					<?php _e('There are no items in your cart.', 'mp') ?>
 				</div>
 				<div id="mp_cart_actions_widget">
-					<a class="mp_store_link" href="<?php mp_products_link(true, true); ?>"><?php _e('Browse Products &raquo;', 'mp') ?></a>  
+					<a class="mp_store_link" href="<?php mp_products_link(true, true); ?>"><?php _e('Browse Products &raquo;', 'mp') ?></a>
 				</div>
 			<?php
 			exit;
@@ -3306,7 +3355,7 @@ Thanks again!", 'mp')
 					$_POST['state'] = strtoupper($_POST['state']);
 
 				if (!$this->is_valid_zip($_POST['zip'], $_POST['country'])) //no postal code for country
-					$this->cart_checkout_error( __('Please enter a valid Zip/Postal Code.', 'mp'), 'zip');
+					$this->cart_checkout_error( __('Please enter a valid Postal Code. SA43 Only.', 'mp'), 'zip');
 
 				if (empty($_POST['country']) || strlen($_POST['country']) != 2)
 					$this->cart_checkout_error( __('Please enter your Country.', 'mp'), 'country');
@@ -4296,7 +4345,7 @@ Thanks again!", 'mp')
 				$filetype = 'application/octet-stream';
 			}
 
-			ob_end_clean(); //kills any buffers set by other plugins
+			ob_clean(); //kills any buffers set by other plugins
 
       if( isset($_SERVER['HTTP_RANGE']) ) {
       	//partial download headers
@@ -4331,10 +4380,9 @@ Thanks again!", 'mp')
 				while ( ! feof($handle) && ( connection_status() === CONNECTION_NORMAL ) ) {
 					$buffer = fread( $handle, $chunksize );
 					echo $buffer;
-					ob_flush();
-					flush();
 				}
 
+				ob_end_flush();
 				fclose($handle);
 			} else {
 				ob_clean();
@@ -4396,7 +4444,7 @@ Thanks again!", 'mp')
 		global $current_user;
 		$fields = array( 'email', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone' );
 
-		if (isset($_REQUEST['user_id'])) {
+		if ( isset($_REQUEST['user_id'])) {
 			$user_id = $_REQUEST['user_id'];
 		} else {
 			$user_id = $current_user->ID;
@@ -4405,9 +4453,7 @@ Thanks again!", 'mp')
 		//initialize variables
 		$meta = get_user_meta($user_id, 'mp_shipping_info', true);
 		foreach ( $fields as $field ) {
-			if ( ! empty($_SESSION['mp_shipping_info'][$field]) ) {
-				$$field = $_SESSION['mp_shipping_info'][$field];
-			} elseif ( !empty($meta[$field]) ) {
+			if ( ! empty($meta[$field]) ) {
 				$$field = $meta[$field];
 			} else {
 				$$field = '';
@@ -4454,7 +4500,7 @@ Thanks again!", 'mp')
 			<input size="15" id="mp_shipping_info_state" name="mp_shipping_info[state]" type="text" value="<?php echo esc_attr($state); ?>" /></td>
 		</tr>
 		<tr>
-			<th align="right"><label for="mp_shipping_info_zip"><?php _e('Postal/Zip Code:', 'mp'); ?>&nbsp;</label></th><td>
+			<th align="right"><label for="mp_shipping_info_zip"><?php _e('Postal Code:', 'mp'); ?>&nbsp;</label></th><td>
 			<?php echo apply_filters( 'mp_shipping_info_error_zip', ''); ?>
 			<input size="10" id="mp_shipping_info_zip" name="mp_shipping_info[zip]" type="text" value="<?php echo esc_attr($zip); ?>" /></td>
 		</tr>
@@ -4530,7 +4576,7 @@ Thanks again!", 'mp')
 			<input size="15" id="mp_billing_info_state" name="mp_billing_info[state]" type="text" value="<?php echo esc_attr($state); ?>" /></td>
 		</tr>
 		<tr>
-			<th align="right"><label for="mp_billing_info_zip"><?php _e('Postal/Zip Code:', 'mp'); ?>&nbsp;</label></th><td>
+			<th align="right"><label for="mp_billing_info_zip"><?php _e('Postal Code:', 'mp'); ?>&nbsp;</label></th><td>
 			<?php echo apply_filters( 'mp_billing_info_error_zip', ''); ?>
 			<input size="10" id="mp_billing_info_zip" name="mp_billing_info[zip]" type="text" value="<?php echo esc_attr($zip); ?>" /></td>
 		</tr>
@@ -4606,7 +4652,7 @@ Thanks again!", 'mp')
 		remove_all_filters( 'wp_mail_from_name' );
 
 		//add our own filters
-		add_filter( 'wp_mail_from_name', create_function('', 'return get_bloginfo("name");') );
+		add_filter( 'wp_mail_from_name', create_function('', 'return wp_specialchars_decode(get_bloginfo("name"), ENT_QUOTES);') );
 		add_filter( 'wp_mail_from', create_function('', '$settings = get_option("mp_settings");return isset($settings["store_email"]) ? $settings["store_email"] : get_option("admin_email");') );
 
 		//convert all newlines and tabs to their approriate html markup
@@ -4700,7 +4746,7 @@ Thanks again!", 'mp')
 			$shipping_info .= "\n" . __('City:', 'mp') . ' ' . $order->mp_shipping_info['city'];
 			if (!empty($order->mp_shipping_info['state']))
 				$shipping_info .= "\n" . __('State/Province/Region:', 'mp') . ' ' . $order->mp_shipping_info['state'];
-			$shipping_info .= "\n" . __('Postal/Zip Code:', 'mp') . ' ' . $order->mp_shipping_info['zip'];
+			$shipping_info .= "\n" . __('Postal Code:', 'mp') . ' ' . $order->mp_shipping_info['zip'];
 			$shipping_info .= "\n" . __('Country:', 'mp') . ' ' . $order->mp_shipping_info['country'];
 			if (!empty($order->mp_shipping_info['phone']))
 				$shipping_info .= "\n" . __('Phone Number:', 'mp') . ' ' . $order->mp_shipping_info['phone'];
@@ -4751,8 +4797,8 @@ Thanks again!", 'mp')
 		$tracking_url = apply_filters('wpml_marketpress_tracking_url', mp_orderstatus_link(false, true) . $order->post_title . '/');
 
 	 //setup filters
-	 $search = array('CUSTOMERNAME', 'ORDERID', 'ORDERINFO', 'ORDERINFOSKU', 'SHIPPINGINFO', 'PAYMENTINFO', 'TOTAL', 'TRACKINGURL', 'ORDERNOTES');
-	 $replace = array($order->mp_shipping_info['name'], $order->post_title, $order_info, $order_info_sku, $shipping_info, $payment_info, $order_total, $tracking_url, $order_notes);
+	 $search = array('CUSTOMERNAME', 'ORDERID', 'ORDERINFOSKU', 'ORDERINFO', 'SHIPPINGINFO', 'PAYMENTINFO', 'TOTAL', 'TRACKINGURL', 'ORDERNOTES');
+	 $replace = array($order->mp_shipping_info['name'], $order->post_title, $order_info_sku, $order_info, $shipping_info, $payment_info, $order_total, $tracking_url, $order_notes);
 
 		//escape for sprintf() if required
 		if ($escape) {
@@ -5479,7 +5525,7 @@ Notification Preferences: %s', 'mp');
 				<?php } ?>
 
 			 	<tr>
-			 	<td align="right"><?php _e('Postal/Zip Code:', 'mp'); ?></td>
+			 	<td align="right"><?php _e('Postal Code:', 'mp'); ?></td>
 				<td><?php esc_attr_e($order->mp_shipping_info['zip']); ?></td>
 			 	</tr>
 
@@ -7833,6 +7879,21 @@ Notification Preferences: %s', 'mp');
 
 		echo '</div>';
 
+	}
+
+	/*
+	 * By Onur Demir aka @xenous from Ultimatum Theme
+	 * Function to fix all issues with Ultimatum Loop
+	 * ultimatum fixes
+	 */
+	function ultimatum_fixes_forMP(){
+		remove_action( 'ultimatum_post_content', 'ultimatum_do_post_content');
+		remove_action('ultimatum_after_post_title','ultimatum_content_item_image');
+		remove_action('ultimatum_before_post_title','ultimatum_content_item_image');
+		remove_action( 'ultimatum_after_post_title', 'ultimatum_post_meta');
+		remove_action( 'ultimatum_after_post_content', 'ultimatum_post_tax');
+		remove_action( 'ultimatum_after_post_content', 'ultimatum_post_meta');
+		add_action('ultimatum_post_content', 'the_content');
 	}
 
 	/**

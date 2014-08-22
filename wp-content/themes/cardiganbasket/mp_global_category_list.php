@@ -16,6 +16,7 @@ get_header();
 					      if (get_query_var('paged'))
 					        $args['page'] = intval(get_query_var('paged'));
 
+
 					      $content = framemarket_mp_list_global_products( $args );
 
 					    } else { //no category set, so show list

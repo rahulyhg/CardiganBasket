@@ -111,7 +111,7 @@ class MP_Gateway_Bitpay extends MP_Gateway_API {
     }
 
     //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
-    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+    if ( ! $mp->get_setting('tax->tax_inclusive') ) {
     	$tax_price = ($mp->tax_price(false) + $shipping_tax);
 			$total += $tax_price;
     }
@@ -418,6 +418,10 @@ class MP_Gateway_Bitpay extends MP_Gateway_API {
 	 *    array. Don't forget to return!
 	 */
 	function process_gateway_settings( $settings ) {
+		$settings['gateways']['bitpay']['fullNotifications'] = ( ! isset($_POST['mp']['gateways']['bitpay']['fullNotifications']) ) ? '' : $_POST['mp']['gateways']['bitpay']['fullNotifications'];
+		$settings['gateways']['bitpay']['iframe'] = ( ! isset($_POST['mp']['gateways']['bitpay']['iframe']) ) ? '' : $_POST['mp']['gateways']['bitpay']['iframe'];
+		$settings['gateways']['bitpay']['debugging'] = ( ! isset($_POST['mp']['gateways']['bitpay']['debugging']) ) ? '' : $_POST['mp']['gateways']['bitpay']['debugging'];
+
 		return $settings;
 	}
 

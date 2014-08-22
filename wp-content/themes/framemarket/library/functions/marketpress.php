@@ -121,6 +121,7 @@ function framemarket_grid_mp_list_products( $echo = true, $paginate = '', $paged
       $content .= '<div '.mp_product_class(false, $class, $post->ID).'>';
       $content .= '<h3 class="mp_product_name"><a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a></h3>';
       $content .= '<div class="mp_product_content">';
+      						
       $product_content = mp_product_image( false, 'list', $post->ID );
       //$product_content .= $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID);
       $content .= apply_filters( 'mp_product_list_content', $product_content, $post->ID );
@@ -195,6 +196,7 @@ function framemarket_mp_list_global_products($args = '') {
 		'text' => 'excerpt',
 		'as_list' => false
 	);
+	
 
   $r = wp_parse_args( $args, $defaults );
   extract( $r );
@@ -302,10 +304,17 @@ function framemarket_mp_list_global_products($args = '') {
       //grab permalink
       $permalink = get_permalink( $product->post_id );
 
-      //grab thumbnail
-      if ($show_thumbnail)
-        $thumbnail = mp_product_image( false, $context, $product->post_id, $thumbnail_size );
+								
 
+      //grab thumbnail
+      if ($show_thumbnail){
+        
+        //$thumbnail .= '<div class="product-photo">';
+        //$thumbnail .='<img src=/wp-content/themes/framemarket/images/locally_made_icon.png width=172px; height=172px; style="position: absolute; z-index:5000" />';
+        $thumbnail = mp_product_image( false, $context, $product->post_id, $thumbnail_size );
+        //$thumbnail .= '</div>';
+		
+		}
       //price
       if ($show_price) {
         if ($context == 'widget')
@@ -319,8 +328,9 @@ function framemarket_mp_list_global_products($args = '') {
       $content .= '<h3 class="mp_product_name"><a href="' . $permalink . '">' . esc_attr($product->post_title) . '</a></h3>';
       $content .= '<div class="mp_product_content">';
 
-      $content .= $thumbnail;
 
+      $content .= $thumbnail;
+      
       $content .= '</div>';
 
       $content .= '<div class="mp_product_meta">';

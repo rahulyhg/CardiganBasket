@@ -5,6 +5,37 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+2.9.5.2
+----------------------------------------------------------------------
+- Added: BN codes to PayPal gateways
+
+2.9.5.1
+----------------------------------------------------------------------
+- Added: UPS shipping gateway now allows admin to choose the appropriate pickup type allowing for more accurate rate requests
+- Fixed: When using global product list the "buy now" button adds the item to a cart that doesn't exist http://wp.mu/a2i
+- Fixed: Shipping costs are being calculated but are not applying when order is processed http://wp.mu/a2h
+- Fixed: Unable to deselect shipping options in Fedex shipping gateway settings http://wp.mu/a0s
+- Fixed: Unable to deselect "use default embedded form" in Stripe gateway settings http://wp.mu/a0t
+- Fixed: Unable to deselect checkboxes in Bitpay gateway settings
+- Fixed: Extra characters at end of admin order notification email http://wp.mu/a0u
+
+2.9.5
+----------------------------------------------------------------------
+- Fixed: When using global cart admin some times loses the ability to change shipping methods
+
+2.9.4.9
+----------------------------------------------------------------------
+- Fixed: File download issue that some users were reporting
+- Fixed: Conflicts with Ultimatum theme http://wp.mu/9tt
+- Fixed: Global Product Widget is showing a description under each product even when "content to show" is set to none http://wp.mu/9u8 
+- Fixed: Shipping not being calculated correctly when using global cart and multiple shipping methods http://wp.mu/a0a
+- Fixed: Issue with shipping/billing fields displaying incorrect values in admin http://wp.mu/a0b
+- Fixed: Double escaping in global product list widget title http://wp.mu/a0e
+
+2.9.4.8
+----------------------------------------------------------------------
+- Fixed: Fatal error in some of the payment gateways
+
 2.9.4.7
 ----------------------------------------------------------------------
 - Fixed: errors when checking out using PayPal and global cart is enabled
@@ -897,4 +928,4 @@ Change Log:
 - Initial Release
 
 
-319485-1401983162-au
+141262-1407758513

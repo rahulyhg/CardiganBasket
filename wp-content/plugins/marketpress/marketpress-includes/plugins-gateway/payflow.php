@@ -195,7 +195,7 @@ class MP_Gateway_Payflow extends MP_Gateway_API {
           </tr>
 
           <tr>
-          <td align="right">'.__('Postal/Zip Code:', 'mp').'*</td><td>
+          <td align="right">'.__('Postal Code:', 'mp').'*</td><td>
         '.apply_filters( 'mp_checkout_error_zip', '' ).'
         <input size="10" id="mp_zip" name="zip" type="text" value="'.esc_attr($zip).'" /></td>
           </tr>
@@ -465,7 +465,7 @@ class MP_Gateway_Payflow extends MP_Gateway_API {
     }
 
     $content .= '<tr>';
-    $content .= '<td align="right">'.__('Postal/Zip Code:', 'mp').'</td>';
+    $content .= '<td align="right">'.__('Postal Code:', 'mp').'</td>';
     $content .= '<td>'.esc_attr($zip).'</td>';
     $content .= '</tr>';
     $content .= '<tr>';
@@ -543,7 +543,7 @@ class MP_Gateway_Payflow extends MP_Gateway_API {
     }
 
     //tax line if tax inclusive pricing is off. It it's on it would screw up the totals
-    if ( ! $this->get_setting('tax->tax_inclusive') ) {
+    if ( ! $mp->get_setting('tax->tax_inclusive') ) {
     	$tax_price = ($mp->tax_price(false) + $shipping_tax);
 			$total += $tax_price;
     }
@@ -551,6 +551,7 @@ class MP_Gateway_Payflow extends MP_Gateway_API {
     // Billing Info
     $payment->setParameter("TENDER", 'C');
     $payment->setParameter("TRXTYPE", 'S');
+	  $payment->setParameter("BUTTONSOURCE", 'incsub_SP');
     $payment->setParameter("AMT", number_format($total, 2, '.', ''));
 
     $payment->setParameter("CURRENCY",$this->currencyCode);

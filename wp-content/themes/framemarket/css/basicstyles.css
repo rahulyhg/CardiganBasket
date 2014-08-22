@@ -237,6 +237,7 @@ a.mp_cart_direct_checkout_link{font-weight:bold;padding:5px;text-decoration:none
 a.mp_cart_direct_checkout_link:hover{font-weight:bold;padding:5px;text-decoration:none;}
 .mp_product_image_list,.mp_product_image_single,.mp_product_image_widget{border:1px solid #eeeeee;}
 .mp_product_image_single{padding:10px;}
+.local-badge{position:absolute; height:150px; width: 150px;};
 .mp_cart_contents_widget td{padding:5px;}
 .mp_cart_contents_widget th{background:#eeeeee;}
 .mp_cart_contents_widget tr,.mp_cart_contents_widget td,.mp_cart_contents_widget tbody{border:1px solid #666666;}

@@ -385,10 +385,11 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 		$current_blog_id = $blog_id;
 
 		$global_cart = $mp->get_cart_contents(true);
-		if (!$mp->global_cart)	//get subset if needed
-				$selected_cart[$blog_id] = $global_cart[$blog_id];
-		else
-				$selected_cart = $global_cart;
+		if ( ! $mp->global_cart ) {	//get subset if needed
+			$selected_cart[$blog_id] = $global_cart[$blog_id];
+		} else {
+			$selected_cart = $global_cart;
+		}
 
 		$content = '';
 		if ($type == 'checkout-edit') {
@@ -407,46 +408,49 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 				$coupon_code = $mp->get_coupon_code();
 
 				foreach ($selected_cart as $bid => $cart) {
+					if ( is_multisite() ) {
+						switch_to_blog($bid);
+					}
 
-						if (is_multisite())
-								switch_to_blog($bid);
+					foreach ($cart as $product_id => $variations) {
+						foreach ($variations as $variation => $data) {
+							$price = $data['price'] * $data['quantity'];
+							$discount_price = $mp->coupon_value_product($coupon_code, $price, $product_id);
+							$totals[] = $discount_price;
 
-						foreach ($cart as $product_id => $variations) {
-								foreach ($variations as $variation => $data) {
-										$price = $data['price'] * $data['quantity'];
-										$discount_price = $mp->coupon_value_product($coupon_code, $price, $product_id);
-										$totals[] = $discount_price;
+							$content .= '<tr>';
+							$content .= '	 <td class="mp_cart_col_thumb">' . mp_product_image(false, 'widget', $product_id, 50) . '</td>';
+							$content .= '	 <td class="mp_cart_col_product_table"><a href="' . apply_filters('mp_product_url_display_in_cart', $data['url'], $product_id) . '">' . apply_filters('mp_product_name_display_in_cart', $data['name'], $product_id) . '</a>' . '</td>'; // Added WPML
+							$content .= '	 <td class="mp_cart_col_price">';
 
-										$content .= '<tr>';
-										$content .= '	 <td class="mp_cart_col_thumb">' . mp_product_image(false, 'widget', $product_id, 50) . '</td>';
-										$content .= '	 <td class="mp_cart_col_product_table"><a href="' . apply_filters('mp_product_url_display_in_cart', $data['url'], $product_id) . '">' . apply_filters('mp_product_name_display_in_cart', $data['name'], $product_id) . '</a>' . '</td>'; // Added WPML
-										$content .= '	 <td class="mp_cart_col_price">';
+							if ( $discount_price == $price ) {
+								$content .= $mp->format_currency('', $price);
+							} else {
+								$content .= '<del>' . $mp->format_currency('', $price) . '</del><br />';
+								$content .= $mp->format_currency('', $discount_price);
+							}
 
-										if ( $discount_price == $price ) {
-											$content .= $mp->format_currency('', $price);
-										} else {
-											$content .= '<del>' . $mp->format_currency('', $price) . '</del><br />';
-											$content .= $mp->format_currency('', $discount_price);
-										}
-
-										$content .= '	 </td>';
-										$content .= '	 <td class="mp_cart_col_quant"><input type="text" size="2" name="quant[' . $bid . ':' . $product_id . ':' . $variation . ']" value="' . $data['quantity'] . '" />&nbsp;<label><input type="checkbox" name="remove[]" value="' . $bid . ':' . $product_id . ':' . $variation . '" /> ' . __('Remove', 'mp') . '</label></td>';
-										$content .= '</tr>';
-								}
+							$content .= '	 </td>';
+							$content .= '	 <td class="mp_cart_col_quant"><input type="text" size="2" name="quant[' . $bid . ':' . $product_id . ':' . $variation . ']" value="' . $data['quantity'] . '" />&nbsp;<label><input type="checkbox" name="remove[]" value="' . $bid . ':' . $product_id . ':' . $variation . '" /> ' . __('Remove', 'mp') . '</label></td>';
+							$content .= '</tr>';
 						}
+					}
 
-						if (($shipping_price = $mp->shipping_price()) !== false)
-								$shipping_prices[] = $shipping_price;
+					if ( ($shipping_price = $mp->shipping_price()) !== false ) {
+						$shipping_prices[] = $shipping_price;
+					}
 
-						if (($shipping_tax_price = $mp->shipping_tax_price($shipping_price)) !== false)
-								$shipping_tax_prices[] = $shipping_tax_price;
+					if ( ($shipping_tax_price = $mp->shipping_tax_price($shipping_price)) !== false ) {
+						$shipping_tax_prices[] = $shipping_tax_price;
+					}
 
-						$tax_prices[] =  $mp->tax_price();
+					$tax_prices[] =  $mp->tax_price();
 				}
 
 				//go back to original blog
-				if (is_multisite())
-						switch_to_blog($current_blog_id);
+				if ( is_multisite() ) {
+					switch_to_blog($current_blog_id);
+				}
 
 				$total = array_sum($totals);
 
@@ -531,10 +535,11 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 				$tax_prices = array();
 				$coupon_code = $mp->get_coupon_code();
 
-				foreach ($selected_cart as $bid => $cart) {
+				foreach ( $selected_cart as $bid => $cart ) {
 
-						if (is_multisite())
-								switch_to_blog($bid);
+						if ( is_multisite() ) {
+							switch_to_blog($bid);
+						}
 
 						foreach ($cart as $product_id => $variations) {
 								foreach ($variations as $variation => $data) {
@@ -589,6 +594,7 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 
 						$tax_prices[] = $mp->tax_price();
 				}
+
 				//go back to original blog
 				if (is_multisite())
 						switch_to_blog($current_blog_id);
@@ -852,7 +858,7 @@ function _mp_cart_shipping($editable = false, $echo = false) {
 						$content .= mp_province_field($country, $state) . '</td>';
 						$content .= '</tr>';
 						$content .= '<tr' . (( array_key_exists($country, $mp->countries_no_postcode) ) ? ' style="display:none"' : '') . '>';
-						$content .= '<td align="right">' . __('Postal/Zip Code:', 'mp') . '*</td><td>';
+						$content .= '<td align="right">' . __('Postal Code (SA43 Only):', 'mp') . '*</td><td>';
 						$content .= apply_filters('mp_checkout_error_zip', '');
 						$content .= '<input size="10" class="mp_shipping_field" id="mp_zip" name="zip" type="text" value="' . esc_attr($zip) . '" /></td>';
 						$content .= '</tr>';
@@ -922,7 +928,7 @@ function _mp_cart_shipping($editable = false, $echo = false) {
 				}
 
 				$content .= '<tr>';
-				$content .= '<td align="right">' . __('Postal/Zip Code:', 'mp') . '</td>';
+				$content .= '<td align="right">' . __('Postal Code (SA43 Only):', 'mp') . '</td>';
 				$content .= '<td>' . esc_attr($zip) . '</td>';
 				$content .= '</tr>';
 
@@ -1367,7 +1373,7 @@ function mp_order_status( $echo = true ) {
 
 										$content .= '
 										<tr>
-												<td align="right">' . apply_filters('mp_order_status_label_zip_code', __('Postal/Zip Code', 'mp'), $order) . '</td>
+												<td align="right">' . apply_filters('mp_order_status_label_zip_code', __('Postal Code (SA43 Only)', 'mp'), $order) . '</td>
 												<td>' . esc_attr($order->mp_shipping_info['zip']) . '</td>
 										</tr>
 

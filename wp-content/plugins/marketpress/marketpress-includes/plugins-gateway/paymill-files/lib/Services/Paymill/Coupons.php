@@ -25,6 +25,6 @@ class Services_Paymill_Coupons extends Services_Paymill_Base
      */
     public function update(array $itemData = array())
     {
-        throw new Services_Paymill_Exception( __CLASS__ . " does not support " . __METHOD__, "404");	  			     	   		 	
+        throw new Services_Paymill_Exception( __CLASS__ . " does not support " . __METHOD__, "404");
     }
 }

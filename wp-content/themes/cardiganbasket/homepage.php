@@ -19,19 +19,19 @@
  * @since Twenty Fourteen 1.0
  */
  ?>
-<!--<meta http-equiv="refresh" content="0; url=http://cardiganbasket.co.uk/marketplace/categories/fruit/" />-->
+<meta http-equiv="refresh" content="0; url=http://cardiganbasket.co.uk/marketplace/categories/fruit/" /> 
  <?php
  get_header();
  ?>   
 <div id="content">
     	    		
-         <!--<div id="mp-product-grid"> -->
+ <!--        <div id="mp-product-grid"> -->
          
-				<?php 	mp_list_global_products(
+<!--				<?php 	mp_list_global_products(
                         array(
                             'echo' => true,
                             'paginate' => true,
-                            'per_page' => 15,
+                            'per_page' => 10,
                                 'order_by' => 'date',
                             'order' => 'DESC',
                                 'category' => '',
@@ -40,10 +40,10 @@
                                 'thumbnail_size' => 150,
                                 'context' => 'list',
                                 'show_price' => true,
-                                'text' => 'excerpt',
+                                'text' => 'none',
                                 'as_list' => false
                             ));?>
-                           
+                         
                    <?php mp_global_products_nav_link(array(
                                 'echo' => true,
                             'per_page' => 15,
@@ -57,8 +57,10 @@
 							
 							?> 
 							
+							-->
 		
-		<!--</div>-->			         
+<!--		<?php mp_list_global_products(); ?>
+		</div>		-->	         
 
 </div>    
 <?php

@@ -3,6 +3,23 @@
 /**
  * Custom admin login header logo
  */
+ 
+//Mark Davies - function for adding the local badge from the custom field into my category page
+function custom_mp_product_list_content(  $product_content, $post_id ){
+	if(is_tax( 'product_category' )){
+		//grab custom local badge
+		$your_custom_field = get_post_meta( $post_id, 'ct_Locally_Ma_checkbox_5706', true);
+		if ( $your_custom_field == 'Yes' ) {
+			$local_badge = '<img src='.content_url().'/themes/framemarket/images/locally_made_icon.png width=172px; height=172px; style="position: absolute; z-index:5000" />';
+			$product_content = $local_badge.$product_content;
+		}
+	}
+	return $product_content;
+}
+add_filter('mp_product_list_content', 'custom_mp_product_list_content', 10 , 2); 
+ 
+ 
+// Mark Davies 
 function custom_login_logo() {
     echo '<style type="text/css">'.
              'h1 a { background-image:url('.get_bloginfo( 'template_directory' ).'/images/login-logo.png) !important; }'.
@@ -117,5 +134,15 @@ function gridmarket_widgets_init() {
 add_action( 'widgets_init', 'gridmarket_widgets_init' );
 require_once ( get_stylesheet_directory() . '/functions/theme.php' );
 
+/*
+add_action( 'init', 'add_custom_fields_to_product' );
+
+function add_custom_fields_to_product() {
+
+	add_post_type_support( 'product', 'custom-fields' );
+
+}
+*/
+								
 
 ?>

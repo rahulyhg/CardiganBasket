@@ -4,6 +4,15 @@
  * Custom admin login header logo
  */
  
+ 
+//Mark Davies - function to remove the 'register' link in wp-login
+ add_action( 'login_head', 'hide_login_nav' );
+
+function hide_login_nav()
+{
+    ?><style>#nav{display:none}</style><?php
+}
+ 
 //Mark Davies - function for adding the local badge from the custom field into my category page
 function custom_mp_product_list_content(  $product_content, $post_id ){
 	if(is_tax( 'product_category' )){

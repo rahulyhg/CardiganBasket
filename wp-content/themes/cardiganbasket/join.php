@@ -27,12 +27,11 @@
        	
       	<div id="signup">
    
-        <h1>CREATE YOUR SHOP AND JOIN THE CARDIGAN BASKET</h1>
+        <h1>JOIN THE TEIFI BASKET</h1>
         
         <p>
-        If you're a local <b>trader</b> in Cardigan, create your <b>free</b>
-        online shop here and be part of the Cardigan Basket
-        community.
+        If you're a local <b>trader</b> in the Cardigan and Teifi Valley area, create your <b>free</b>
+        online shop here and be part of the Teifi Basket community.
         </p>
         
         <a href= "/wp-signup.php" ><img src=<?php bloginfo('template_directory'); ?>/images/button_createshop.png width="127" height="36" /></a>

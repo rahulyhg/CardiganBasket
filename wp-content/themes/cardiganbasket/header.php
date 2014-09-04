@@ -44,9 +44,10 @@
 							<ul>
 					          <!--  <li><a href="http://cardiganbasket.co.uk/">Home</a></li> -->
 					            <li><a href="http://cardiganbasket.co.uk/about/">About</a></li>
-					            <li><a href="http://cardiganbasket.co.uk/deliveries/">Deliveries</a></li>
-					            <li><a href="http://cardiganbasket.co.uk/join/">Join</a></li>
-					            <li><a href="http://cardiganbasket.co.uk/wp-login.php">Sign In</a></li>
+					            <!--<li><a href="http://cardiganbasket.co.uk/deliveries/">Deliveries</a></li>-->
+					            <li><a href="http://cardiganbasket.co.uk/collections/">Collections</a></li>
+					            <!--<li><a href="http://cardiganbasket.co.uk/join/">Join</a></li>
+					            <li><a href="http://cardiganbasket.co.uk/wp-login.php">Sign In</a></li>-->
 					        </ul>
 					    </nav>
 									
@@ -135,7 +136,7 @@
 				</div>
 				
 				<div id="orders-and-deliveries">
-					   <p> <b>Order Deadlines:</b> Wednesday 5pm  |  <b>Deliveries:</b> Friday's 3pm - 8pm </p>
+					   <p> <b>Order Deadlines:</b> Wednesday 5pm </p>
 				</div>
 		
 					

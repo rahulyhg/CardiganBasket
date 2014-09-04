@@ -30,12 +30,10 @@
     <div id="what">
           
     	<div id="what-content">
-        <h1> What is the Cardigan Basket? </h1>
+        <h1> What is Basged Teifi/Teifi Basket? </h1>
         
         <p>
-         The Cardigan Basket is a research prototype, allowing local Traders in Cardigan to build their stores online. Items being sold in these virtual stores
-         will be displayed in one global store, here (Cardigan Basket), and allow customers to shop across the multiple stores of Cardigan, online using a single
-         shopping basket.
+         Basged Teifi/Teifi Basket is a research prototype, allowing local Traders in Cardigan to build their stores online. Items being sold in these virtual stores will be displayed in one global store, here (Teifi Basket), and allow customers to shop across the multiple stores of Cardigan and the Teifi Valley, online using a single shopping basket.
          
         </p>
         
@@ -43,7 +41,15 @@
     	</div>
     </div>
     
-         
+    <?php if($bp_existed == 'true') : ?>
+	<?php do_action( 'bp_before_blog_page' ) ?>
+	<?php endif; ?>
+	<?php get_template_part( 'content', 'page' );?>
+	<div class="clear"></div>
+	<?php if($bp_existed == 'true') : ?>
+	<?php do_action( 'bp_after_blog_page' ) ?>
+	<?php endif; ?>
+    
 
 </div>
 

@@ -7,10 +7,16 @@ get_header();
 
 				
 				<div class="product-photo">
-				<?php $your_custom_field = get_post_meta( get_the_ID(), 'ct_Locally_Ma_checkbox_5706', true);
-									if ( $your_custom_field == 'Yes' ) {
-									echo '<img src=/wp-content/themes/framemarket/images/locally_made_icon.png width=172px; height=172px; style="position: absolute; z-index:5000" />';
+				<?php 				$locally_produced_badge = get_post_meta( get_the_ID(), 'ct_Locally_Ma_checkbox_5706', true);
+									if ( $locally_produced_badge == 'Yes' ) {
+									echo '<img src=/wp-content/themes/framemarket/images/locally_produced.png width=172px; height=172px; style="position: absolute; z-index:5000" />';
 									} 
+									
+									$locally_grown_badge = get_post_meta( get_the_ID(), 'ct_LocallyGro_radio_2697', true);
+									if ( $locally_grown_badge == 'Yes' ) {
+									echo '<img src=/wp-content/themes/framemarket/images/locally_grown.png width=172px; height=172px; style="position: absolute; z-index:5000" />';
+									} 
+									
 								?>
 				<?php mp_product_image(true, 'single', null); ?>
 				

@@ -717,18 +717,25 @@ function _mp_cart_login($echo = false) {
 				$content .= '</p>';
 		} else {
 				$content .= '<table class="mp_cart_login">';
-				$content .= '<thead><tr>';
-				$content .= '<th class="mp_cart_login">' . __('Have a User Account?', 'mp') . '</th>';
+				//$content .= '<thead><tr>';
+				
+				
+				// Mark Davies
+				/*$content .= '<th class="mp_cart_login">' . __('Have a User Account?', 'mp') . '</th>';
 				$content .= '<th>&nbsp;</th>';
 				if ($mp->get_setting('force_login'))
 						$content .= '<th>' . __('Register To Checkout', 'mp') . '</th>';
 				else
 						$content .= '<th>' . __('Checkout Directly', 'mp') . '</th>';
-				$content .= '</tr></thead>';
+						
+						
+				*/$content .= '</tr></thead>';
 				$content .= '<tbody>';
 				$content .= '<tr>';
 				$content .= '<td class="mp_cart_login">';
-				$content .= '<form name="loginform" id="loginform" action="' . wp_login_url() . '" method="post">';
+				
+				// Mark Davies
+			/*	$content .= '<form name="loginform" id="loginform" action="' . wp_login_url() . '" method="post">';
 				$content .= '<label>' . __('Username', 'mp') . '<br />';
 				$content .= '<input type="text" name="log" id="user_login" class="input" value="" size="20" /></label>';
 				$content .= '<br />';
@@ -743,7 +750,9 @@ function _mp_cart_login($echo = false) {
 				$content .= '<td class="mp_cart_checkout">';
 				if ($mp->get_setting('force_login'))
 						$content .= apply_filters('register', '<a class="mp_cart_direct_checkout_link" href="' . site_url('wp-login.php?action=register', 'login') . '">' . __('Register Now To Checkout &raquo;', 'mp') . '</a>');
-				else
+				else*/
+				
+				
 						$content .= '<a class="mp_cart_direct_checkout_link" href="' . mp_checkout_step_url('shipping') . '">' . __('Checkout Now &raquo;', 'mp') . '</a>';
 				$content .= '</td>';
 				$content .= '</tr>';

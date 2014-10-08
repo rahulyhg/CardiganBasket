@@ -375,6 +375,11 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
     return $content;
   }
 
+  //Mark Davies
+  	function set_html_content_type() {
+									
+		return 'text/html';
+	}
   /**
    * Use this to do the final payment. Create the order then process the payment. If
    *  you know the payment is successful right away go ahead and change the order status
@@ -513,138 +518,105 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 	        $mp->create_order($_SESSION['mp_order'], $selected_cart[$bid], $shipping_info, $payment_info, $paid);	
 			
 			
- function marks_set_content_type(){
-  	return "text/html";
-  }
-		
 		
 			
 			//Start
 			//Mark Davies
+				
+				
+				
 				global $wpdb;
-				
-				
-				
-				
-				
-				
-				//global $prices;
-				//global $qty;
-				//global $totalPrices;
-				//global $page_title;
-				//$orderProduct = get_page_by_title($page_title , 'ARRAY_A', 'mp_order' );
-				//global $sql;
-				//global $getProducts;
-				//global $productDetails;
-				//global $orderDateAndTime;
-				//global $orderPostId;
-				//global $ismail;
-			/*	global $cId;
-				global $customerDetails;
-				global $customerName;
-				global $billingSerialize;
-				global $customerBillingAddress1;
-				global $customerBillingPhone;
-				
-				global $blogName;
-				global $blogEmail;
-				global $blogbillingSerialize;
-				global $blogCustomerBillingAddress1;
-				global $blogCustomerBillingPhone;
-			*/	
-				
-				
-				
 					//for($i=0;$i<10;$i++) {
-						$networkAdmin = "Order Confirmation (".$order_id.")";
+					//ob_start();
+						$orderConfirmation = "Order Confirmation (".$order_id.")";
 						$global_cart = $global_cart;
 						$orderId = $order_id;
-						/*$CountOrders = count($global_cart); 
-						$msg = 'Total Number of Orders '.$CountOrders; 
-						$msg .= '<p>List of Orders</p> ';*/
+						//$CountOrders = count($global_cart); 
+						//$msg = 'Total Number of Orders '.$CountOrders; 
+						//$msg .= '<p>List of Orders</p> ';*/
 						$msg = '<!DOCTYPE html><html><head></head><body>';
-						$msg .= "<H1> New Order (".$order_id.")</H1>";
+						$msg .= "<b> A new order (".$order_id.") was created in the Teifi Basket.</b>";
 						$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
 									$getProducts1 = $wpdb->get_row($sql,ARRAY_A);
 									$productDetails1 = $getProducts1;
 									$orderDateAndTime = $productDetails1['post_date'];
 						$msg .= "<p>Order Date/Time: ".$orderDateAndTime."</p>";
-						$msg .= "<p>Total Number of Items: ".$CountOrders."</p>";
+						//$msg .= "<p>Total Number of Items: ".$CountOrders."</p>";
 
-						//$msg .= '<tr><td>Order Id</td><td>Date/Time of Order</td><td>Customer ID</td><td>Customer Name</td><td>Customer Address</td><td>Customer Contact Number</td><td>Shop ID</td><td>Shop Name</td><td>Shop Contact Number</td><td>Shop Item</td><td>Item Quantity Total Cost</td></tr>';
 							foreach ($global_cart as $bid => $cart) //check if shop cart has items..
 								{
 								
 									/* Blog Information Start */
 									$blogName = get_blog_option($bid,'blogname');
-									$blogEmail = get_blog_option($bid,'admin_email');
+									//NOT USED $blogEmail = get_blog_option($bid,'admin_email');
 									$blogbillingSerialize = get_user_meta($bid,'mp_billing_info',true);
 									$blogCustomerBillingAddress1 =  $blogbillingSerialize['address1'];
 									$blogCustomerBillingPhone =  $blogbillingSerialize['phone'];
-									//$msg .= '<li>Shop ID: '.$bid.'</li><li>Shop Name: '.$blogName.'</li><li>Shop Email: '.$blogEmail.'</li><li>Shop Phone Number: '.$blogCustomerBillingPhone.'</li><h4>Items Sold</h4>';
-									//$msg .= '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+								
 									
-									/* Blog Information End */
-							foreach ($cart as $product_id => $data) {
-									/* Order Infromation Start */
-									$prices = $data[0]['price'];
-									$qty = $data[0]['quantity'];
-									$totalPrices = $prices * $qty;
-									$item_title = $data[0]['name'];
-									//$orderProduct = get_page_by_title($page_title , 'ARRAY_A', 'mp_order' );
-									$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
-									$getProducts = $wpdb->get_row($sql,ARRAY_A);
-									$productDetails = $getProducts;
-									$orderDateAndTime = $productDetails['post_date'];
-									$orderPostId = $productDetails['ID'];
-									$ismail = get_post_meta($orderPostId,'is_mail',true);
-									if(empty($ismail)){
-									add_post_meta($orderPostId,'is_mail',true);
-									} 
-									/*$cId = $productDetails['post_author'];
-									$customerDetails = get_userdata( $cId  );
-									$customerName = $customerDetails->user_login;
-									$billingSerialize = get_user_meta($cId,'mp_billing_info',true);
-									$customerBillingAddress1 =  $billingSerialize['address1'];
-									$customerBillingPhone =  $billingSerialize['phone'];*/
-									/* Order Infromation Start */
-									//if(empty($ismail)){
-									//$msg_seller = "<h4>Seller Information</h4>";
-									$msg_seller .= '<li>Shop ID: '.$bid.'</li><li>Shop Name: '.$blogName.'</li><li>Shop Email: '.$blogEmail.'</li><li>Shop Phone Number: '.$blogCustomerBillingPhone.'</li><h4>Items Sold</h4>';									//}
-									$msg_seller .= '<li>'.$item_title.' (£'.$prices.'x'.$qty.'  =  £'.$totalPrices.')</li>';
+										/* Blog Information End */
+								foreach ($cart as $product_id => $data) {
+										/* Order Infromation Start */
+										$prices = $data[0]['price'];
+										$qty = $data[0]['quantity'];
+										$totalPrices = $prices * $qty;
+										$item_title = $data[0]['name'];
+										//$orderProduct = get_page_by_title($page_title , 'ARRAY_A', 'mp_order' );
+										$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
+										$getProducts = $wpdb->get_row($sql,ARRAY_A);
+										$productDetails = $getProducts;
+										$orderDateAndTime = $productDetails['post_date'];
+										$orderPostId = $productDetails['ID'];
+										$ismail = get_post_meta($orderPostId,'is_mail',true);
+										if(empty($ismail)){
+											add_post_meta($orderPostId,'is_mail',true);
+										} 
+										$cId = $productDetails['post_author'];
+										$customerDetails = get_userdata( $cId  );
+										$customerName = $customerDetails->user_login;
+										$billingSerialize = get_user_meta($cId,'mp_billing_info',true);
+										$customerBillingAddress1 =  $billingSerialize['address1'];
+										$customerBillingPhone =  $billingSerialize['phone'];
+										/* Order Infromation Start */
+										if(empty($ismail)){
+											$msg_items .= '<li>'.$item_title.' (x'.$qty.') - Sold by: '.$blogName.' (ID: '.$bid.')</li>';
+										}
+																				
+										}
+
 									}
-									}
-									
-									$sql2 = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
-									$getProducts2 = $wpdb->get_row($sql2,ARRAY_A);
-									$productDetails2 = $getProducts2;
-									$cId2 = $productDetails2['post_author'];
-									$customerDetails = get_userdata( $cId2  );
-									$customerName = $customerDetails->user_login;
-									$billingSerialize = get_user_meta($cId2,'mp_shipping_info',true);
-									$customerBillingAddress1 =  $billingSerialize['address1'];
-									$customerBillingPhone =  $billingSerialize['phone'];
-									
-									$msg_customer = '<h4>Customer Information</h4><ul><li>Customer Name: '.$customerName.'</li><li>Customer Address: '.$customerBillingAddress1.'</li><li> Customer Phone: '.$customerBillingPhone.'</li></ul>';
+
+							
+									$msg_customer = '<p>Customer Information:</p><ul style="list-style-type: none;"><li>Full Name: '.$customerName.'</li><li>Address: '.$customerBillingAddress1.'</li><li>Phone: '.$customerBillingPhone.'</li></ul>';
 
 									
-									$msg .= $msg_customer.'"<h4>Seller Information</h4><ul>"'.$msg_seller.'</ul></body></html>';
+									$msg .= $msg_customer.'<p>Order Information:</p><p>Items:</p><ul>'.$msg_items.'</ul></body></html>';
 									$to =  get_blog_option(1,'admin_email');
 									$blogNameNetwork =  get_blog_option(1,'blogname');
-									$subject = $networkAdmin;
-									$message = $msg .$sql2;
-									$headers = 'From: '.$blogNameNetwork.' <'.$to.'>' . "\r\n";
-									add_filter( 'wp_mail_content_type', 'marks_set_content_type' );
-									wp_mail( $to, $subject, $message, $headers );
+									$subject = $orderConfirmation;
+									$message = $msg;
+									//$headers = 'From: '.$blogNameNetwork.' <'.$to.'>' . "\r\n";
+									$headers = 'Content-type: text/html';
+									wp_mail( $to, $subject, $message, $headers);
 
-							//REMOVED THE FOR LOOP		}	
+									//add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+									//wp_mail( $to, $subject, $message, $headers);
+									//remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
+									
+										
+								//} //For loop
+				
 							/*Mark Davies*/
 							//End
 							
-							
-							
-							
+													
 				}
+				
+				//wp_mail( $to, $subject, $message, $headers);
+				
+				
+				
+
 
         if (is_multisite())
     			switch_to_blog($current_blog_id, true);
@@ -652,25 +624,28 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
         //success. Do nothing, it will take us to the confirmation page
       } else { //whoops, error
 
-				for ($i = 0; $i <= 5; $i++) { //print the first 5 errors
-          if (isset($result["L_ERRORCODE$i"]))
-            $error .= "<li>{$result["L_ERRORCODE$i"]} - {$result["L_SHORTMESSAGE$i"]} - ".stripslashes($result["L_LONGMESSAGE$i"])."</li>";
+		  for ($i = 0; $i <= 5; $i++) { //print the first 5 errors
+            if (isset($result["L_ERRORCODE$i"]))
+              $error .= "<li>{$result["L_ERRORCODE$i"]} - {$result["L_SHORTMESSAGE$i"]} - ".stripslashes($result["L_LONGMESSAGE$i"])."</li>";
+		   }
+		   $error = '<br /><ul>' . $error . '</ul>';
+		   $mp->cart_checkout_error( sprintf(__('There was a problem finalizing your purchase with PayPal. Please <a href="%s">go back and try again</a>.', 'mp'), mp_checkout_step_url('checkout')) . $error );
         }
-        $error = '<br /><ul>' . $error . '</ul>';
-        $mp->cart_checkout_error( sprintf(__('There was a problem finalizing your purchase with PayPal. Please <a href="%s">go back and try again</a>.', 'mp'), mp_checkout_step_url('checkout')) . $error );
-      }
     } else {
-      $mp->cart_checkout_error( sprintf(__('There was a problem finalizing your purchase with PayPal. Please <a href="%s">go back and try again</a>.', 'mp'), mp_checkout_step_url('checkout')) );
-    }
+      		$mp->cart_checkout_error( sprintf(__('There was a problem finalizing your purchase with PayPal. Please <a href="%s">go back and try again</a>.', 'mp'), mp_checkout_step_url('checkout')) );
+	  }
   }
+  
 
 	/**
    * Runs before page load incase you need to run any scripts before loading the success message page
    */
 	function order_confirmation($order) {
+	
 
   }
-
+  
+  
   /**
    * Filters the order confirmation email message body. You may want to append something to
    *  the message. Optional

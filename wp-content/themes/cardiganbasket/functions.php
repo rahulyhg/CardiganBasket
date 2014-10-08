@@ -36,6 +36,19 @@ function custom_login_logo() {
 }
 add_action( 'login_head', 'custom_login_logo' );
 
+/*
+//Mark Davies
+add_filter('wp_mail_from','yoursite_wp_mail_from');
+function yoursite_wp_mail_from($content_type) {
+  return 'admin@teifibasket.co.uk';
+}
+add_filter('wp_mail_from_name','yoursite_wp_mail_from_name');
+function yoursite_wp_mail_from_name($name) {
+  return 'Teifi Basket';
+}
+*/
+
+
 
 add_action( 'after_setup_theme', 'gridmarket_setup', 10 );
 function gridmarket_setup() {

@@ -734,8 +734,8 @@ function _mp_cart_login($echo = false) {
 				$content .= '<tr>';
 				$content .= '<td class="mp_cart_login">';
 				
-				// Mark Davies
-			/*	$content .= '<form name="loginform" id="loginform" action="' . wp_login_url() . '" method="post">';
+				// Mark Davies - HAVE AN ACCOUNT? LOGIN or CHECKOUT
+				$content .= '<form name="loginform" id="loginform" action="' . wp_login_url() . '" method="post">';
 				$content .= '<label>' . __('Username', 'mp') . '<br />';
 				$content .= '<input type="text" name="log" id="user_login" class="input" value="" size="20" /></label>';
 				$content .= '<br />';
@@ -750,7 +750,7 @@ function _mp_cart_login($echo = false) {
 				$content .= '<td class="mp_cart_checkout">';
 				if ($mp->get_setting('force_login'))
 						$content .= apply_filters('register', '<a class="mp_cart_direct_checkout_link" href="' . site_url('wp-login.php?action=register', 'login') . '">' . __('Register Now To Checkout &raquo;', 'mp') . '</a>');
-				else*/
+				else
 				
 				
 						$content .= '<a class="mp_cart_direct_checkout_link" href="' . mp_checkout_step_url('shipping') . '">' . __('Checkout Now &raquo;', 'mp') . '</a>';
@@ -867,7 +867,7 @@ function _mp_cart_shipping($editable = false, $echo = false) {
 						$content .= mp_province_field($country, $state) . '</td>';
 						$content .= '</tr>';
 						$content .= '<tr' . (( array_key_exists($country, $mp->countries_no_postcode) ) ? ' style="display:none"' : '') . '>';
-						$content .= '<td align="right">' . __('Postal Code (SA43 Only):', 'mp') . '*</td><td>';
+						$content .= '<td align="right">' . __('Postal Code', 'mp') . '*</td><td>';
 						$content .= apply_filters('mp_checkout_error_zip', '');
 						$content .= '<input size="10" class="mp_shipping_field" id="mp_zip" name="zip" type="text" value="' . esc_attr($zip) . '" /></td>';
 						$content .= '</tr>';
@@ -937,7 +937,7 @@ function _mp_cart_shipping($editable = false, $echo = false) {
 				}
 
 				$content .= '<tr>';
-				$content .= '<td align="right">' . __('Postal Code (SA43 Only):', 'mp') . '</td>';
+				$content .= '<td align="right">' . __('Postal Code:', 'mp') . '</td>';
 				$content .= '<td>' . esc_attr($zip) . '</td>';
 				$content .= '</tr>';
 
@@ -1382,7 +1382,7 @@ function mp_order_status( $echo = true ) {
 
 										$content .= '
 										<tr>
-												<td align="right">' . apply_filters('mp_order_status_label_zip_code', __('Postal Code (SA43 Only)', 'mp'), $order) . '</td>
+												<td align="right">' . apply_filters('mp_order_status_label_zip_code', __('Postal Code', 'mp'), $order) . '</td>
 												<td>' . esc_attr($order->mp_shipping_info['zip']) . '</td>
 										</tr>
 

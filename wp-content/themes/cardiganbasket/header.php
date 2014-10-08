@@ -46,8 +46,8 @@
 					            <li><a href="http://cardiganbasket.co.uk/about/">About</a></li>
 					            <!--<li><a href="http://cardiganbasket.co.uk/deliveries/">Deliveries</a></li>-->
 					            <li><a href="http://cardiganbasket.co.uk/collections/">Collections</a></li>
-					            <!--<li><a href="http://cardiganbasket.co.uk/join/">Join</a></li>
-					            <li><a href="http://cardiganbasket.co.uk/wp-login.php">Sign In</a></li>-->
+					            <li><a href="http://cardiganbasket.co.uk/signup/">Sign up</a></li>
+					            <li><a href="http://cardiganbasket.co.uk/wp-login.php">Sign In</a></li>
 					        </ul>
 					    </nav>
 									

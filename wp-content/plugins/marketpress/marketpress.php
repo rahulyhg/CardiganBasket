@@ -336,7 +336,10 @@ class MarketPress {
 			'new_order_subject' => __('Your Order Confirmation (ORDERID)', 'mp'),
 			'new_order_txt' => __("Thank you for your order CUSTOMERNAME!
 
-Your order has been received, and any items to be shipped will be processed as soon as possible. Please refer to your Order ID (ORDERID) whenever contacting us.
+Your order has been received, and your basket will be ready for collection between 3:00 p.m. and 8:00 p.m. from the 4CG Click & Collect Hub in Pwllhai car park on Friday DELIVERYDATE.
+
+Please bring your Order ID (ORDERID) with you, and use this whenever contacting us.
+
 Here is a confirmation of your order details:
 
 Order Information:
@@ -766,10 +769,16 @@ Thanks again!", 'mp')
 				$count_output = '';
 		$orders_page = add_submenu_page('edit.php?post_type=product', __('Manage Orders', 'mp'), __('Manage Orders', 'mp') . $count_output, $order_cap, 'marketpress-orders', array(&$this, 'orders_page'));
 	 }
+	 
+	 	  //MARK DAVIES
+	  $deliveries_page = add_submenu_page('edit.php?post_type=product', __('Manage Deliveries', 'mp'), __('Manage Deliveries', 'mp'),'manage_options','marketpress-deliveries', array(&$this, 'deliveries_page'));
+	 
+	 
 
 	 $page = add_submenu_page('edit.php?post_type=product', __('Store Settings', 'mp'), __('Store Settings', 'mp'), 'manage_options', 'marketpress', array(&$this, 'admin_page'));
 	 add_action( 'admin_print_scripts-' . $page, array(&$this, 'admin_script_settings') );
 	 add_action( 'admin_print_styles-' . $page, array(&$this, 'admin_css_settings') );
+	 
 
 		if ( WPMUDEV_REMOVE_BRANDING === false ) {
 			add_action( "load-{$page}", array( &$this, 'add_help_tab' ) );
@@ -2615,21 +2624,21 @@ Thanks again!", 'mp')
 	}
 
 	function is_valid_zip( $zip, $country ) {
-		//if ( array_key_exists($country, $this->countries_no_postcode) )
+		if ( array_key_exists($country, $this->countries_no_postcode) )
 			//given country doesn't use post codes so zip is always valid
-		//	return true;
+			return true;
 		// Mark Davies - Taken this out because we are only dealing with Cardigan Postal Codes, so just check if it is an SA43 post code.
 		
 		//UK ^[A-Z]?[A-Z][0-9][A-Z0-9]?\s[0-9][A-Z]{2}$
 		
 		//Get the first 4 characters in the post/zip code
-		$zip_first4 = strtolower(substr( $zip, 0, 4));
+/*		$zip_first4 = strtolower(substr( $zip, 0, 4));
 		$cardigan_code = "sa43";
 		
 		//if the first 4 characters is not sa43 return false
 		if ($zip_first4 != $cardigan_code)
 			return false;
-			
+*/			
 		
 		if ( empty($zip) )
 			//no post code provided
@@ -3816,6 +3825,19 @@ Thanks again!", 'mp')
 	 add_post_meta($post_id, 'mp_shipping_info', $shipping_info, true);
 	 //payment info
 	 add_post_meta($post_id, 'mp_payment_info', $payment_info, true);
+	 
+	 
+	 //MARK DAVIES - Add custom field (delivery_date) as post meta data to the order
+	 $order_date = strtotime( $order->post_date );
+			$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
+			if( $wed > $order_date ){
+				$delivery_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+				 add_post_meta($post_id, 'delivery_date', $delivery_date, true);
+			}
+			else{
+				$delivery_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+				add_post_meta($post_id, 'delivery_date', $delivery_date, true);
+			}
 
 	 //loop through cart items
 	 foreach ($cart as $product_id => $variations) {
@@ -3958,6 +3980,7 @@ Thanks again!", 'mp')
 
 	 //send new order email
 	 $this->order_notification($order_id);
+	 
 
 		//if paid and the cart is only digital products mark it shipped
 		if ($paid && $this->download_only_cart($cart)) {
@@ -3966,6 +3989,142 @@ Thanks again!", 'mp')
 		}
 
 	 return $order_id;
+	}
+
+
+	//MARK DAVIES - creating a weekly orders page for sellers 
+	function deliveries_page(){		//taken out $order
+		//orderID, productID, Product Name, Quantity, DeliveryDate, customerName, customerTel, customerEmail (incase seller needs to contact them)
+		
+		
+		
+		global $wpdb;
+
+			$order_date = strtotime( $order->post_date );
+			$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
+			$last_wed = strtotime(date('Y-m-d', strtotime("last Wednesday")) . ' 17:00:01');
+			if( $wed > $order_date ){
+				$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+				
+		//We want to do a distinct query on delivery_date in our Orders	
+		$query = "SELECT ID, post_title, post_date, post_status FROM {$wpdb->posts} WHERE post_type = 'mp_order'";
+		if (isset($_POST['order_status']) && $_POST['order_status'] != 'all')
+			$query .= $wpdb->prepare(' AND post_status = %s', $_POST['order_status']);
+		$orders = $wpdb->get_results($query);
+		
+		$query .= " ORDER BY post_date DESC";
+
+		
+		echo'<!DOCTYPE html>
+			<html>
+			
+			<head>
+			<style>
+			table, th, td {
+			    border: 1px solid black;
+			    border-collapse: collapse;
+			}
+			th, td {
+			    padding: 5px;
+			    text-align:center;
+			}
+			</style>
+			</head>
+			
+			<body>
+			
+			<h2>Deliveries Page</h2>';
+				
+				echo '<h4>Showing deliveries for this Friday ('.$del_date.')</h4>';
+								  
+				
+						//loop through orders and add rows
+						foreach ($orders as $order) {
+						
+						//$date_ordered = $order->post_date;
+						$delivery_date = get_post_meta($order->ID, 'delivery_date', true);
+
+						
+						if ( $delivery_date == $del_date){
+						$meta = get_post_custom($order->ID);
+						
+						
+						//unserialize a and add to object
+							foreach ($meta as $key => $val)
+								$order->$key = maybe_unserialize($meta[$key][0]);
+				
+							$fields = array();
+							$fields['order_id'] = $order->post_title;
+							$fields['item_count'] = $order->mp_order_items;
+
+							//items
+							if (is_array($order->mp_cart_info) && count($order->mp_cart_info)) {
+								foreach ($order->mp_cart_info as $product_id => $variations) {
+									foreach ($variations as $variation => $data) {
+										//if (!empty($fields['items']))
+										//	$fields['items'] .= "\r\n";
+				
+										//if (!empty($data['SKU']))
+										//	$fields['items'] .= '[' . $data['SKU'] . '] ';
+											
+				
+										$fields['paid_date'] = isset($order->mp_paid_time) ? date('Y-m-d H:i:s', $order->mp_paid_time) : null;
+										$blog_title = strtolower(preg_replace('/\s/', '', get_bloginfo('name', false)));
+										
+										//echo "<b>".$order->post_ID."</b>";
+										//echo "<b>".$order->ID."</b>";
+										echo'<table style="width:90%">';
+										echo '<br>';
+										echo '<a href="http://cardiganbasket.co.uk/'.$blog_title.'/wp-admin/edit.php?post_type=product&page=marketpress-orders&order_id='.$order->ID.'"><h3> Order ID: '.$fields['order_id'].'</h3></a>';
+										echo 
+														  '<tr>
+														    <th>SKU</th>
+														    <th>Item Name</th>		
+														    <th>Quantity</th>
+										   				    <th>Ordered on</th>
+														  </tr>';
+
+										echo '<tr>';
+										echo '<td>'.$data['SKU'].'</td>';
+										echo '<td>'.$data['name'].'</td>';		
+										echo '<td>'.$data['quantity'].'</td>';
+										echo '<td>'.$fields['paid_date'].'</td>';
+
+										echo '</tr>';
+										
+										} 				
+										
+									}
+								}
+						} // end of if 
+						
+						
+						}
+				
+				
+				
+				echo '</table>';
+				
+				
+				
+				
+				
+			}
+			
+			else{
+				//$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+				//echo '<h4>Show deliveries for this week '.$deldate.'</h4>';
+
+			}
+	
+			
+			
+			
+			echo'</body>
+				</html>';
+			
+			//you want to write the order info with the delivery date to a report titled (delivery date)
+		
 	}
 
 	//returns the full order details as an object
@@ -4797,8 +4956,23 @@ Thanks again!", 'mp')
 		$tracking_url = apply_filters('wpml_marketpress_tracking_url', mp_orderstatus_link(false, true) . $order->post_title . '/');
 
 	 //setup filters
-	 $search = array('CUSTOMERNAME', 'ORDERID', 'ORDERINFOSKU', 'ORDERINFO', 'SHIPPINGINFO', 'PAYMENTINFO', 'TOTAL', 'TRACKINGURL', 'ORDERNOTES');
-	 $replace = array($order->mp_shipping_info['name'], $order->post_title, $order_info_sku, $order_info, $shipping_info, $payment_info, $order_total, $tracking_url, $order_notes);
+	 //MARK DAVIES - I HAVE COMMENTED OUT $search.. and $replace..
+	 //$search = array('CUSTOMERNAME', 'ORDERID', 'ORDERINFOSKU', 'ORDERINFO', 'SHIPPINGINFO', 'PAYMENTINFO', 'TOTAL', 'TRACKINGURL', 'ORDERNOTES');
+	 //$replace = array($order->mp_shipping_info['name'], $order->post_title, $order_info_sku, $order_info, $shipping_info, $payment_info, $order_total, $tracking_url, $order_notes);
+	 
+	 //MARK DAVIES - NEW METHOD
+	 
+	$order_date = strtotime( $order->post_date );
+	$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
+		if( $wed > $order_date )
+			$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+		else
+			$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+	
+	$search = array('CUSTOMERNAME', 'ORDERID', 'ORDERINFOSKU', 'ORDERINFO', 'SHIPPINGINFO', 'PAYMENTINFO', 'TOTAL', 'TRACKINGURL', 'ORDERNOTES', 'DELIVERYDATE');
+	$replace = array($order->mp_shipping_info['name'], $order->post_title, $order_info_sku, $order_info, $shipping_info, $payment_info, $order_total, $tracking_url, $order_notes, $del_date);
+
+
 
 		//escape for sprintf() if required
 		if ($escape) {
@@ -4851,9 +5025,10 @@ You can manage this order here: %s", 'mp');
 	 $this->mail($store_email, $subject, $msg);
 	}
 
+//MARK DAVIES - TAKEN THIS OUT BECAUSE 4CG WANTED TO DISABLE IT
 	//sends email for orders marked as shipped
 	function order_shipped_notification($order_id) {
-
+/*
 	 //get the order
 	 $order = $this->get_order($order_id);
 	 if (!$order)
@@ -4870,8 +5045,9 @@ You can manage this order here: %s", 'mp');
 	 $msg = apply_filters( 'mp_shipped_order_notification', $msg, $order );
 
 	 $this->mail($order->mp_shipping_info['email'], $subject, $msg);
-
+*/
 	}
+	
 
 	//sends email to admin for low stock notification
 	function low_stock_notification($product_id, $variation, $stock) {

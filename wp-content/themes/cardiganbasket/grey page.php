@@ -1,6 +1,6 @@
 <?php
  /**
- * Template Name: signup
+ * Template Name: grey page
  *
  * @package WordPress
  */
@@ -19,13 +19,14 @@
  * @since Twenty Fourteen 1.0
  */
 
-?>
+ ?>  
  <?php
  get_header();
  ?>   
-<div id="content">
-       	<!--
-      <?php if($bp_existed == 'true') : ?>
+<div id="grey-bg">
+
+ 
+    <?php if($bp_existed == 'true') : ?>
 	<?php do_action( 'bp_before_blog_page' ) ?>
 	<?php endif; ?>
 	<?php get_template_part( 'content', 'page' );?>
@@ -33,18 +34,19 @@
 	<?php if($bp_existed == 'true') : ?>
 	<?php do_action( 'bp_after_blog_page' ) ?>
 	<?php endif; ?>
-	
-	-->
-	
-	<p>Sign up to create an account to the Teifi Basket as a Seller or as a Customer</p>
-	<br>
-	<a href="<?php echo site_url(); ?>/wp-signup.php"><img src="<?php bloginfo('template_directory'); ?>/images/signup-seller.png" /></a> &nbsp;
-	<a href="<?php echo site_url(); ?>/register"><img src="<?php bloginfo('template_directory'); ?>/images/signup-customer.png" /></a>
 
-        
-</div>
     
+       
+         
+
+</div>
+
 <?php
-	get_sidebar();
+	/*get_sidebar();*/
     get_footer();
  ?>   
+
+
+
+
+

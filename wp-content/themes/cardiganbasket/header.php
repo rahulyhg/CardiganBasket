@@ -43,11 +43,27 @@
 						<nav>
 							<ul>
 					          <!--  <li><a href="http://cardiganbasket.co.uk/">Home</a></li> -->
-					            <li><a href="http://cardiganbasket.co.uk/about/">About</a></li>
+					            <li><a href="<?php echo site_url(); ?>/about/">About</a></li>
 					            <!--<li><a href="http://cardiganbasket.co.uk/deliveries/">Deliveries</a></li>-->
-					            <li><a href="http://cardiganbasket.co.uk/collections/">Collections</a></li>
-					            <li><a href="http://cardiganbasket.co.uk/signup/">Sign up</a></li>
-					            <li><a href="http://cardiganbasket.co.uk/wp-login.php">Sign In</a></li>
+					            <li><a href="<?php echo site_url(); ?>/collections/">Collections</a></li>
+					            
+					            <!-- Check whether or not the user is signed in, if they are display sign out-->
+							 <?php
+								if ( is_user_logged_in() ) {
+									//echo 'Welcome, registered user!';
+									?>
+						            <li><a href="<?php echo site_url(); ?>/edit-account/?>">Edit Account</a></li>
+						            <li><a href="<?php echo wp_logout_url(); ?>">Log Out</a></li>
+							 <?php
+								} else {
+									//echo 'Welcome, visitor!';
+									?>
+									<li><a href="<?php echo site_url(); ?>/signup/">Create Account</a></li>
+						            <li><a href="<?php echo site_url(); ?>/login">Log In</a></li> <!--wp-login.php -->
+						            <?php
+								}
+							?>
+
 					        </ul>
 					    </nav>
 									

@@ -749,8 +749,10 @@ function _mp_cart_login($echo = false) {
 				$content .= '<td class="mp_cart_or_label">' . __('or', 'mp') . '</td>';
 				$content .= '<td class="mp_cart_checkout">';
 				if ($mp->get_setting('force_login'))
-						$content .= apply_filters('register', '<a class="mp_cart_direct_checkout_link" href="' . site_url('wp-login.php?action=register', 'login') . '">' . __('Register Now To Checkout &raquo;', 'mp') . '</a>');
+						$content .= apply_filters('register', '<a class="mp_cart_direct_checkout_link" href="' . site_url('register', 'login') . '">' . __('Register Now To Checkout &raquo;', 'mp') . '</a>');
 				else
+				//MARK DAVIES
+				//CHANGED wp-login.php?action=register TO register
 				
 				
 						$content .= '<a class="mp_cart_direct_checkout_link" href="' . mp_checkout_step_url('shipping') . '">' . __('Checkout Now &raquo;', 'mp') . '</a>';

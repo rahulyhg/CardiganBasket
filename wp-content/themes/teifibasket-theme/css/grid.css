@@ -201,7 +201,8 @@ body{font-size:12px;font-family:Helvetica,Arial,sans-serif;line-height:22px;marg
 #content-nopadding{width:775px;float:right;}
 #content-fullwidth{width:980px;}
 .end{margin-right:0px;}
-.content-box{background:#f7f7f7;padding:10px;border:1px solid #eeeeee;margin:0px 0px 10px 0px; clear:both;}
+.content-box{background:#f7f7f7;padding:10px;border:1px solid #eeeeee;margin:0px 0px 10px 0px; width:600px; clear:both;}
+.content-box p{width:400px; float: left;}
 .content-whitebox{border:1px solid #eeeeee;padding:10px;margin:0px 0px 10px 0px;}
 /********************************** marketpress */
 .mp_cart_actions_widget a,.mp_cart_actions_widget a:link,.mp_cart_actions_widget a:visited{font-weight:bold;padding:5px;text-decoration:none;color:#ffffff!important;}
@@ -256,7 +257,7 @@ a.mp_cart_direct_checkout_link:hover{font-weight:bold;padding:5px;text-decoratio
 .mp_grid .mp_product_detail, .mp_grid .mp_price_buy {font-size: 12px;}
 h1.post-title{padding-bottom:10px;}
 #mp-product-grid div.mp_product_meta{clear:both;padding-top:10px;}
-.product-meta-details{overflow:hidden;padding-bottom:10px;padding-top:10px;}
+.product-meta-details{overflow:hidden;padding-bottom:10px;padding-top:10px; float:right;}
 table.mp_cart_login{border-top:1px dashed #333333;margin-top:20px;padding:10px;width:100%;}
 table.mp_cart_login th{font-size:14px;font-weight:bold;padding:10px;}
 table.mp_cart_login label{font-weight:bold;}

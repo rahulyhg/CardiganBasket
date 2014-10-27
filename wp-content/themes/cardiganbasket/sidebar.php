@@ -14,9 +14,10 @@
 															<h3 class="widgettitle"><?php _e('Categories', 'framemarket'); ?></h3>
 															<div class="widget">
 
-											<?php mp_global_categories_list(); ?>
-
-
+											<!--<?php mp_global_categories_list(); ?>  -->
+											<!--<?php mp_dropdown_categories( true, array('show_option_none'=> __('Select Category')) ); ?>
+												-->
+												
 											</div>
 
 													

@@ -1,0 +1,4 @@
+<!-- 
+	
+Removed the sidebar completely.	
+-->

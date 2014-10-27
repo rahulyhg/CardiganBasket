@@ -1,0 +1,656 @@
+/*
+
+Theme Name: TeifiBasket Theme
+Theme Date: 01/06/2014
+Version: 1.0
+Theme URI: http://www.markisonline.co.uk/
+Description: Teifi Basket - A custom Wordpress Theme to be used with MarketPress. This theme inherits framemarket
+Author: Mark Davies
+Author URI: http://www.markisonline.co.uk
+Tags: buddypress, fixed-width, custom-background, custom-menu, theme-options, sticky-post, translation-ready, threaded-comments, left-sidebar, two-columns
+License: GNU General Public License, v2 (or newer)
+License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+Uses BP-Default theme files and styling for BuddyPress components with some customisation for theme.
+Included in theme to allow for own child themes rather than being child of BP-Default
+
+Template: framemarket
+*/
+
+
+/* 127451-1401181458 */
+
+
+h1, h2, h3, p{
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#wrapper{
+	height:270px;
+	width:980px;
+	margin-left: auto;
+    margin-right: auto;
+	
+}
+
+#top-bar{
+	position:relative;
+	height: 39px;
+	width:980px;
+	background-color: #5d5248;
+}
+
+nav{
+	float:left;
+	position:relative;	
+	list-style:none;
+	top: 10px;
+}
+
+#register-login{
+	position: relative;
+	float:right;
+	top:10px;
+	right:20px;
+}
+
+#register-login p{
+	display:inline;
+	color:#b1a599;
+	font-family: 'Ubuntu', sans-serif;	font-size: 11px; 
+	padding:0px;
+	text-decoration: none; 
+
+}
+
+#register-login p a{
+	text-decoration: none; 
+	color:#b1a599;
+
+}
+
+nav ul{
+
+
+}
+
+nav li{
+	list-style-type: none;
+    display:inline;
+	color:#b1a599;
+	font-family: 'Ubuntu', sans-serif;	font-size: 11px;
+	text-decoration: none; 
+	padding:0px;
+}
+
+nav li a{
+	text-decoration: none; 
+	padding-left: 20px;
+ 	color:#b1a599;
+
+}
+
+nav .nav-button-home a {
+	background:url("images/tb/icon-home.png") no-repeat 0px -2px transparent;
+
+}
+nav .nav-button-about a {
+	background:url("images/tb/icon-about.png") no-repeat 0px -2px transparent;
+
+}
+nav .nav-button-how a {
+	background:url("images/tb/icon-how.png") no-repeat 0px -2px transparent;
+
+}
+nav .nav-button-sellers a {
+	background:url("images/tb/icon-sellers2.png") no-repeat 0px -2px transparent;
+}
+nav .nav-button-news a {
+	background:url("images/tb/icon-news.png") no-repeat 0px -2px transparent;
+
+}
+nav .nav-button-contact a {
+	background:url("images/tb/icon-contact.png") no-repeat 0px -2px transparent;
+
+}
+
+ nav li.active{
+	color:#b1a599;
+	border:none;
+	text-decoration: underline;
+}
+
+
+
+
+#header{
+	position:relative;
+	height:231px; 
+	width:980px;
+	background-image: url('images/tb/header-bg.png');
+    background-repeat: no-repeat;
+
+}
+
+
+#order-collect-location-info{
+	margin-left: 79px;
+	position:relative;	
+	list-style:none;
+	top: 20px;
+
+}
+
+/*
+#order-collect-location-info label{
+	color:#e6dbd5;
+	font-size:11px;
+	font-family: 'Ubuntu', sans-serif;	width: 30px;
+	vertical-align: middle;
+	margin-left:10px;
+}
+*/
+
+#order-collect-location-info ul{
+
+}
+#order-collect-location-info li{
+	list-style-type: none;
+	height: 20px;
+    display:inline;
+	color:#e6dbd5;
+	font-family: 'Ubuntu', sans-serif;	font-size: 11px;
+	text-decoration: none; 
+	padding:0px;
+	position: relative;
+
+}
+
+#order-collect-location-info ul li img {
+padding-right: 5px;
+}
+
+/*
+#order-collect-location-info .icon-order{
+	background:url("images/tb/icon-order.png") no-repeat 0px -2px transparent;
+	padding:0 20px;
+
+}
+#order-collect-location-info .icon-collection{
+	background:url("images/tb/icon-collect.png") no-repeat 0px -2px transparent;
+	padding:0 20px;
+
+}
+#order-collect-location-info .icon-location{
+	background:url("images/tb/icon-location.png") no-repeat 0px -2px transparent;
+	padding:0 18px;
+}
+*/
+
+
+
+.logo{
+	float:left;
+	position:absolute;
+	top:66px;
+	left:40px;
+}
+
+#shopping-basket{
+float:right;
+position:absolute;
+top: 86px;
+right:60px;	
+display: block;
+
+}
+
+#shopping-basket p{
+color:#fff;
+font-family: 'Ubuntu', sans-serif;	font-size: 17px;
+text-decoration: none; 
+font-weight: bold;
+display: inline;
+
+}
+#shopping-basket a{
+text-decoration: none;
+}
+
+#shopping-basket img{
+position:relative;
+top:2px;
+display: inline;
+padding-right:5px;
+}
+
+#shopping-bar{
+	position:relative;
+	width: 980px;
+	height: 70px;
+	top: 113px;
+}
+
+#shopping-bar h3{
+	position:absolute;
+	color:#5f90b0;
+	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
+	text-decoration: none; 
+	font-weight: medium;
+	left:10px;
+	top:18px;
+}
+#shopping-bar h4{
+	position:absolute;
+	color:#5d5248;
+	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
+	font-weight: light; 
+	left:10px;
+	top:32px;
+}
+
+#shopping bar p{
+	position:relative;
+	color:#574c42;
+	font-family: 'Ubuntu', sans-serif;	font-size: 10px;
+	font-weight: Light; 
+	top:20px;
+
+}
+
+#shopping-bar ul{
+	margin-top:10px;
+	margin-left:103px;
+}
+#shopping-bar li{
+	list-style-type: none;
+	height: 20px;
+    display:inline;
+	color:#574c42;
+	font-family: 'Ubuntu', sans-serif;	font-size: 10px;
+	font-weight: Light; 
+	text-decoration: none; 
+	position: relative;
+	padding-right: 170px;
+
+}
+
+
+#sellers{
+	position: absolute;
+	left:130px;
+	
+}
+
+#sellers .dropdown-menu{
+	padding:8px 15px;
+    background:rgba(50, 50, 50, 0.2);
+    border:0px solid #dbdbdb;
+}
+
+#mp-storepicker select, .mp_list_filter .one_filter select {
+	width:229px;
+	height: 28px;
+	padding:8px 15px;
+    background:#fff;
+    border:0px solid #b1a599;
+    
+	}
+#searchform label {
+	display:none;
+	
+}
+
+#categories{
+	position: absolute;
+	left:385px;
+}
+
+#categories .dropdown-menu{
+	width:229px;
+	height: 28px;
+	padding:8px 15px;
+    background:#fff;
+    border:0px solid #b1a599;
+	
+}
+
+
+#search{
+	position:absolute;
+	right:30px;
+	
+}
+
+#search form {
+	margin-top:-2px;
+    /*width:500px;*/
+    /*margin:50px auto;*/
+}
+#search .search {
+    padding:8px 15px;
+    background:rgba(50, 50, 50, 0.2);
+    border:0px solid #b1a599;
+    width:190px; /* new */
+
+}
+#search .button {
+    position:relative;
+    padding:6px 15px;
+    /*left:-8px;*/
+    border:2px solid #5f90b0;
+    background-color:#5f90b0;
+    color:#fff;
+    font-family: 'Ubuntu', sans-serif;	font-size: 11px;
+	font-weight: Medium;
+}
+#search .button:hover  {
+    background-color:#fafafa;
+    color:#5f90b0;
+    cursor: pointer;cursor: hand; 
+}
+
+
+
+
+/*
+#header-tools{
+	position:relative;
+	top:10px;
+	width:100%;
+}
+
+#cart-contents{
+position:relative;
+
+color:#ffffff;
+}
+
+#custom-cart-contents{
+position:relative;
+float:left;
+color:#fff;
+margin-right:20px;	
+font-size:14px;
+top:4px;
+}
+
+#mp-cartsmall{
+	position:relative;
+	top:4px;
+}
+
+#searchform{
+float:right;
+margin-right:6px;
+position:relative;
+}
+#s{
+	width:220px;
+}
+
+#mp-storepicker{
+	position:relative;
+	float:right;
+	right:-180px;
+	top:4px;
+	color:#fff;
+}
+
+#mp-storepicker select{
+	height:25px;
+	width:150px;
+}
+
+#mp-storepicker option{
+	width:150px;
+}
+*/
+
+
+
+
+#branding-wrapper{
+height:60px;
+background-color: #f7f7f7;
+}
+#site-logo{
+background-color: #f7f7f7;
+height:50px;
+font-style: normal;
+
+}
+
+#site-logo h1{
+	position:relative;
+	top:-28px;
+	color:#000;
+	font-style: normal;
+	font-size: 22px;
+	display: inline;
+	left:260px;
+
+}
+
+#site-logo img{
+	position:relative;
+	display: inline;
+	top:-18px;
+	left:250px;
+
+}
+
+/*
+.mp_excerpt p{
+	max-height:110px;
+}
+*/
+
+
+
+
+/******  ABOUT PAGE  **********/
+
+
+#what{
+	position:relative;
+	/*margin-top:30px;*/
+	height:600px;/*740px;*/
+	width:100%;
+	/*background:#f0ece1;*/
+
+}
+
+
+
+#what-content{
+position:relative;
+top:30px;
+}
+
+#what h1{
+position: relative;
+line-height:44px;
+width:100%;	
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:26px;
+color:#6a645a;
+margin-left:40px;
+
+
+}
+
+#what p{
+	position:relative;
+/*	font-family: "Helvetica Neue";*/
+	margin-top:20px;
+	width:95%;
+	color:#6a645a;
+	font-size:14px;
+	display:block;
+	margin-left:40px;
+
+
+	}
+
+#what img{
+	position:relative;
+	width:530px;
+	height:354px;
+	top:60px;
+		
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#map img{
+	
+	position:relative;
+	width:530px;
+	height:365px;
+	top:60px;
+		
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	
+}
+
+#how-it-works{
+	/*height:428px;*/
+	width:100%;
+	/*background:#f0ece1;*/
+
+}
+#how-content{
+position:relative;
+margin-left:40px;
+top:30px;
+
+}
+#how-content h1{
+line-height:44px;
+width:100%;	
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:26px;
+color:#6a645a;
+
+}
+
+#how-content-steps{
+	width: 100%;
+	margin-left:35px;
+	
+}
+
+#step{
+position:relative;
+top:50px;
+height:100%;
+width:300px;
+display:block;/*inline-block;*/
+}
+
+#step h1{
+line-height:18px;
+width:300px;	
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:18px;
+color:#6a645a;
+	
+}
+
+#step p{
+	position:absolute;
+/* 	font-family: "Helvetica Neue";*/
+	margin-top:20px;
+	width:260px;
+	color:#6a645a;
+	font-size:13px;
+}
+
+#shop-now{
+	width:100%;
+	height: 150px;
+	background:#dad5c6;
+}
+
+#shop-now h1{
+position:relative;
+text-align:center;
+line-height:44px;
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+font-size:26px;
+color:#6a645a;
+top: 20px;
+}
+
+#shop-now img{
+	position:relative;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	width:134px;
+	height:46px;
+	top:35px;
+}
+
+
+/******  JOIN PAGE  **********/
+
+
+
+#signup{
+display:block;
+position:relative;
+width: 100%;
+top:30px;
+margin-left:40px;
+
+}
+
+#signup h1{
+font-size: 28px;
+line-height: 32px;
+/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
+color:#6a645a;
+}
+
+#signup p{
+margin-top:20px;
+font-size: 14px;
+line-height: 18px;
+/*font-family: "Helvetica Neue";*/
+width:95%;
+color:#6a645a;
+}
+
+#signup h4{
+position:relative;
+display:inline-block;
+margin-top:10px;
+font-size: 11px;
+line-height: 18px;
+/*font-family: "Helvetica Neue";*/
+width:95%;
+color:#6a645a;
+}
+
+#signup h4 a{
+color:#5b9aa9;
+}
+
+
+
+
+#signup img{
+	position:relative;
+	margin-top:20px;
+
+}
+
+
+
+
+

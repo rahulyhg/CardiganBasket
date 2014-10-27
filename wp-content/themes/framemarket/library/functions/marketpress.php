@@ -7,7 +7,7 @@ function framemarket_listall_shops(){
     $blogs = apply_filters( 'framemarket_list_shops', $blogs );
     ?>
 <select name="shoplist" onchange="document.location.href=this.options[this.selectedIndex].value;">
-	<option value=""><?php echo apply_filters('shop_drop_default_label', 'Visit a shop') ?></option>
+	<option value=""><?php echo apply_filters('shop_drop_default_label', 'Select a seller...') ?></option>
 	<?php
     foreach($blogs as $blog){
         $blog_details = get_blog_details($blog->blog_id);
@@ -426,15 +426,25 @@ function framemarket_product_meta() {
  	if ( !in_the_loop() )
 		  return $content;
 
-   $content = '<div class="product-meta-details">';
-   $content .= mp_category_list($post_id, '<span class="grid_mp_product_categories">' . __( 'Categorized in ', 'mp' ), ', ', '</span>');
-   $content .= '&nbsp;&nbsp;';
-   $content .= mp_tag_list($post_id, '<span class="grid_mp_product_tags">'.__('Tagged in ', 'mp'), ', ', '</span>');
-   $content .= '</div><hr/><div class="product-meta-details">';
+   //$content = '<div class="product-meta-details">';
+   //$content .= mp_category_list($post_id, '<span class="grid_mp_product_categories">' . __( 'Categorized in ', 'mp' ), ', ', '</span>');
+   //$content .= '&nbsp;&nbsp;';
+   //$content .= mp_tag_list($post_id, '<span class="grid_mp_product_tags">'.__('Tagged in ', 'mp'), ', ', '</span>');
+   //$content .= '</div><hr/><div class="product-meta-details">';
+   
+   
+   $content .= '<div class="product-meta-details">';
    $content .= mp_product_price(false);
    $content .= mp_pinit_button();
    $content .= mp_buy_button(false, 'single');
-   $content .= '</div><hr />';
+   
+   $content .= '<br><br><div class="product-meta-details">';
+   $content .= mp_category_list($post_id, '<span class="grid_mp_product_categories">' . __( 'Categorized in ', 'mp' ), ', ', '</span>');
+   $content .= '&nbsp;&nbsp;';
+   $content .= mp_tag_list($post_id, '<span class="grid_mp_product_tags">'.__('Tagged in ', 'mp'), ', ', '</span>');
+   $content .= '</div>';
+   
+   $content .= '</div>';
 
    return $content;
  }

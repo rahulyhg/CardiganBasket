@@ -459,7 +459,7 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 				}
 
 				//coupon line TODO - figure out how to apply them on global checkout
-				if ( !empty($coupon_code) ) {
+				/*if ( !empty($coupon_code) ) {
 						//dont' show confusing subtotal with tax inclusive pricing on
 						if (!$mp->get_setting('tax->tax_inclusive')) {
 								$content .= '<tr>';
@@ -486,7 +486,8 @@ function _mp_cart_table($type = 'checkout', $echo = false) {
 				</td>';
 						$content .= '</tr>';
 				}
-
+				*/
+				
 				//shipping line
 				if ($shipping_price = array_sum($shipping_prices)) {
 					$shipping_tax_price = array_sum($shipping_tax_prices);

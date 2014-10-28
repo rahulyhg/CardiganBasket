@@ -1007,7 +1007,7 @@ function wppb_front_end_register($atts){
 									$registerFilterArray2['name2'] = '
 										<p class="form-email'.$errorVar.'">
 											<label for="email">'. __('E-mail', 'profilebuilder') .$errorMark.'</label>
-											<input class="text-input" name="email" type="text" id="email" value="'.stripslashes($localVar).'" />
+											<input class="text-input" name="email" type="register-login-text" id="email" value="'.stripslashes($localVar).'" />
 										</p><!-- .form-email -->';
 									$registerFilterArray2['name2'] = apply_filters('wppb_register_content_name2_with_email', $registerFilterArray2['name2'], trim($localVar), $errorVar, $errorMark);
 								}
@@ -1019,7 +1019,7 @@ function wppb_front_end_register($atts){
 								$registerFilterArray2['name2'] = '
 									<p class="form-username'.$errorVar.'">
 										<label for="user_name">'. __('Username', 'profilebuilder') .$errorMark.'</label>
-										<input class="text-input" name="user_name" type="text" id="user_name" value="'.stripslashes($localVar).'" />
+										<input class="text-input" name="user_name" type="register-login-text" id="user_name" value="'.stripslashes($localVar).'" />
 									</p><!-- .form-username -->';
 								$registerFilterArray2['name2'] = apply_filters('wppb_register_content_name2', $registerFilterArray2['name2'], trim($localVar), $errorVar, $errorMark);
 							}
@@ -1044,7 +1044,7 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['name3'] = '
 								<p class="first_name'.$errorVar.'">
 									<label for="first_name">'. __('First Name', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="first_name" type="text" id="first_name" value="'.stripslashes($localVar).'" />
+									<input class="text-input" name="first_name" type="register-login-text" id="first_name" value="'.stripslashes($localVar).'" />
 								</p><!-- .first_name -->';
 							$registerFilterArray2['name3'] = apply_filters('wppb_register_content_name3', $registerFilterArray2['name3'], trim($localVar), $errorVar, $errorMark);
 						}
@@ -1068,7 +1068,7 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['name4'] = '
 								<p class="last_name'.$errorVar.'">
 									<label for="last_name">'. __('Last Name', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="last_name" type="text" id="last_name" value="'.stripslashes($localVar).'" />
+									<input class="text-input" name="last_name" type="register-login-text" id="last_name" value="'.stripslashes($localVar).'" />
 								</p><!-- .last_name -->';
 							$registerFilterArray2['name4'] = apply_filters('wppb_register_content_name4', $registerFilterArray2['name4'], trim($localVar), $errorVar, $errorMark);
 						}
@@ -1092,7 +1092,7 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['name5'] = '
 								<p class="nickname'.$errorVar.'">
 									<label for="nickname">'. __('Nickname', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="nickname" type="text" id="nickname" value="'.stripslashes($localVar).'" />
+									<input class="text-input" name="nickname" type="register-login-text" id="nickname" value="'.stripslashes($localVar).'" />
 								</p><!-- .nickname -->';
 							$registerFilterArray2['name5'] = apply_filters('wppb_register_content_name5', $registerFilterArray2['name5'], trim($localVar), $errorVar, $errorMark);
 						}
@@ -1121,7 +1121,7 @@ function wppb_front_end_register($atts){
 								$registerFilterArray2['info2'] = '
 									<p class="form-email'.$errorVar.'">
 										<label for="email">'. __('E-mail', 'profilebuilder') .$errorMark.'</label>
-										<input class="text-input" name="email" type="text" id="email" value="'.stripslashes($localVar).'" />
+										<input class="text-input" name="email" type="register-login-text" id="email" value="'.stripslashes($localVar).'" />
 									</p><!-- .form-email -->';
 								$registerFilterArray2['info2'] = apply_filters('wppb_register_content_info2', $registerFilterArray2['info2'], trim($localVar), $errorVar, $errorMark);
 							}
@@ -1146,7 +1146,7 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['info3'] = '
 								<p class="form-website'.$errorVar.'">
 									<label for="website">'. __('Website', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="website" type="text" id="website" value="'.stripslashes($localVar).'" />
+									<input class="text-input" name="website" type="register-login-text" id="website" value="'.stripslashes($localVar).'" />
 								</p><!-- .form-website -->';
 							$registerFilterArray2['info3'] = apply_filters('wppb_register_content_info3', $registerFilterArray2['info3'], trim($localVar), $errorVar, $errorMark);
 						}
@@ -1170,7 +1170,7 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['info4'] = '
 								<p class="form-aim'.$errorVar.'">
 									<label for="aim">'. __('AIM', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="aim" type="text" id="aim" value="'.stripslashes( $localVar ) .'" />
+									<input class="text-input" name="aim" type="register-login-text" id="aim" value="'.stripslashes( $localVar ) .'" />
 								</p><!-- .form-aim -->';
 							$registerFilterArray2['info4'] = apply_filters('wppb_register_content_info4', $registerFilterArray2['info4'], trim($localVar), $errorVar, $errorMark);
 						}
@@ -1194,7 +1194,7 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['info5'] = '
 								<p class="form-yim'.$errorVar.'">
 									<label for="yim">'. __('Yahoo IM', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="yim" type="text" id="yim" value="'.stripslashes($localVar).'" />
+									<input class="text-input" name="yim" type="register-login-text" id="yim" value="'.stripslashes($localVar).'" />
 								</p><!-- .form-yim -->';
 							$registerFilterArray2['info5'] = apply_filters('wppb_register_content_info5', $registerFilterArray2['info5'], trim($localVar), $errorVar, $errorMark);
 						}
@@ -1218,7 +1218,7 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['info6'] = '
 								<p class="form-jabber'.$errorVar.'">
 									<label for="jabber">'. __('Jabber / Google Talk', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="jabber" type="text" id="jabber" value="'.stripslashes($localVar).'" />
+									<input class="text-input" name="jabber" type="register-login-text" id="jabber" value="'.stripslashes($localVar).'" />
 								</p><!-- .form-jabber -->';
 							$registerFilterArray2['info6'] = apply_filters('wppb_register_content_info6', $registerFilterArray2['info6'], trim($localVar), $errorVar, $errorMark);
 						}
@@ -1279,12 +1279,12 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['ay3'] = '
 								<p class="form-password'.$errorVar.'">
 									<label for="pass1">'. __('Password', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="passw1" type="password" id="pass1" value="" />
+									<input class="text-input" name="passw1" type="register-login-password" id="pass1" value="" />
 								</p><!-- .form-password -->
 				 
 								<p class="form-password'.$errorVar2.'">
 									<label for="pass2">'. __('Repeat Password', 'profilebuilder') .$errorMark2.'</label>
-									<input class="text-input" name="passw2" type="password" id="pass2" value="" />
+									<input class="text-input" name="passw2" type="register-login-password" id="pass2" value="" />
 								</p><!-- .form-password -->';
 							$registerFilterArray2['ay3'] = apply_filters('wppb_register_content_about_yourself3', $registerFilterArray2['ay3'], trim($localVar1), trim($localVar2), $errorVar, $errorMark, $errorVar2, $errorMark2);
 						}

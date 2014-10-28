@@ -148,7 +148,7 @@ function wppb_front_end_login( $atts ){
 			$loginFilterArray['loginUsername'] = '
 				<p class="login-form-username">
 					<label for="user-name">'. $loginWith .'</label>
-					<input type="text" name="user-name" id="user-name" class="text-input" value="'.$userName.'" />
+					<input type="register-login-text" name="user-name" id="user-name" class="text-input" value="'.$userName.'" />
 				</p><!-- .form-username -->';
 			$loginFilterArray['loginUsername'] = apply_filters('wppb_login_username', $loginFilterArray['loginUsername'], $userName);
 			echo $loginFilterArray['loginUsername'];
@@ -156,7 +156,7 @@ function wppb_front_end_login( $atts ){
 			$loginFilterArray['loginPassword'] = '
 				<p class="login-form-password">
 					<label for="password">'. __('Password', 'profilebuilder') .'</label>
-					<input type="password" name="password" id="password" class="text-input" />
+					<input type="register-login-password" name="password" id="password" class="text-input" />
 				</p><!-- .form-password -->';
 			$loginFilterArray['loginPassword'] = apply_filters('wppb_login_password', $loginFilterArray['loginPassword']);
 			echo $loginFilterArray['loginPassword'];
@@ -182,7 +182,7 @@ function wppb_front_end_login( $atts ){
 					$siteURL=get_option('siteurl').'/wp-login.php?action=lostpassword';
 					$siteURL = apply_filters('wppb_pre_login_url_filter', $siteURL);
 					$loginFilterArray['loginURL'] = '
-						<p>
+						<p class ="lost-password">
 							<a href="'.$siteURL.'">'. __('Lost password?', 'profilebuilder').'</a>
 						</p>';
 					$loginFilterArray['loginURL'] = apply_filters('wppb_login_url', $loginFilterArray['loginURL'], $siteURL);

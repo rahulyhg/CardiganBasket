@@ -40,11 +40,11 @@
 			<?php endif; ?>
 			<div id="wrapper">
 						
-						
+					
 						<div id="top-bar">
 						<nav>
 							<ul>
-								<li class="nav-button-home"><a href="#">Home</li></a>
+								<li class="nav-button-home"><a href="/">Home</li></a>
 								<li class="nav-button-about"><a href="#">About us</li></a>
 								<li class="nav-button-how"><a href="#">How it works</li></a>
 								<li class="nav-button-sellers"><a href="#">Meet the sellers</li></a>
@@ -57,17 +57,19 @@
 							
 							<!-- Check whether or not the user is signed in, if they are display sign out-->
 							 <?php
+								 $current_user = wp_get_current_user();
+								 
 								if ( is_user_logged_in() ) {
 									//echo 'Welcome, registered user!';
 									?>
 									<!-- Check if customer/subscriber or admin/shop owner. If admin then link to dashboard/bask-end, if customer then disable the back-end and only show a simple edit account page for password change -->
 									<?php if ( current_user_can('manage_options') ) { ?>
-										<p><a href="<?php echo site_url(); ?>/wp-admin/">Dashboard</a> / 
-						            <a href="<?php echo wp_logout_url(); ?>">Log Out</a></p>
+										<p><a href="<?php echo site_url(); ?>/wp-admin/"><?php echo $current_user->user_login; ?></a>  
+						            <a href="<?php echo wp_logout_url(); ?>"> (Log Out)</a></p>
 						            <?php } else{ ?>
 						            
-						            <p><a href="<?php echo site_url(); ?>/edit-account/">Edit Account</a> / 
-						            <a href="<?php echo wp_logout_url(); ?>">Log Out</a></p>
+						            <p><a href="<?php echo site_url(); ?>/edit-account/"><?php echo $current_user->user_login; ?></a>  
+						            <a href="<?php echo wp_logout_url(); ?>"> (Log Out)</a></p>
 						            <?php } ?>
 							<?php
 								} else {
@@ -83,8 +85,7 @@
 						</div>
 						
 						</div> <!-- end of div top-bar -->
-						
-						
+
 						
 						<div id="header">
 							
@@ -102,12 +103,13 @@
 							</div> <!-- end of order-collect-location-info div -->
 							
 							<!-- SITE LOGO -->
-						    <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img class ="logo" src="<?php bloginfo('template_directory'); ?>/images/tb/teifibasket-logo.png" width="218px" height="43px" /></a>
+						    <a href="/"><img class ="logo" src="<?php bloginfo('template_directory'); ?>/images/tb/teifibasket-logo.png" width="218px" height="43px" /></a>
 						    
 						    <!-- SHOPPING BASKET -->
 						    <div id="shopping-basket">
-								<a href="#">
-								<img src='/wp-content/themes/teifibasket-theme/images/tb/shopping-basket.png' width="25px" height="20px" /><p>Basket(<?php ?>)</p></a>
+							    
+								<a href="/store/shopping-cart/">
+								<img src='/wp-content/themes/teifibasket-theme/images/tb/shopping-basket.png' width="25px" height="20px" /><p>Basket(<?php  echo mp_items_count_in_cart(); ?>)</p></a>
 							</div>
 							
 							<div id="shopping-bar">
@@ -168,11 +170,37 @@
 									
 									
 									<div id="search">
-										<form>
+										<!--<form>
 											<input class="search" type="text" placeholder="Search..." required>
 											<input class="button" type="button" value="Search">
 										</form>
-									</div>
+										-->
+										
+										<?php
+											$options = get_option('framemarket_theme_options');
+											$searchbar = isset($options['searchinput']) ? $options['searchinput'] : '';
+										?>
+										<?php if(($searchbar == '' || $searchbar == 'BuddyPress') && $bp_existed == 'true') : ?>
+											<?php if ( apply_filters( 'bp_search_form_enabled', true ) ): $bp_search_form = true; ?>
+												<div id="buddypress-searchbar"> -->
+													<form action="<?php echo bp_search_form_action() ?>" method="post" id="search-form">
+														<input class="search" type="search-keywords" placeholder="Search..." required />
+														<?php echo bp_search_form_type_select() ?>
+					
+														<input class="button" type="search-button" value="Search" />
+														<?php wp_nonce_field( 'bp_search_form' ) ?>
+													</form><!-- #search-form -->
+													<?php do_action( 'bp_search_login_bar' ) ?>
+												</div> 
+											<?php endif; ?>
+										<?php endif; ?>
+										<?php if ( ! isset($bp_search_form) || !$bp_search_form ): ?>
+											<div id="search-bar">
+												<?php get_search_form(); ?>
+											</div>
+										<?php endif ?>
+										
+									</div> <!-- End of id="Search" -->
 
 								</ul>
 							</div>
@@ -196,7 +224,7 @@
 				
 					?>
 					<div id="site-logo">
-						<img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="42px" height="42px"/><h1><?php echo bloginfo('name'); ?></h1>
+						<a href="<?php echo site_url(); ?>"><img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="42px" height="42px"/><h1><?php echo bloginfo('name'); ?></h1></a>
 					</div>
 					
 					<div id="site-advert">

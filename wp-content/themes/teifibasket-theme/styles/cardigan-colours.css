@@ -5,6 +5,11 @@ a,a:link,a:visited,
 color:fff;
 }
 
+h1, h2, h3, h4, p{
+	font-family: 'Ubuntu', sans-serif;
+	
+}
+
 a:hover{
 color:fff;
 }
@@ -16,15 +21,18 @@ input[type="submit"],a.button,a:visited.button,a:link.button,
 a.mp_link_addcart,a.mp_link_buynow,
 form.mp_buy_form .mp_adding_to_cart,
 a.mp_cart_direct_checkout_link{
-background:none repeat scroll 0 0 #497881;
+background:none repeat scroll 0 0 /*#497881*/#5f90b0;
 border:1px solid #dddddd;
 color:#ffffff;
+font-family: 'Ubuntu', sans-serif;
+font-weight: normal;
 }
 
 .reply a:hover,.reply a,
 a.mp_cart_direct_checkout_link,
 #site-logo a,#site-logo a:link,#site-logo a:visited,#site-logo a:hover{
 color:#ffffff !important;
+font-weight: normal;
 }
 
 #site-logo{
@@ -33,6 +41,8 @@ color:#ffffff;/*text-shadow:-2px -2px 0px #3d666e;*/
 
 a.mp_cart_direct_checkout_link:hover{
 border-color:#3d666e;
+font-weight: normal;
+
 }
 .reply a:hover,#header-wrapper a:hover,
 input[type="submit"]:hover,a:hover.button,
@@ -44,6 +54,8 @@ a.mp_cart_direct_checkout_link:hover{
 background:none repeat scroll 0 0 /*#33575e;#497881;*/#33575e;
 border:1px solid /*#33575e;*/#fff;
 color:#ffffff;
+font-weight: normal;
+
 }
 
 #header-wrapper{
@@ -52,7 +64,7 @@ border-bottom:1px solid #497881;
 
 #branding-wrapper,
 .nav .current a, .nav li:hover > a, .nav li.current_page_item a, .nav li:hover li a{
-background:#f7f7f7;/*dddddd;*/
+background:#f8f3f0;/*#f7f7f7;*//*dddddd;*/
 color:#ffffff;
 }
 

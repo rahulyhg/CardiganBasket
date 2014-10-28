@@ -220,8 +220,8 @@ form.mp_product_price{float:left;}
 li.product{border:none;padding:0px;}
 .mp_button_addcart,.mp_button_buynow,.mp_cart_col_updatecart input[type=submit],#mp_shipping_submit,#mp_payment_confirm{font-weight:bold;padding:5px;text-decoration:none;}
 .mp_button_addcart:hover,.mp_button_buynow:hover,.mp_cart_col_updatecart input[type=submit]:hover,#mp_shipping_submit:hover,#mp_payment_confirm:hover{font-weight:bold;padding:5px;text-decoration:none;}
-a.mp_link_addcart,a.mp_link_buynow{float:right;font-weight:bold;padding:5px;text-decoration:none;color:#ffffff!important;}
-a.mp_link_addcart:hover,a.mp_link_buynow:hover{float:right;font-weight:bold;padding:5px;text-decoration:none;color:#ffffff!important;}
+a.mp_link_addcart,a.mp_link_buynow{float:right;/*font-weight:bold;*/padding:5px;text-decoration:none;color:#ffffff!important;}
+a.mp_link_addcart:hover,a.mp_link_buynow:hover{float:right;/*font-weight:bold;*/padding:5px;text-decoration:none;color:#ffffff!important;}
 del.mp_old_price{margin-right:5px;}
 form.mp_buy_form .mp_adding_to_cart{font-weight:bold;padding:5px;text-decoration:none;}
 form.mp_buy_form .mp_no_stock{color:#ffffff;font-weight:bold;padding:5px;text-decoration:none;background:#111111;border:1px solid #9a0000;}
@@ -233,8 +233,8 @@ td.mp_cart_col_quant input{margin:0;text-align:center;}
 td.mp_cart_col_updatecart input{margin:0;}
 table.mp_cart_shipping input,table.mp_cart_shipping select{margin:0;}
 p.mp_cart_direct_checkout,p.mp_cart_login_msg{text-align:right;margin-bottom:10px;margin-top:10px;}
-a.mp_cart_direct_checkout_link{font-weight:bold;padding:5px;text-decoration:none; float:right; position:relative;}
-a.mp_cart_direct_checkout_link:hover{font-weight:bold;padding:5px;text-decoration:none;}
+a.mp_cart_direct_checkout_link{font-weight:normal;padding:5px;text-decoration:none; float:right; position:relative;}
+a.mp_cart_direct_checkout_link:hover{font-weight:normal;padding:5px;text-decoration:none;}
 .mp_product_image_list,.mp_product_image_single,.mp_product_image_widget{border:1px solid #eeeeee;} /* mark davies */
 .mp_product_image_single{padding:10px;} /* mark davies */
 .local-badge{position:absolute; height:150px; width: 150px;}; /* mark davies */

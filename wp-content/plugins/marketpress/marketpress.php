@@ -8163,7 +8163,7 @@ class MarketPress_Shopping_Cart extends WP_Widget {
 		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id('only_store_pages'); ?>" name="<?php echo $this->get_field_name('only_store_pages'); ?>"<?php checked( $only_store_pages ); ?> />
 		<label for="<?php echo $this->get_field_id('only_store_pages'); ?>"><?php _e( 'Only show on store pages', 'mp' ); ?></label></p>
 	<?php
-		/* Disable untill we can mod the cart
+		/* Disable untill we can mod the cart - MARK DAVIES
 		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id('show_thumbnail'); ?>" name="<?php echo $this->get_field_name('show_thumbnail'); ?>"<?php checked( $show_thumbnail ); ?> />
 		<label for="<?php echo $this->get_field_id('show_thumbnail'); ?>"><?php _e( 'Show Thumbnail', 'mp' ); ?></label><br />
 		<label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Thumbnail Size:', 'mp') ?> <input id="<?php echo $this->get_field_id('size'); ?>" name="<?php echo $this->get_field_name('size'); ?>" type="text" size="3" value="<?php echo $size; ?>" /></label></p>

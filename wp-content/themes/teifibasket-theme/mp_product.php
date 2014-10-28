@@ -20,10 +20,10 @@ get_header();
 								?>
 				<?php mp_product_image(true, 'single', null); ?>
 				</div>
+					<?php echo framemarket_product_meta(); ?>
 
 				<div class="content-box">
 					<?php the_content(); ?>
-					<?php echo framemarket_product_meta(); ?>
 				</div>
 				
 					<div class="product-details">

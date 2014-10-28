@@ -21,10 +21,14 @@ Template: framemarket
 /* 127451-1401181458 */
 
 
-h1, h2, h3, p{
+h1, h2, h3, h4, p{
 	font-family: 'Ubuntu', sans-serif;
 }
 
+body{
+	
+	background:url("images/tb/bg.png") no-repeat 0px -2px transparent;
+}
 #wrapper{
 	height:270px;
 	width:980px;
@@ -207,9 +211,9 @@ display: block;
 
 #shopping-basket p{
 color:#fff;
-font-family: 'Ubuntu', sans-serif;	font-size: 17px;
+font-family: 'Ubuntu', sans-serif;	font-size: 16px;
 text-decoration: none; 
-font-weight: bold;
+font-weight: normal;
 display: inline;
 
 }
@@ -315,29 +319,26 @@ padding-right:5px;
 	
 }
 
-
+/* MOVED THIS TO GRID.CSS
 #search{
 	position:absolute;
 	right:30px;
-	
 }
 
 #search form {
 	margin-top:-2px;
-    /*width:500px;*/
-    /*margin:50px auto;*/
+
 }
 #search .search {
     padding:8px 15px;
     background:rgba(50, 50, 50, 0.2);
     border:0px solid #b1a599;
-    width:190px; /* new */
+    width:190px;
 
 }
 #search .button {
     position:relative;
     padding:6px 15px;
-    /*left:-8px;*/
     border:2px solid #5f90b0;
     background-color:#5f90b0;
     color:#fff;
@@ -349,7 +350,7 @@ padding-right:5px;
     color:#5f90b0;
     cursor: pointer;cursor: hand; 
 }
-
+*/
 
 
 
@@ -411,24 +412,28 @@ position:relative;
 
 
 #branding-wrapper{
+width:980px;
 height:60px;
-background-color: #f7f7f7;
+/*background-color: #f7f7f7;*/
+margin-left: auto;
+margin-right: auto;
 }
 #site-logo{
-background-color: #f7f7f7;
+/*background-color: #f7f7f7;*/
 height:50px;
 font-style: normal;
 
 }
 
 #site-logo h1{
+	font-family: 'Ubuntu', sans-serif;
 	position:relative;
 	top:-28px;
-	color:#000;
+	color:#5d5248;
 	font-style: normal;
-	font-size: 22px;
+	font-size: 20px;
 	display: inline;
-	left:260px;
+	left:20px;
 
 }
 
@@ -436,7 +441,7 @@ font-style: normal;
 	position:relative;
 	display: inline;
 	top:-18px;
-	left:250px;
+	left:10px;
 
 }
 

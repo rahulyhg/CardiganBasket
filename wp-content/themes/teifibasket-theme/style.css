@@ -27,7 +27,8 @@ h1, h2, h3, h4, p{
 
 body{
 	
-	background:url("images/tb/bg.png") no-repeat 0px -2px transparent;
+	/*background:url("images/tb/bg.png") no-repeat 0px -2px transparent;*/
+	
 }
 #wrapper{
 	height:270px;
@@ -41,7 +42,7 @@ body{
 	position:relative;
 	height: 39px;
 	width:980px;
-	background-color: #5d5248;
+	background-color: #564f48;
 }
 
 nav{
@@ -431,17 +432,29 @@ font-style: normal;
 	top:-28px;
 	color:#5d5248;
 	font-style: normal;
-	font-size: 20px;
+	font-size: 12px;
 	display: inline;
-	left:20px;
+	left:25px;
+
+}
+
+#site-logo h2{
+	font-family: 'Ubuntu', sans-serif;
+	position:relative;
+	top:-28px;
+	color:#5f90b0;
+	font-style: normal;
+	font-size: 10px;
+	display: inline;
+	left:25px;
 
 }
 
 #site-logo img{
 	position:relative;
 	display: inline;
-	top:-18px;
-	left:10px;
+	top:-20px;
+	left:20px;
 
 }
 
@@ -654,6 +667,102 @@ color:#5b9aa9;
 	margin-top:20px;
 
 }
+
+#footer{
+position: relative;
+width:980px;
+background-color: #564f48;
+height:100px;
+}
+
+
+#line1{
+	position:relative;
+	width:980px;
+	height:35px;
+}
+
+#line1 .copyright{
+	
+	position:absolute;
+	float:left;
+	left:20px;
+	color:#e6da89;
+	font-family: 'Ubuntu', sans-serif;	font-size: 11px; 
+
+}
+
+#line1 ul{
+	position:relative;
+	list-style:none;
+	float:right;
+	margin-right:20px;
+	
+}
+
+#line1 ul li{
+	display:inline;
+	list-style-type: none;
+	font-family: 'Ubuntu', sans-serif;	font-size: 11px; 
+	text-decoration: none; 
+	font-weight: normal;
+	color:#ffffff;
+}
+
+#line1 ul li a{
+	padding-right:20px;
+	color:#ffffff;
+	font-family: 'Ubuntu', sans-serif;	font-size: 11px; 
+	text-decoration: none; 
+	font-weight: normal;
+
+}
+
+
+
+#line2{
+	width:980px;
+	position:relative;
+	
+} 
+
+
+#social{
+	position:relative;
+	float:right;
+	right:30px;
+}
+
+
+
+
+/*Adapt the following styling depending on where you want to put your map. If you want a 'full screen' map, then set the width and height to 100 percent and remove the margins.*/
+	  #cardigan-map { 
+	  	  position:relative;
+		  top:40px;
+	  	  height: 80%;
+		  width: 100%; 
+		  margin-left: auto;
+          margin-right: auto;
+		 /* border-right-width: 2px;
+		  border-right-color: #6a645a;
+		  border-right-style: solid;
+		  border-left-width: 2px;
+		  border-left-color: #6a645a;
+		  border-left-style: solid;
+		  border-top-color:#6a645a;
+		  border-top-style:solid;
+		  border-bottom-color:#6a645a;
+		  border-bottom-style:solid;*/
+	  }
+	  
+	  .pop_up_box_text {
+	 	  font-family: Georgia, 'Times New Roman', Times, serif; 
+		  font-size: 16px; 
+		  line-height: 22px; 
+		  color: #ffffff; 
+		  display: inline; 
+	  }
 
 
 

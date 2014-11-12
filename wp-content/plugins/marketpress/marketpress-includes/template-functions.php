@@ -2430,7 +2430,7 @@ function mp_buy_button($echo = true, $context = 'list', $post_id = NULL) {
 										$button .= '<a class="mp_link_buynow" href="' . get_permalink($post_id) . '">' . __('Choose Option &raquo;', 'mp') . '</a>';
 								} else if ($mp->get_setting('list_button_type') == 'addcart') {
 										$button .= '<input type="hidden" name="action" value="mp-update-cart" />';
-										$button .= '<input class="mp_button_addcart" type="submit" name="addcart" value="' . __('Add To Cart &raquo;', 'mp') . '" />';
+										$button .= '<input class="mp_button_addcart" type="submit" name="addcart" value="' . __('Add To Basket &raquo;', 'mp') . '" />';
 								} else if ($mp->get_setting('list_button_type') == 'buynow') {
 										$button .= '<input class="mp_button_buynow" type="submit" name="buynow" value="' . __('Buy Now &raquo;', 'mp') . '" />';
 								}
@@ -2445,7 +2445,7 @@ function mp_buy_button($echo = true, $context = 'list', $post_id = NULL) {
 
 								if ($mp->get_setting('product_button_type') == 'addcart') {
 										$button .= '<input type="hidden" name="action" value="mp-update-cart" />';
-										$button .= '<input class="mp_button_addcart" type="submit" name="addcart" value="' . __('Add To Cart &raquo;', 'mp') . '" />';
+										$button .= '<input class="mp_button_addcart" type="submit" name="addcart" value="' . __('Add To Basket &raquo;', 'mp') . '" />';
 								} else if ($mp->get_setting('product_button_type') == 'buynow') {
 										$button .= '<input class="mp_button_buynow" type="submit" name="buynow" value="' . __('Buy Now &raquo;', 'mp') . '" />';
 								}

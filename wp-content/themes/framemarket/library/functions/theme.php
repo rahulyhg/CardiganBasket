@@ -133,7 +133,11 @@ endif;
 
 function framemarket_footerlinks(){
 	?>
-	<a href="<?php echo home_url(); ?>"><?php _e( 'Copyright', 'framemarket' ) ?> &copy;<?php echo gmdate(__('Y')); ?> <?php bloginfo('name'); ?></a><a href="#header-wrapper"><?php _e('Go back to top &uarr;', 'framemarket'); ?></a>
+	<a href="<?php echo home_url(); ?>"><?php _e( 'Copyright', 'framemarket' ) ?> &copy;<?php echo gmdate(__('Y')); ?> <?php bloginfo('name'); ?></a>
+<!--	<a href="#header-wrapper"><?php _e('Go back to top &uarr;', 'framemarket'); ?></a> 
+	
+	MARK DAVIES - TAKEN THIS OUT 
+-->
 	<?php
 }
 

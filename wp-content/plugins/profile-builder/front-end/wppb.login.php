@@ -156,7 +156,7 @@ function wppb_front_end_login( $atts ){
 			$loginFilterArray['loginPassword'] = '
 				<p class="login-form-password">
 					<label for="password">'. __('Password', 'profilebuilder') .'</label>
-					<input type="register-login-password" name="password" id="password" class="text-input" />
+					<input type="password" name="password" id="password-login" class="text-input" />
 				</p><!-- .form-password -->';
 			$loginFilterArray['loginPassword'] = apply_filters('wppb_login_password', $loginFilterArray['loginPassword']);
 			echo $loginFilterArray['loginPassword'];

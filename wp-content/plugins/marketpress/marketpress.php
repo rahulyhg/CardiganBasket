@@ -7163,7 +7163,7 @@ Notification Preferences: %s', 'mp');
 					 <tr>
 							<th scope="row"><?php _e('Checkout Button Type', 'mp') ?></th>
 							<td>
-						<label><input value="addcart" name="mp[product_button_type]" type="radio"<?php checked($this->get_setting('product_button_type'), 'addcart') ?> /> <?php _e('Add To Cart', 'mp') ?></label><br />
+						<label><input value="addcart" name="mp[product_button_type]" type="radio"<?php checked($this->get_setting('product_button_type'), 'addcart') ?> /> <?php _e('Add To Basket', 'mp') ?></label><br />
 						<label><input value="buynow" name="mp[product_button_type]" type="radio"<?php checked($this->get_setting('product_button_type'), 'buynow') ?> /> <?php _e('Buy Now', 'mp') ?></label>
 							</td>
 					 </tr>
@@ -7280,7 +7280,7 @@ Notification Preferences: %s', 'mp');
 					 <tr>
 							<th scope="row"><?php _e('Checkout Button Type', 'mp') ?></th>
 							<td>
-						<label><input value="addcart" name="mp[list_button_type]" type="radio"<?php checked($this->get_setting('list_button_type'), 'addcart') ?> /> <?php _e('Add To Cart', 'mp') ?></label><br />
+						<label><input value="addcart" name="mp[list_button_type]" type="radio"<?php checked($this->get_setting('list_button_type'), 'addcart') ?> /> <?php _e('Add To Basket', 'mp') ?></label><br />
 						<label><input value="buynow" name="mp[list_button_type]" type="radio"<?php checked($this->get_setting('list_button_type'), 'buynow') ?> /> <?php _e('Buy Now', 'mp') ?></label>
 							</td>
 					 </tr>
@@ -7942,7 +7942,7 @@ Notification Preferences: %s', 'mp');
 							<th scope="row"><?php _e('Product Buy Button', 'mp') ?></th>
 							<td>
 						<strong>[mp_buy_button]</strong> -
-						<span class="description"><?php _e('Displays the buy or add to cart button.', 'mp') ?></span>
+						<span class="description"><?php _e('Displays the buy or add to basket button.', 'mp') ?></span>
 						<p>
 						<strong><?php _e('Optional Attributes:', 'mp') ?></strong>
 						<ul class="mp-shortcode-options">
@@ -7984,7 +7984,7 @@ Notification Preferences: %s', 'mp');
 							<th scope="row"><?php _e('Product Meta', 'mp') ?></th>
 							<td>
 						<strong>[mp_product_meta]</strong> -
-						<span class="description"><?php _e('Displays the full product meta box with price and buy now/add to cart button.', 'mp') ?></span>
+						<span class="description"><?php _e('Displays the full product meta box with price and buy now/add to basket button.', 'mp') ?></span>
 						<p>
 						<strong><?php _e('Optional Attributes:', 'mp') ?></strong>
 						<ul class="mp-shortcode-options">

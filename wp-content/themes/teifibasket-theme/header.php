@@ -40,6 +40,14 @@
 			<?php endif; ?>
 			<div id="wrapper">
 						
+					<?php
+						 $current_user1 = wp_get_current_user();
+						 $curr_user = $current_user1->user_login;
+						 $username = strtoupper ($curr_user);
+						 /*$domain_name = $_SERVER['SERVER_NAME'];*/
+						 $domain_name =  preg_replace('/^www\./','',$_SERVER['SERVER_NAME']);
+					?>
+
 					
 						<div id="top-bar">
 						<nav>
@@ -48,37 +56,37 @@
 								<li class="nav-button-about"><a href="#">About us</li></a>
 								<li class="nav-button-how"><a href="#">How it works</li></a>
 								<li class="nav-button-sellers"><a href="#">Meet the sellers</li></a>
-								<li class="nav-button-news"><a href="#">News</li></a>
-								<li class="nav-button-contact"><a href="#">Contact us</li></a>
+								<li class="nav-button-news"><a href="http://<?php echo $domain_name; ?>/news">News</li></a>
+								<li class="nav-button-contact"><a href="http://<?php echo $domain_name; ?>/contact-us">Contact us</li></a>
 								
 							</ul>
 						</nav>
 						<div id="register-login">
 							
-							<!-- Check whether or not the user is signed in, if they are display sign out-->
-							 <?php
-								 $current_user = wp_get_current_user();
-								 
-								if ( is_user_logged_in() ) {
+							<!-- Check whether or not the user is signed in, if they are display sign out-->							
+							<?php										
+							if ( is_user_logged_in() ) {
 									//echo 'Welcome, registered user!';
 									?>
 									<!-- Check if customer/subscriber or admin/shop owner. If admin then link to dashboard/bask-end, if customer then disable the back-end and only show a simple edit account page for password change -->
 									<?php if ( current_user_can('manage_options') ) { ?>
-										<p><a href="<?php echo site_url(); ?>/wp-admin/"><?php echo $current_user->user_login; ?></a>  
+										<p><a href="http://<?php echo $domain_name; ?>/wp-admin/"><?php echo $username; ?></a>  
 						            <a href="<?php echo wp_logout_url(); ?>"> (Log Out)</a></p>
 						            <?php } else{ ?>
 						            
-						            <p><a href="<?php echo site_url(); ?>/edit-account/"><?php echo $current_user->user_login; ?></a>  
+						            <p><a href="http://<?php echo $domain_name; ?>/edit-account/"><?php echo $username; ?></a>  
 						            <a href="<?php echo wp_logout_url(); ?>"> (Log Out)</a></p>
 						            <?php } ?>
 							<?php
 								} else {
 									//echo 'Welcome, visitor!';
 									?>
-							<p> <a href="<?php echo site_url(); ?>/signup/"> Create Account </a> / <a href="<?php echo site_url(); ?>/login">Log In</a> </p>
+							<p> <a href="http://<?php echo $domain_name; ?>/signup/"> Create Account </a> / <a href="http://<?php echo $domain_name; ?>/login">Log In</a> </p>
 							<?php
 								}
-							?>
+							?>	
+									
+							
 
 							
 							
@@ -95,8 +103,8 @@
 									<li class="icon-collection">Collections: Friday’s between 3pm - 8pm</li> 
 									<li class="icon-location">Location: 4CG click & collect hub, Pwllhai car park</li> 
 									-->
-									<li><img src='/wp-content/themes/teifibasket-theme/images/tb/icon-order.png'/>Order Deadlines: Wednesday’s 5pm </li> 
-									<li><img src='/wp-content/themes/teifibasket-theme/images/tb/icon-collect.png'/>Collections: Friday’s between 3pm - 8pm</li> 
+									<li><img src='/wp-content/themes/teifibasket-theme/images/tb/icon-order.png'/>Order Deadlines: Wednesdays 5pm </li> 
+									<li><img src='/wp-content/themes/teifibasket-theme/images/tb/icon-collect.png'/>Collections: Fridays between 3pm - 8pm</li> 
 									<li><img src='/wp-content/themes/teifibasket-theme/images/tb/icon-location.png'/>Location: 4CG click & collect hub, Pwllhai car park</li> 
 								</ul>
 								
@@ -109,7 +117,9 @@
 						    <div id="shopping-basket">
 							    
 								<a href="/store/shopping-cart/">
-								<img src='/wp-content/themes/teifibasket-theme/images/tb/shopping-basket.png' width="25px" height="20px" /><p>Basket(<?php  echo mp_items_count_in_cart(); ?>)</p></a>
+								<img src='/wp-content/themes/teifibasket-theme/images/tb/shopping-basket.png' width="25px" height="20px" /><p>
+									Basket(<?php  echo mp_items_count_in_cart(); ?>)
+									</p></a>
 							</div>
 							
 							<div id="shopping-bar">
@@ -223,9 +233,11 @@
 						$logotext = isset($options['logotext']) ? $options['logotext'] : '';
 				
 					?>
+					<?php if (get_bloginfo('name') <> '') { ?>
 					<div id="site-logo">
-						<a href="<?php echo site_url(); ?>"><img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="42px" height="42px"/><h1><?php echo bloginfo('name'); ?></h1></a>
+						<a href="/"><img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="24px" height="24px"/></a><h2>>></h2><a href="<?php echo site_url(); ?>"><h1> <?php echo bloginfo('name'); ?> Store</h1></a>
 					</div>
+					<?php } ?>
 					
 					<div id="site-advert">
 						<?php

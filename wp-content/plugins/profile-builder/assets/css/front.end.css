@@ -78,6 +78,14 @@ The global Profile Builder class is: wppb_holder
 	margin-bottom:5px;	
 }
 
+#password-login{
+	width:300px;
+}
+
+.text-input-regpass{
+	width:300px;
+}
+
 #wppb_register .send-confirmation-email label{
 	width:auto;
 	float:none;

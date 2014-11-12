@@ -40,6 +40,14 @@ add_action( 'admin_init', 'themeblvd_redirect_admin' );
 */
 
 
+/* On Logout, redirect to homepage*/
+/*add_action('wp_logout','go_home');
+function go_home(){
+ $domain_name =  preg_replace('/^www\./','',$_SERVER['SERVER_NAME']);
+  wp_redirect( $domain_name );
+  exit();
+}
+*/
 
 function hide_login_nav()
 {

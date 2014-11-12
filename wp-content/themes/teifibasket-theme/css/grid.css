@@ -11,9 +11,14 @@
 /********************************** widgets */
 /********************************** styles start >>> */
 /******************************************** buddypress */
-h1, h2, h3, h4, p, label{
+h1, h2, h3, h4, label{
 		font-family: 'Ubuntu', sans-serif;
 
+}
+
+p{
+	color:#5d5248;
+	font-family: 'Ubuntu', sans-serif;
 }
 #whats-new-form{background:#ffffee;border:1px solid #eeeeee;padding:10px;}
 #whats-new-bottom{width:100px;height:40px;background:url('../images/yellow_speech_bottom.png') no-repeat;margin-bottom:15px;position:relative;top:-6px;}
@@ -237,7 +242,7 @@ select{background:none repeat scroll 0 0 #ffffff;border:1px solid #eeeeee;paddin
 /********************************** layout */
 body{font-size:12px;font-family:Helvetica,Arial,sans-serif;line-height:22px;margin:0px;min-width:980px;}
 #site-wrapper{}
-#container{background:#ffffff;margin:0px auto;width:960px;padding:20px 10px;overflow:hidden; min-height: 800px;}
+#container{background:/*#ffffff;*/#f8f3f0;margin:0px auto;width:960px;padding:20px 10px;overflow:hidden; min-height: 800px;}
 #content{width:/*720px*/98%; padding:0px 10px 0px 10px; /*float:right;*/}
 #content-nopadding{width:775px;float:right;}
 #content-fullwidth{width:980px;}
@@ -254,8 +259,13 @@ form.mp_product_price{float:left;}
 .mp_product_price{color:#666666;font-size:14px;line-height:20px;display:block;margin:0 0 5px; font-family: 'Ubuntu', sans-serif;}
 .mp_grid .mp_product_price{line-height:40px;}
 .product{border-top:none;margin-top:none;padding:0px 0 20px;}
-.mp_product_name{padding-bottom:10px;}
-#content #mp_product_list .product{border:1px solid #eeeeee;float:left;overflow:hidden;margin-bottom:10px;margin-right:10px; height:320px;margin-top:0px;padding:10px;width:180px;}
+.mp_product_name{padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
+.mp_product_name a{		color:#5f90b0;font-family: 'Ubuntu', sans-serif;
+
+}
+#content #mp_product_list .product{
+	border:1px solid #b1a599;/*#eeeeee;*/float:left;overflow:hidden;margin-bottom:10px;margin-right:10px; height:320px;margin-top:0px;padding:10px;width:180px; /*background: #ffffff; MARK DAVIES - ADDED BG COL*/
+	}
 #mp_product_list .last-product{margin-right:0px !important;}
 li.product{border:none;padding:0px;}
 .mp_button_addcart,.mp_button_buynow,.mp_cart_col_updatecart input[type=submit],#mp_shipping_submit,#mp_payment_confirm{/*font-weight:bold;*/padding:5px;text-decoration:none;}
@@ -336,12 +346,12 @@ ins{background:#fffffc;text-decoration:none;}
 pre{background:#f7f7f7;color:#222222;}
 abbr,
 acronym{border-bottom:1px dotted #666666;cursor:help;}
-h1{font-size:22px;color:#000000;padding-bottom:10px;}
-h2{font-size:20px;color:#000000;padding-bottom:10px;}
-h3{font-size:18px;color:#000000;padding-bottom:10px;}
-h4{font-size:16px;color:#000000;padding-bottom:10px;}
-h5{font-size:14px;color:#000000;padding-bottom:10px;}
-h6{font-size:12px;color:#000000;padding-bottom:10px;}
+h1{font-size:22px;color:#5f90b0;/*color:#000000;*/padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
+h2{font-size:20px;color:#5f90b0;/*color:#000000;*/padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
+h3{font-size:18px;color:#5f90b0;/*color:#000000;*/padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
+h4{font-size:16px;color:#5f90b0;/*color:#000000;*/padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
+h5{font-size:14px;color:#5f90b0;/*color:#000000;*/padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
+h6{font-size:12px;color:#5f90b0;/*color:#000000;*/padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
 /********************************** widgets */
 .widget{background:#f7f7f7;padding:10px;margin:0px 0px 10px 0px;overflow: hidden;}
 .footer-widget,#footer .side{float:left;margin-right:10px;width:165px;}

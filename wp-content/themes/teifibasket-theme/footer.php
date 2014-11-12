@@ -1,44 +1,35 @@
-	 		<?php include (get_template_directory() . '/buddypress/buddypress-globals.php'); ?>
 			</div>
-				<?php if($bp_existed == 'true') : ?>
-					<?php do_action( 'bp_after_container' ) ?>
-					<?php do_action( 'bp_before_footer' ) ?>
-				<?php endif; ?>
+			
 			<div id="footer">
-					<?php
-					$options = get_option('framemarket_theme_options');
-					$footerlinks = isset($options['footertextarea']) ? $options['footertextarea'] : '';
-					if ($footerlinks != ""){
-						?>
-							<div id="footer-links">
-						<?php
-						echo stripslashes($footerlinks);
-						?>
-							</div>
-						<?php
-					}
-					else{
-							?>
-								<div id="footer-links">
-							<?php
-						framemarket_footerlinks();
-							?>
-								</div>
-							<?php
-			}
-			?>
+				
+				<div id="line1">
+					<p class="copyright"> Teifi Basket &copy; 2014</p>
+				
+
+					<ul> 
+						<a href="#"><li> Terms of service </li></a>
+						<a href="#"><li> Refunds </li></a>
+						<a href="#"><li> Privacy policy </li></a>
+						<a href="#"><li> Contact </li></a>
+	
+					</ul>
+				</div>
+				<div id="line2">
+						
+						
+						<div id="social"><a href="#"><img src='/wp-content/themes/teifibasket-theme/images/tb/fb-icon.png' width="18px" height="18px"/></a>
+							<a href="https://twitter.com/4cg2010" target="_blank"><img src='/wp-content/themes/teifibasket-theme/images/tb/twitter-icon.png' width="18px" height="14px"/></a>
+						</div>
+							
+					
+				</div>
+				
+				
+					
 			</div>
-		</div>
-		<?php
-		$options = get_option('framemarket_theme_options');
-		$analytics = isset($options['googletextarea']) ? $options['googletextarea'] : '';
-		if ($analytics != ""){
-			echo stripslashes($analytics);
-		}
-		?>
-		<?php if($bp_existed == 'true') : ?>
-			<?php do_action( 'bp_footer' ) ?>
-		<?php endif; ?>
-				<?php wp_footer(); ?>
+			
+			
+			
+		</div>	
 	</body>
 </html>

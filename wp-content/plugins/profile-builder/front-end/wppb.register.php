@@ -1279,12 +1279,12 @@ function wppb_front_end_register($atts){
 							$registerFilterArray2['ay3'] = '
 								<p class="form-password'.$errorVar.'">
 									<label for="pass1">'. __('Password', 'profilebuilder') .$errorMark.'</label>
-									<input class="text-input" name="passw1" type="register-login-password" id="pass1" value="" />
+									<input class="text-input-regpass" name="passw1" type="password" id="pass1" value="" />
 								</p><!-- .form-password -->
 				 
 								<p class="form-password'.$errorVar2.'">
 									<label for="pass2">'. __('Repeat Password', 'profilebuilder') .$errorMark2.'</label>
-									<input class="text-input" name="passw2" type="register-login-password" id="pass2" value="" />
+									<input class="text-input-regpass" name="passw2" type="password" id="pass2" value="" />
 								</p><!-- .form-password -->';
 							$registerFilterArray2['ay3'] = apply_filters('wppb_register_content_about_yourself3', $registerFilterArray2['ay3'], trim($localVar1), trim($localVar2), $errorVar, $errorMark, $errorVar2, $errorMark2);
 						}

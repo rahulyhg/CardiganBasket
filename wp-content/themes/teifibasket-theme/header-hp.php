@@ -237,12 +237,12 @@ function loadMapMarkers (){
 								<li>Menu
 									<ul>
 								      <li><a href="/">Home</a></li>
-								      <li><a href="http://<?php echo $domain_name; ?>/#featured-products">Featured Products</a></li>
+								      <li><a href="#featured-products">Featured Products</a></li>
 								      <li><a href="http://<?php echo $domain_name; ?>/news">News</a></li>
-   								      <li><a href="http://<?php echo $domain_name; ?>/#how-it-works">How it Works</a></li>
-								      <li><a href="http://<?php echo $domain_name; ?>/#find-us">Find Us</a></li>
-								      <li><a href="http://<?php echo $domain_name; ?>/#footer-about-us">About Us</a></li>
-								      <li><a href="http://<?php echo $domain_name; ?>/#footer-contactus">Contact Us</a></li>
+   								      <li><a href="#how-it-works">How it Works</a></li>
+								      <li><a href="#find-us">Find Us</a></li>
+								      <li><a href="#footer-about-us">About Us</a></li>
+								      <li><a href="#footer-contactus">Contact Us</a></li>
 								    </ul>
 								 <img src='/wp-content/themes/teifibasket-theme/images/tb/arrow-down.png' />
 								 </li>   

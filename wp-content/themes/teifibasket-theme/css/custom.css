@@ -2,3 +2,25 @@
 
 
 /* 127451-1401181458 */
+
+
+#site-wrapper{
+ position: relative;
+ /*top:-35px;*/
+ width:987px;
+ padding:0;
+/*background: #f8f3f0;*/
+ margin-left: auto;
+   margin-right: auto;	
+}
+
+
+.nav-next{	
+font-family: 'Ubuntu', sans-serif;	font-size: 18px;
+color: #5f90b0;
+}
+
+.nav-previous{	
+font-family: 'Ubuntu', sans-serif;	font-size: 18px;
+color: #5f90b0;
+}

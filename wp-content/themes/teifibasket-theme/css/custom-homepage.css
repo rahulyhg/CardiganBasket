@@ -1,0 +1,26 @@
+/*
+	custom css for homepage to override some marketpress css	
+*/
+
+/* remove the pagination link for the featured products section */
+#mp_global_products_nav_links{
+	display: none;
+}
+
+#mp_product_list{
+	
+	padding-left: 30px;
+	padding-top: 10px;
+}
+
+/*make 2 lines for title */
+.mp_product_name{
+	
+	height: 55px;
+	
+}
+
+.mp_product_detail{
+ height: 205px;
+}
+

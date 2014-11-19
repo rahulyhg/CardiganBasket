@@ -31,7 +31,7 @@ body{
 	
 }
 #wrapper{
-	height:549px;
+	height:449px; /* 549px */
 	width:989px;
 	margin-left: auto;
     margin-right: auto;
@@ -50,18 +50,18 @@ body{
 
 #cover-photo{
 	position:relative;
-	height:365px; 
+	height:265px; /* 365px */ 
 	width:991px;
-	background-image: url('images/tb/cover-photo.png');
+	background-image: url('images/tb/cover-photo1.png');
     background-repeat: no-repeat;
 
 }
 
 #top-bar{
 	position:absolute;
-	top:18px;
+	top:0px;
 	height:52px; 
-	width:989px;
+	width:990px;
 	background:#5f90b0;
 	/*background-image: url('images/tb/top-bar-bg.png');
     background-repeat: no-repeat;*/
@@ -427,6 +427,7 @@ padding-top:5px;
 
 #shopping-bar{
 	position:relative;
+	color:#585657;	
 	width: 924px;
 	height: 70px;
 	top: 44px;
@@ -435,20 +436,21 @@ padding-top:5px;
 
 #shopping-bar h3{
 	position:absolute;
-	color:#5f90b0;
+	color:#585657;
 	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
 	text-decoration: none; 
-	font-weight: medium;
+	font-weight: lighter;
 	left:10px;
-	top:18px;
+	top:12px;
 }
 #shopping-bar h4{
 	position:absolute;
+	/*color:#5f90b0;*/
 	color:#585657;
 	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
-	font-weight: light; 
+	font-weight: medium; 
 	left:10px;
-	top:32px;
+	top:26px;
 }
 
 #shopping bar p{
@@ -698,6 +700,7 @@ position: absolute;
 	background: #fff;
 	
 	
+	
 }
 
 #featured-products h1{
@@ -709,6 +712,50 @@ position: absolute;
 	font-size: 20px;
 	text-align: center;
 }
+
+
+
+#featured1{
+position:relative;
+top:75px;
+float:left;
+width:26%;	
+background: red;
+height:350px;
+}
+
+#featured2{
+position:relative;
+top:75px;
+display: inline-block;
+width: 26%;
+background:blue;
+height:350px;
+
+}
+
+#featured3{
+position:relative;
+top:75px;
+float:right;
+width:26%;	
+background:red;
+height:350px;
+
+}
+
+
+
+#featured1, featured2, featured3 img{
+	
+	width:80%;
+	height:100px;	
+}
+
+
+
+
+
 
 
 /******  HOW IT WORKS   **********/

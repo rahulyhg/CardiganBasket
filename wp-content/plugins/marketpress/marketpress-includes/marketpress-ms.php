@@ -599,26 +599,21 @@ class MarketPress_MS {
 			return;
 		}
 
-		//get settings
-		$settings = (array) get_site_option('mp_network_settings');
-
 		//save settings
 		if ( isset($_POST['marketplace_network_settings']) ) {
 			//filter slugs
 			$_POST['mp']['slugs'] = array_map('sanitize_title', $_POST['mp']['slugs']);
 
-			//merge settings
-			$settings = apply_filters('mp_network_settings_save', $mp->parse_args_r($settings, $_POST['mp']));
-
-			update_site_option('mp_network_settings', $settings);
+			update_site_option('mp_network_settings', apply_filters('mp_network_settings_save', $_POST['mp']));
 
 			//flush rewrite rules due to product slugs
 			update_option('mp_flush_rewrite', 1);
 
 			echo '<div class="updated fade"><p>'.__('Settings saved.', 'mp').'</p></div>';
 		}
+		$settings = get_site_option('mp_network_settings');
 
-		if ( ! isset($settings['global_cart']) )
+		if (!isset($settings['global_cart']))
 			$settings['global_cart'] = 0;
 		?>
 		<div class="wrap">
@@ -1188,14 +1183,7 @@ function mp_global_categories_list( $args = '' ) {
 	else if ($include == 'categories')
 		$where = " WHERE t.type = 'product_category'";
 
-	$tags = $wpdb->get_results("
-		SELECT name, slug, type, count(post_id) as count
-		FROM {$wpdb->base_prefix}mp_terms t
-		LEFT JOIN {$wpdb->base_prefix}mp_term_relationships r ON t.term_id = r.term_id
-		$where
-		GROUP BY t.term_id
-		ORDER BY $order_by $order
-		LIMIT $limit", ARRAY_A);
+	$tags = $wpdb->get_results( "SELECT name, slug, type, count(post_id) as count FROM {$wpdb->base_prefix}mp_terms t LEFT JOIN {$wpdb->base_prefix}mp_term_relationships r ON t.term_id = r.term_id$where GROUP BY t.term_id ORDER BY $order_by $order LIMIT $limit", ARRAY_A );
 
 	if ( !$tags )
 		return;
@@ -1479,13 +1467,10 @@ function _mp_global_products_html_list( $results, $args ) {
 				$product_content = mp_product_image(false, 'list', $post->ID, $args['thumbnail_size']);
 			}
 
-			if ( $args['text'] == 'excerpt' ) {
+			if ( $mp->get_setting('show_excerpt') ) {
 				$product_content .= $mp->product_excerpt($post->post_excerpt, $post->post_content, $post->ID);
-			} elseif ( $args['text'] == 'content' ) {
-				$product_content .= get_the_content();
 			}
 
-							
 			$html .= apply_filters('mp_product_list_content', $product_content, $post->ID);
 			$html .= mp_pinit_button($post->ID,'all_view');
 			$html .= '
@@ -1500,7 +1485,7 @@ function _mp_global_products_html_list( $results, $args ) {
 			}
 
 			//button
-			$meta .= '<a class="mp_link_buynow" href="' . get_permalink($post->ID) . '">' . __('Buy Now &raquo;', 'mp') . '</a>';
+			$meta .= mp_buy_button(false, 'list', $post->ID);
 			$html .= apply_filters('mp_product_list_meta', $meta, $post->ID);
 			$html .= '
 						</div>
@@ -1569,7 +1554,7 @@ function _mp_global_products_html_grid( $results, $args ) {
 
 					<div class="mp_price_buy"' . ($inline_style ? ' style="width: ' . $width . 'px;"' : '') . '>
 						' . (( $args['show_price'] ) ? mp_product_price(false, $post->ID) : '') . '
-						<a class="mp_link_buynow" href="' . get_permalink($post->ID) . '">' . __('Buy Now &raquo;', 'mp') . '</a>
+						' . mp_buy_button(false, 'list', $post->ID) . '
 						' . apply_filters('mp_product_list_meta', '', $post->ID) . '
 					</div>
 
@@ -1743,8 +1728,8 @@ class MarketPress_Global_Product_List extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] = strip_tags(stripslashes($new_instance['title']));
-		$instance['custom_text'] = stripslashes(wp_filter_kses($new_instance['custom_text']));
+		$instance['title'] = wp_filter_nohtml_kses( $new_instance['title'] );
+		$instance['custom_text'] = wp_filter_kses( $new_instance['custom_text'] );
 
 		$instance['per_page'] = intval($new_instance['per_page']);
 		$instance['order_by'] = $new_instance['order_by'];

@@ -41,156 +41,6 @@
 		
 		
 		
-		
-<!--Connect to the google maps api using your api key-->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSa4sPxyqZcHOTyAshg3iwF10-Bcfhf3Q&sensor=true"></script>
-
-<script src="/wp-content/themes/teifibasket-theme/infobox/infobox.js" type="text/javascript"></script>
-
-
-<!--Main chunk of javascript that creates and controls the map.-->
-<script type="text/javascript">
-
-//Create the variables that will be used within the map configuration options.
-//The latitude and longitude of the center of the map.
-var cardiganMapCenter = new google.maps.LatLng(52.082816, -4.66125);
-//The degree to which the map is zoomed in. This can range from 0 (least zoomed) to 21 and above (most zoomed).
-var cardiganMapZoom = 16;
-//The max and min zoom levels that are allowed.
-var cardiganMapZoomMax = 20;
-var cardiganMapZoomMin = 14;
-
-
-//These options configure the setup of the map. 
-var cardiganMapOptions = { 
-		  center: cardiganMapCenter, 
-          zoom: cardiganMapZoom,
-		  //The type of map. In addition to ROADMAP, the other 'premade' map styles are SATELLITE, TERRAIN and HYBRID. 
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-		  maxZoom:cardiganMapZoomMax,
-		  minZoom:cardiganMapZoomMin,
-		  //Turn off the map controls as we will be adding our own later.
-		  panControl: false,
-		  mapTypeControl: false,
-		  
-		//turn off the mouse scroll for zoom in/out when a user scrolls up and down the web page 
-		scrollwheel: false,
-		navigationControl: true,
-		mapTypeControl: false,
-		scaleControl: false,
-		draggable: true,
-
-
-
-    styles: [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}]
-
-
-		    
-			
-		  
-};
-
-//Create the variable for the main map itself.
-var cardiganMap;
-
-//When the page loads, the line below calls the function below called 'loadCardiganMap' to load up the map.
-google.maps.event.addDomListener(window, 'load', loadCardiganMap);
-
-
- //Variable containing the style for the pop-up infobox.
-var pop_up_info = "border: 0px solid black; background-color: #ffffff; padding:15px; margin-top: 8px; border-radius:10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; box-shadow: 1px 1px #888;";
-
-
-
-
-//THE MAIN FUNCTION THAT IS CALLED WHEN THE WEB PAGE LOADS --------------------------------------------------------------------------------
-function loadCardiganMap() {
-	
-//The empty map variable ('cariganMap') was created above. The line below creates the map, assigning it to this variable. The line below also loads the map into the div with the id 'cardigan-map' (see code within the 'body' tags below), and applies the 'cardiganMapOptions' (above) to configure this map. 
-cardiganMap = new google.maps.Map(document.getElementById("cardigan-map"), cardiganMapOptions);	
-
-
-//Calls the function below to load up all the map markers.
-loadMapMarkers();
-
-
-
-}
-
-
-
-//Function that loads the map markers.
-function loadMapMarkers (){
-
-	//Shop -----------------
-	
-	//Setting the position of the Shop map marker.
-	var markerPositionHQ = new google.maps.LatLng(52.082847, -4.660087);
-	
-	//Creating the shop marker.
-	markerHQ = new google.maps.Marker({
-	//uses the position set above.
-	position: markerPositionHQ,
-	//adds the marker to the map.
-	map: cardiganMap,
-	title: 'Collection Point',
-	//sets the z-index of the map marker.
-	zIndex:107 });
-	
-	
-	
-	//HQ
-	//Creates the information to go in the pop-up info box.
-	var boxTextHQ = document.createElement("div");
-	boxTextHQ.style.cssText = pop_up_info;
-	boxTextHQ.innerHTML = '<span class="pop_up_box_text">4CG Click & Collect Hub</span>';
-	 
-	//Sets up the configuration options of the pop-up info box.
-	var infoboxOptionsHQ = {
-	 content: boxTextHQ
-	 ,disableAutoPan: false
-	 ,maxWidth: 0
-	 ,pixelOffset: new google.maps.Size(10, -100)
-	 ,zIndex: null
-	 ,boxStyle: {
-	 background: "url('/wp-content/themes/teifibasket-theme/infobox/pop_up_box_top_arrow.png') no-repeat"
-	 ,opacity: 1
-	 ,width: "190px"
-	 }
-	 ,closeBoxMargin: "10px 2px 2px 2px"
-	 ,closeBoxURL: "/wp-content/themes/teifibasket-theme/icons/button_close.png"
-	 ,infoBoxClearance: new google.maps.Size(1, 1)
-	 ,isHidden: false
-	 ,pane: "floatPane"
-	 ,enableEventPropagation: false
-	};
-	 
-	
-	//Creates the pop-up infobox for Cardigan, adding the configuration options set above.
-	infoboxHQ = new InfoBox(infoboxOptionsHQ);
-	 
-	//Add an 'event listener' to the Shop map marker to listen out for when it is clicked.
-	google.maps.event.addListener(markerHQ, "click", function (e) {
-	 //Open the Cardigan info box.
-	 infoboxHQ.open(cardiganMap, this);
-	 //Changes the z-index property of the marker to make the marker appear on top of other markers.
-	 this.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
-	 //Zooms the map.
-	 setZoomWhenMarkerClicked();
-	 //Sets the Shop marker to be the center of the map.
-	 cardiganMap.setCenter(markerHQ.getPosition());
-	 
-	 
-	
-	});
-
-
-
-}
-
-
-
-</script>
 	
 		
 		
@@ -355,8 +205,8 @@ function loadMapMarkers (){
 							
 					
 								<div id="shopping-bar">
-								<h3>Shop</h3>
-								<h4>right now</h4>
+								<h3>Start</h3>
+								<h4>shopping</h4>
 								<ul>
 									<li>By Seller</li>
 									<li>By Category</li>
@@ -474,7 +324,7 @@ function loadMapMarkers (){
 					?>
 					<?php if (get_bloginfo('name') <> '') { ?>
 					<div id="site-logo">
-						<img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="24px" height="24px"/><h2>>></h2><h1> <?php echo bloginfo('name'); ?> Store</h1>
+						<img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="24px" height="24px"/><h1> <?php echo bloginfo('name'); ?> Store</h1>
 					</div>
 					<?php } ?>
 					

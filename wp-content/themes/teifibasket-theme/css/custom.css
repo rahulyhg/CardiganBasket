@@ -15,12 +15,33 @@
 }
 
 
-.nav-next{	
-font-family: 'Ubuntu', sans-serif;	font-size: 18px;
-color: #5f90b0;
+.mp_current_price {
+	font-family: 'Ubuntu', sans-serif; color:#585657;
+	font-size: 14px;
 }
 
-.nav-previous{	
-font-family: 'Ubuntu', sans-serif;	font-size: 18px;
-color: #5f90b0;
+
+
+.mp_grid .mp_product_price:before {
+	background: none !important;
+}
+
+.mp_product_price{
+		background: none !important;
+}
+
+.mp_cart_col_price{
+		background: none !important;
+		text-align: center;
+	
+}
+.mp_cart_col_total{
+		text-align: center;
+	
+}
+
+.mp_cart_col_quant{
+		background: none !important;
+		text-align: center;
+	
 }

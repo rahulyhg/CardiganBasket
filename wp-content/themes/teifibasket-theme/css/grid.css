@@ -247,7 +247,7 @@ body{font-size:12px;font-family:Helvetica,Arial,sans-serif;line-height:22px;marg
 
 
 
-#content{width:/*720px*/100%; /*padding:0px 10px 0px 10px;*/ /*float:right;*/}
+#content{width:/*720px*/100%; /*padding:0px 10px 0px 10px;*/ /*float:right;*/ }
 #content-nopadding{width:775px;float:right;}
 #content-fullwidth{width:991px;}
 .end{margin-right:0px;}
@@ -263,8 +263,8 @@ form.mp_product_price{float:left;}
 .mp_product_price{color:#666666;font-size:14px;line-height:20px;display:block;margin:0 0 5px; font-family: 'Ubuntu', sans-serif;}
 .mp_grid .mp_product_price{line-height:40px;}
 .product{border-top:none;margin-top:none;padding:0px 0 20px;}
-.mp_product_name{padding-bottom:10px;font-family: 'Ubuntu', sans-serif;}
-.mp_product_name a{		color:#5f90b0;font-family: 'Ubuntu', sans-serif;
+.mp_product_name{padding-bottom:10px;font-family: 'Ubuntu', sans-serif; color:#585657; font-size: 14px;}
+.mp_product_name a{font-family: 'Ubuntu', sans-serif; color:#585657;
 
 }
 #content #mp_product_list .product{
@@ -309,7 +309,20 @@ a.mp_cart_direct_checkout_link:hover{font-weight:normal;padding:5px;text-decorat
 .post-content .mp_product_name{padding-top:10px;}
 .mp_grid .mp_one_tile {font-size: 0;}
 .mp_grid .mp_product_detail, .mp_grid .mp_price_buy {font-size: 12px;}
-h1.post-title{padding-bottom:10px; font-family: 'Ubuntu', sans-serif;}
+h1.post-title{padding-bottom:10px; font-family: 'Ubuntu', sans-serif; color:#5f90b0;}
+h1.post-title a{text-decoration: none; color:#5f90b0;}
+.entry-date{text-decoration: none; font-family: 'Ubuntu', sans-serif; color:#5f90b0;}
+.entry-date a{text-decoration: none; font-family: 'Ubuntu', sans-serif; color:#5f90b0;}
+.url{text-decoration: none; font-family: 'Ubuntu', sans-serif; color:#5f90b0;}
+.url a{text-decoration: none; font-family: 'Ubuntu', sans-serif; color:#5f90b0;}
+.post-info-prep{
+	text-decoration: none; font-family: 'Ubuntu', sans-serif; color:#5f90b0;
+}
+.post-info-prep a{
+	text-decoration: none; font-family: 'Ubuntu', sans-serif; color:#5f90b0;
+}
+/*Mark Davies */
+
 #mp-product-grid div.mp_product_meta{clear:both;padding-top:10px;}
 .product-meta-details{overflow:hidden;padding-bottom:0px;padding-top:30px; font-family: 'Ubuntu', sans-serif;}
 table.mp_cart_login{border-top:1px dashed #333333;margin-top:20px;padding:10px;width:100%;}
@@ -330,8 +343,11 @@ a:hover{text-decoration:underline;}
 .nav ul li:hover a,.nav li:hover li a{background:none;border:none;}
 .nav ul{display:none;margin:0;padding:0;width:200px;line-height:30px;position:absolute;top:42px;left:0;text-align:left;z-index:9999;}
 .nav ul a{font-weight:normal;}
-.nav-previous{float:left;}
-.nav-next{float:right;}
+.nav-previous{float:left; font-size: 18px; color:#5f90b0;}
+.nav-next{float:right;font-size: 18px; color:#5f90b0;}
+.nav-previous a{ color:#5f90b0;}
+.nav-next a{color:#5f90b0;}
+
 ol li, ul li{ margin: 10px 10px 10px 30px;}
 .post ul li{ list-style: square;}
 .post ol li{ list-style: decimal;}

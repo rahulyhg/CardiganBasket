@@ -212,7 +212,7 @@ body{font-size:12px;font-family:Helvetica,Arial,sans-serif;line-height:22px;}
 div.mp_product_meta{clear:both;}
 form.mp_buy_form{float:right;}
 form.mp_product_price{float:left;}
-.mp_product_price{color:#666666;font-size:18px;line-height:40px;}
+.mp_product_price{color:#666666;font-size:14px;line-height:40px;}
 .product{border-top:none;margin-top:none;padding:0px 0 20px;}
 .mp_product_name{padding-bottom:10px;}
 #content #mp_product_list .product{border:1px solid #eeeeee;overflow:hidden;margin-bottom:10px;margin-right:10px;margin-top:0px;padding:10px;}

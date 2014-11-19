@@ -3127,9 +3127,12 @@ Thanks again!", 'mp')
 				<div class="mp_cart_empty">
 					<?php _e('There are no items in your cart.', 'mp') ?>
 				</div>
+				<!--
 				<div id="mp_cart_actions_widget">
 					<a class="mp_store_link" href="<?php mp_products_link(true, true); ?>"><?php _e('Browse Products &raquo;', 'mp') ?></a>
 				</div>
+				MARK DAVIES
+				-->
 			<?php
 			exit;
 		}

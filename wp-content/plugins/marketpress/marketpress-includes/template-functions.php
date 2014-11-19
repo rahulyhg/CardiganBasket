@@ -1132,7 +1132,7 @@ function mp_show_cart($context = '', $checkoutstep = null, $echo = true) {
 						$content .= do_shortcode($mp->get_setting('msg->cart'));
 
 				$content .= '<div class="mp_cart_empty">' . __('There are no items in your cart.', 'mp') . '</div>';
-				$content .= '<div id="mp_cart_actions_widget"><a class="mp_store_link" href="' . mp_products_link(false, true) . '">' . __('Browse Products &raquo;', 'mp') . '</a></div>';
+				//$content .= '<div id="mp_cart_actions_widget"><a class="mp_store_link" href="' . mp_products_link(false, true) . '">' . __('Browse Products &raquo;', 'mp') . '</a></div>';
 		}
 
 		$content = apply_filters('mp_show_cart', $content, $context, $checkoutstep);
@@ -2218,7 +2218,7 @@ function mp_product_price($echo = true, $post_id = NULL, $label = true) {
 		global $id, $mp;
 		$post_id = ( NULL === $post_id ) ? $id : $post_id;
 
-		$label = ($label === true) ? __('Price: ', 'mp') : $label;
+		$label = ($label === true) ? __('', 'mp') : $label;	//delete just 'Price: '
 
 		$meta = (array) get_post_custom($post_id);
 		//unserialize

@@ -2,7 +2,8 @@
 <html <?php language_attributes(); ?>>
 <head>
 <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-	
+<link href='/wp-content/themes/teifibasket-theme/css/custom-homepage.css' rel='stylesheet' type='text/css' >
+
 
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
  		<?php include (get_template_directory() . '/buddypress/buddypress-globals.php'); ?>
@@ -58,7 +59,7 @@ var cardiganMapCenter = new google.maps.LatLng(52.082816, -4.66125);
 var cardiganMapZoom = 16;
 //The max and min zoom levels that are allowed.
 var cardiganMapZoomMax = 20;
-var cardiganMapZoomMin = 14;
+var cardiganMapZoomMin = 5;
 
 
 //These options configure the setup of the map. 
@@ -143,7 +144,7 @@ function loadMapMarkers (){
 	//Creates the information to go in the pop-up info box.
 	var boxTextHQ = document.createElement("div");
 	boxTextHQ.style.cssText = pop_up_info;
-	boxTextHQ.innerHTML = '<span class="pop_up_box_text">4CG Click & Collect Hub</span>';
+	boxTextHQ.innerHTML = '<span class="pop_up_box_text">Teifi Basket Click & Collect Hub</span>';
 	 
 	//Sets up the configuration options of the pop-up info box.
 	var infoboxOptionsHQ = {
@@ -355,8 +356,8 @@ function loadMapMarkers (){
 							
 					
 								<div id="shopping-bar">
-								<h3>Shop</h3>
-								<h4>right now</h4>
+								<h3>Start</h3>
+								<h4>shopping</h4>
 								<ul>
 									<li>By Seller</li>
 									<li>By Category</li>
@@ -474,7 +475,7 @@ function loadMapMarkers (){
 					?>
 					<?php if (get_bloginfo('name') <> '') { ?>
 					<div id="site-logo">
-						<img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="24px" height="24px"/><h2>>></h2><h1> <?php echo bloginfo('name'); ?> Store</h1>
+
 					</div>
 					<?php } ?>
 					

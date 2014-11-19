@@ -20,7 +20,8 @@
  */
  ?>
  <?php
- get_header('header-hp.php');
+ get_header('homepage');
+ 
  ?> 
  
 	  
@@ -40,22 +41,36 @@
 	   <h1> Featured Products</h1>
 	   
 	              
-                  <?php
-					    query_posts(array(
-					        'post_type' => 'product',
-					        'showposts' => 3,
-						'posts_per_page' => 3,
-						'orderby' => 'rand'
-					    ) );
-					?>
-					<?php while (have_posts()) : the_post(); ?>
-					        <h2><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h2>
-					        <p><?php echo get_the_excerpt(); ?></p>
-					<?php endwhile;
+	              
+	              <div id="mp_global_products_nav_links"><
+	              
+	              </div>
+	           
+	           
+					<?php 
+						/*
+						 $args = array(
+						    'echo' => true,
+						    'paginate' => false,
+						    'per_page' => 3,
+						    'orderby' => 'rand',
+						    'tag' => '',
+								'show_thumbnail' => true,
+								'thumbnail_size' => 100,
+								'context' => 'list',
+								'show_price' => true,
+								'text' => 'none',
+								'as_list' => true );
 						
-					?>                   	
-                     
-                            
+						
+						mp_list_global_products( $args );
+						*/
+						
+						
+						mp_list_global_products( array('per_page' => 5,'order_by' => 'rand', 'text' => 'none', 'button' => 'none') );
+						
+						    
+					?> 
                             
                             
    </div> <!-- end of featured products--> 	    		
@@ -95,7 +110,7 @@ collection the following Friday.</p>
     	    		
    <div id="find-us">
    	   <h1> Find Us </h1>
-   	   <h2> Drive through and collect your shopping basket from the 4CG Click & Collect Hub in Pwllhai car park, Cardigan, SA43 1DB. </h2>
+   	   <h2> Drive through and collect your shopping basket from the Teifi Basket Click & Collect Hub in Pwllhai 4CG car park, Cardigan, SA43 1DB. </h2>
    	   
    	   <div id="map-area">
 	   	   <!--Div to hold the map.-->

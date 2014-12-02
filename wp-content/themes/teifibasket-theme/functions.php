@@ -5,6 +5,24 @@
  */
  
  
+ // remove the site title from the store list
+function custom_framemarket_list_shops( $blogs ){
+		if ( !empty($blogs) && isset($blogs[0]) && $blogs[0]->blog_id == 1 ) {
+			unset($blogs[0]);
+		}
+	return $blogs;
+}
+add_filter( 'framemarket_list_shops', 'custom_framemarket_list_shops' ); 
+ 
+ 
+ 
+// redirect to homepage when a user logs out 
+add_action('wp_logout','go_home');
+function go_home(){
+  wp_redirect( home_url() );
+  exit();
+}
+
 //Mark Davies - function to remove the 'register' link in wp-login
  add_action( 'login_head', 'hide_login_nav' );
  

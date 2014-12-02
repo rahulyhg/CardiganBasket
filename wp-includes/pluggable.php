@@ -350,7 +350,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 			$sitename = substr( $sitename, 4 );
 		}
 
-		$from_email = 'wordpress@' . $sitename;
+		$from_email = 'teifibasket@' . $sitename;
 	}
 
 	/**
@@ -1367,7 +1367,7 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 		$notify_message .= sprintf( __('Spam it: %s'), admin_url("comment.php?action=spam&c=$comment_id") ) . "\r\n";
 	}
 
-	$wp_email = 'wordpress@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
+	$wp_email = 'teifibasket@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
 
 	if ( '' == $comment->comment_author ) {
 		$from = "From: \"$blogname\" <$wp_email>";

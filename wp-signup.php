@@ -91,9 +91,9 @@ function show_blog_form( $blogname = '', $blog_title = '', $errors = '' ) {
 	$current_site = get_current_site();
 	// Blog name
 	if ( !is_subdomain_install() )
-		echo '<label for="blogname">' . __('Site Name:') . '</label>';
+		echo '<label for="blogname">' . __('Shop Name:') . '</label>';
 	else
-		echo '<label for="blogname">' . __('Site Domain:') . '</label>';
+		echo '<label for="blogname">' . __('Shop Domain:') . '</label>';
 
 	if ( $errmsg = $errors->get_error_message('blogname') ) { ?>
 		<p class="error"><?php echo $errmsg ?></p>
@@ -114,17 +114,18 @@ function show_blog_form( $blogname = '', $blog_title = '', $errors = '' ) {
 
 	// Blog Title
 	?>
-	<label for="blog_title"><?php _e('Site Title:') ?></label>
+	<label for="blog_title"><?php _e('Shop Title:') ?></label>
 	<?php if ( $errmsg = $errors->get_error_message('blog_title') ) { ?>
 		<p class="error"><?php echo $errmsg ?></p>
 	<?php }
 	echo '<input name="blog_title" type="text" id="blog_title" value="'.esc_attr($blog_title).'" />';
 	?>
 
+<!--
 	<div id="privacy">
         <p class="privacy-intro">
-            <label for="blog_public_on"><?php _e('Cardigan Basket Marketplace:') ?></label>
-            <?php _e( 'As well as selling items on YOUR site, do you also want to sell items through the Cardigan Marketplace?' ); ?>
+            <label for="blog_public_on"><?php _e('Teifi Basket Marketplace:') ?></label>
+            <?php _e( 'Select Yes, if you agree to sell items through the Teifi Website' ); ?>
             <br style="clear:both" />
             <label class="checkbox" for="blog_public_on">
                 <input type="radio" id="blog_public_on" name="blog_public" value="1" <?php if ( !isset( $_POST['blog_public'] ) || $_POST['blog_public'] == '1' ) { ?>checked="checked"<?php } ?> />
@@ -136,6 +137,7 @@ function show_blog_form( $blogname = '', $blog_title = '', $errors = '' ) {
             </label>
         </p>
 	</div>
+-->	
 
 	<?php
 	/**
@@ -257,7 +259,7 @@ function signup_another_blog( $blogname = '', $blog_title = '', $errors = '' ) {
 	$blog_title = $filtered_results['blog_title'];
 	$errors = $filtered_results['errors'];
 
-	echo '<h2>' . sprintf( __( 'Get <em>another</em> %s site in seconds' ), get_current_site()->site_name ) . '</h2>';
+	echo '<h2>' . sprintf( __( 'Get <em>another</em> %s site' ), get_current_site()->site_name ) . '</h2>';
 
 	if ( $errors->get_error_code() ) {
 		echo '<p>' . __( 'There was a problem, please correct the form below and try again.' ) . '</p>';
@@ -428,7 +430,7 @@ function signup_user( $user_name = '', $user_email = '', $errors = '' ) {
 
 	?>
 
-	<h2><?php printf( __( 'Get your own %s account in seconds' ), get_current_site()->site_name ) ?></h2>
+	<h2><?php printf( __( 'Create your shop account' ), get_current_site()->site_name ) ?></h2>
 	<form id="setupform" method="post" action="wp-signup.php">
 		<input type="hidden" name="stage" value="validate-user-signup" />
 		<?php
@@ -626,9 +628,9 @@ function validate_blog_signup() {
  */
 function confirm_blog_signup( $domain, $path, $blog_title, $user_name = '', $user_email = '', $meta = array() ) {
 	?>
-	<h2><?php printf( __( 'Congratulations! Your new site, %s, is almost ready.' ), "<a href='http://{$domain}{$path}'>{$blog_title}</a>" ) ?></h2>
+	<h2><?php printf( __( 'Congratulations! Your shop, %s, is almost ready.' ), "<a href='http://{$domain}{$path}'>{$blog_title}</a>" ) ?></h2>
 
-	<p><?php _e( 'But, before you can start using your site, <strong>you must activate it</strong>.' ) ?></p>
+	<p><?php _e( 'But, before you can start using your shop, <strong>you must activate it</strong>.' ) ?></p>
 	<p><?php printf( __( 'Check your inbox at <strong>%s</strong> and click the link given.' ),  $user_email) ?></p>
 	<p><?php _e( 'If you do not activate your site within two days, you will have to sign up again.' ); ?></p>
 	<h2><?php _e( 'Still waiting for your email?' ); ?></h2>

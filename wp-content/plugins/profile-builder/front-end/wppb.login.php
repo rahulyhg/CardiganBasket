@@ -141,7 +141,7 @@ function wppb_front_end_login( $atts ){
 				$userName = '';
 			
 			if ( isset( $wppb_generalSettings['loginWith'] ) && ( $wppb_generalSettings['loginWith'] == 'email' ) )
-				$loginWith = __( 'Email', 'profilebuilder' );
+				$loginWith = __( 'Email / Username', 'profilebuilder' );	//MARK DAVIES
 			else
 				$loginWith = __( 'Username', 'profilebuilder' );
 			

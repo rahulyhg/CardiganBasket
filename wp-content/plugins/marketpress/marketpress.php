@@ -329,7 +329,7 @@ class MarketPress {
 			'shipping' => __('<p>Please enter your shipping information in the form below to proceed with your order.</p>', 'mp'),
 			'checkout' => '',
 			'confirm_checkout' => __('<p>You are almost done! Please do a final review of your order to make sure everything is correct then click the "Confirm Payment" button.</p>', 'mp'),
-			'success' => __('<p>Thank you for your order! We appreciate your business, and please come back often to check out our new products.</p>', 'mp')
+			'success' => __('<p>Thank you for your order!</p>', 'mp')
 		),
 		'store_email' => get_option("admin_email"),
 		'email' => array (
@@ -3831,8 +3831,10 @@ Thanks again!", 'mp')
 	 
 	 
 	 //MARK DAVIES - Add custom field (delivery_date) as post meta data to the order
-	 $order_date = strtotime( $order->post_date );
+	 /*$order_date = strtotime( $order->post_date );
 			$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
+			
+			
 			if( $wed > $order_date ){
 				$delivery_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
 				 add_post_meta($post_id, 'delivery_date', $delivery_date, true);
@@ -3840,7 +3842,44 @@ Thanks again!", 'mp')
 			else{
 				$delivery_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
 				add_post_meta($post_id, 'delivery_date', $delivery_date, true);
+			}*/
+			$order_date = strtotime( $order->post_date );
+			$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
+			$today = jddayofweek($jd,1);
+			
+			if ($today = "Wednesday"){
+				//wednesday 00:00am to 5:00pm
+				$wed_deadline = strtotime(date('Y-m-d', strtotime("today")) . ' 17:00:00');
+				
+				if ($order_date < $wed_deadline){
+					//if delivery date is Wednesday before 5pm then delivery date is this Friday
+					$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+					add_post_meta($post_id, 'delivery_date', $del_date, true);
+
+				}	
+				else{
+					//wednesday 5:00pm to 11:59pm
+					//if delivery date is Wednesday after 5pm, then delivery date is one week Friday
+					$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+					add_post_meta($post_id, 'delivery_date', $del_date, true);
+				}		
 			}
+			elseif ($today = "Thursday"){
+				//thursday
+				// if the order date is on a Thursday, delivery date is one week Friday
+				if ($today = $order_date){
+					$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+					add_post_meta($post_id, 'delivery_date', $del_date, true);
+				}
+			}
+			else{
+				//mon, tue, fri, sat, sun
+				//if delivery date is mon, tue, fri, sat, sun then deliery date is 'next Friday'
+				$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+				add_post_meta($post_id, 'delivery_date', $del_date, true);
+			}
+			
+			
 
 	 //loop through cart items
 	 foreach ($cart as $product_id => $variations) {
@@ -3981,8 +4020,10 @@ Thanks again!", 'mp')
 	 //hook for new orders
 	 do_action( 'mp_new_order', $this->get_order($order_id) );
 
+
+	 //MARK DAVIES - EMAIL CUSTOMERS ORDER CONFIRMATION FOR THEIR ORDER. TAKEN THIS OUT SO CUSTOMERS DON'T GET EMAILS FROM EACH SELLER. 
 	 //send new order email
-	 $this->order_notification($order_id);
+	 //$this->order_notification($order_id);
 	 
 
 		//if paid and the cart is only digital products mark it shipped
@@ -4002,12 +4043,17 @@ Thanks again!", 'mp')
 		
 		
 		global $wpdb;
-
+		/*
 			$order_date = strtotime( $order->post_date );
 			$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
 			$last_wed = strtotime(date('Y-m-d', strtotime("last Wednesday")) . ' 17:00:01');
 			if( $wed > $order_date ){
 				$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+		*/
+		
+		$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+		
+		
 				
 		//We want to do a distinct query on delivery_date in our Orders	
 		$query = "SELECT ID, post_title, post_date, post_status FROM {$wpdb->posts} WHERE post_type = 'mp_order'";
@@ -4110,7 +4156,7 @@ Thanks again!", 'mp')
 				
 				
 				
-				
+			/*	
 				
 			}
 			
@@ -4119,7 +4165,7 @@ Thanks again!", 'mp')
 				//echo '<h4>Show deliveries for this week '.$deldate.'</h4>';
 
 			}
-	
+			*/
 			
 			
 			
@@ -4963,15 +5009,45 @@ Thanks again!", 'mp')
 	 //$search = array('CUSTOMERNAME', 'ORDERID', 'ORDERINFOSKU', 'ORDERINFO', 'SHIPPINGINFO', 'PAYMENTINFO', 'TOTAL', 'TRACKINGURL', 'ORDERNOTES');
 	 //$replace = array($order->mp_shipping_info['name'], $order->post_title, $order_info_sku, $order_info, $shipping_info, $payment_info, $order_total, $tracking_url, $order_notes);
 	 
-	 //MARK DAVIES - NEW METHOD
-	 
+	 //MARK DAVIES - NEW METHOD	 
 	$order_date = strtotime( $order->post_date );
+	$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
+	$today = jddayofweek($jd,1);
+	
+	if ($today = "Wednesday"){
+		//wednesday 00:00am to 5:00pm
+		$wed_deadline = strtotime(date('Y-m-d', strtotime("today")) . ' 17:00:00');
+		
+		if ($order_date < $wed_deadline){
+			//if delivery date is Wednesday before 5pm then delivery date is this Friday
+			$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+		}	
+		else{
+			//wednesday 5:00pm to 11:59pm
+			//if delivery date is Wednesday after 5pm, then delivery date is one week Friday
+			$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+		}		
+	}
+	elseif ($today = "Thursday"){
+		//thursday
+		// if the order date is on a Thursday, delivery date is one week Friday
+		if ($today = $order_date){
+			$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+		}
+	}
+	else{
+		//mon, tue, fri, sat, sun
+		//if delivery date is mon, tue, fri, sat, sun then deliery date is 'next Friday'
+		$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+
+	}
+/*	
 	$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
 		if( $wed > $order_date )
 			$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
 		else
 			$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
-	
+*/	
 	$search = array('CUSTOMERNAME', 'ORDERID', 'ORDERINFOSKU', 'ORDERINFO', 'SHIPPINGINFO', 'PAYMENTINFO', 'TOTAL', 'TRACKINGURL', 'ORDERNOTES', 'DELIVERYDATE');
 	$replace = array($order->mp_shipping_info['name'], $order->post_title, $order_info_sku, $order_info, $shipping_info, $payment_info, $order_total, $tracking_url, $order_notes, $del_date);
 
@@ -4988,48 +5064,54 @@ Thanks again!", 'mp')
 	 return $text;
 	}
 
-	//sends email for new orders
+// MARK DAVIES - TAKEN THIS OUT BECAUSE 4CG WANTED TO DISABLE IT
+	//sends email to store owners for new orders
 	function order_notification($order_id) {
-
-	 //get the order
-	 $order = $this->get_order($order_id);
-	 if (!$order)
-		return false;
-
-		$subject = apply_filters('mp_order_notification_subject', $this->filter_email($order, stripslashes($this->get_setting('email->new_order_subject'))), $order);
-		$msg = apply_filters('mp_order_notification_body', $this->filter_email($order, stripslashes($this->get_setting('email->new_order_txt'))), $order);
-		$msg = apply_filters('mp_order_notification_' . $_SESSION['mp_payment_method'], $msg, $order );
-
-	 $this->mail($order->mp_shipping_info['email'], $subject, $msg);
-
-	 //send message to admin
-	 $subject = __('New Order Notification: ORDERID', 'mp');
-	 $msg = __("A new order (ORDERID) was created in your store:
-
-Order Information:
-ORDERINFOSKU
-
-Shipping Information:
-SHIPPINGINFO
-
-Email: %s
-
-Payment Information:
-PAYMENTINFO
-
-You can manage this order here: %s", 'mp');
-
-	 $subject = $this->filter_email($order, $subject);
-		$subject = apply_filters( 'mp_order_notification_admin_subject', $subject, $order );
-	 $msg = $this->filter_email($order, $msg, true);
-		$msg = sprintf($msg, $order->mp_shipping_info['email'], admin_url('edit.php?post_type=product&page=marketpress-orders&order_id=') . $order->ID);
-		$msg = apply_filters( 'mp_order_notification_admin_msg', $msg, $order );
-	 $store_email = $this->get_setting('store_email') ? $this->get_setting('store_email') : get_option("admin_email");
-	 $this->mail($store_email, $subject, $msg);
+/*
+	
+		 //get the order
+		 $order = $this->get_order($order_id);
+		 if (!$order)
+			return false;
+	
+			$subject = apply_filters('mp_order_notification_subject', $this->filter_email($order, stripslashes($this->get_setting('email->new_order_subject'))), $order);
+			$msg = apply_filters('mp_order_notification_body', $this->filter_email($order, stripslashes($this->get_setting('email->new_order_txt'))), $order);
+			$msg = apply_filters('mp_order_notification_' . $_SESSION['mp_payment_method'], $msg, $order );
+	
+		 $this->mail($order->mp_shipping_info['email'], $subject, $msg);
+	
+		 //send message to admin
+		 $subject = __('New Order Notification: ORDERID', 'mp');
+		 $msg = __("A new order (ORDERID) was created in your store:
+	
+	Order Information:
+	ORDERINFOSKU
+	
+	Shipping Information:
+	SHIPPINGINFO
+	
+	Email: %s
+	
+	Payment Information:
+	PAYMENTINFO
+	
+	You can manage this order here: %s", 'mp');
+	
+		 $subject = $this->filter_email($order, $subject);
+			$subject = apply_filters( 'mp_order_notification_admin_subject', $subject, $order );
+		 $msg = $this->filter_email($order, $msg, true);
+			$msg = sprintf($msg, $order->mp_shipping_info['email'], admin_url('edit.php?post_type=product&page=marketpress-orders&order_id=') . $order->ID);
+			$msg = apply_filters( 'mp_order_notification_admin_msg', $msg, $order );
+		 $store_email = $this->get_setting('store_email') ? $this->get_setting('store_email') : get_option("admin_email");
+		 $this->mail($store_email, $subject, $msg);
+*/
 	}
 
+
+
+
 //MARK DAVIES - TAKEN THIS OUT BECAUSE 4CG WANTED TO DISABLE IT
-	//sends email for orders marked as shipped
+	//sends email for orders marked as 'shipped'
 	function order_shipped_notification($order_id) {
 /*
 	 //get the order

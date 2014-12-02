@@ -657,7 +657,7 @@ position: absolute;
 	top:-28px;/*-28px;*/
 	color:#5d5248;
 	font-style: normal;
-	font-size: 12px;
+	font-size: 16px;
 	display: inline;
 	left:25px;
 
@@ -761,7 +761,7 @@ height:350px;
 /******  HOW IT WORKS   **********/
 #how-it-works{
 	position: relative;
-	height: 540px;
+	height: 580px;
 	width:950px;
 	background: #585657;
 	
@@ -819,7 +819,7 @@ height:350px;
 #step h3{
   display: block;	
   text-align:center;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Ubuntu', sans-serif;
   color:#e6da89;
 
@@ -829,12 +829,14 @@ height:350px;
 top:20px;
   display: block;		
   position:relative;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Ubuntu', sans-serif;
   color:#dad8d9;	
   text-align: left;
   margin: 0 auto;
   width:152px;
+  	font-weight: lighter;
+
 }
 
 
@@ -991,58 +993,134 @@ margin-left:40px;
 }
 
 
-/******  JOIN PAGE  **********/
+/******  CEATE ACCOUNT PAGE  **********/
 
 
 
 #signup{
-display:block;
 position:relative;
 width: 100%;
-top:30px;
-margin-left:40px;
+height: 940px;
 
 }
 
 #signup h1{
-font-size: 28px;
-line-height: 32px;
-/*font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";*/
-color:#6a645a;
+	position:relative;
+	font-family: 'Ubuntu', sans-serif;
+	color:#80a8c3;
+	font-style: normal;
+	font-size: 20px;
+	text-align: center;
+	top:10px;
 }
 
 #signup p{
-margin-top:20px;
-font-size: 14px;
-line-height: 18px;
-/*font-family: "Helvetica Neue";*/
-width:95%;
-color:#6a645a;
-}
-
-#signup h4{
-position:relative;
-display:inline-block;
-margin-top:10px;
-font-size: 11px;
-line-height: 18px;
-/*font-family: "Helvetica Neue";*/
-width:95%;
-color:#6a645a;
-}
-
-#signup h4 a{
-color:#5b9aa9;
-}
-
-
-
-
-#signup img{
+	
 	position:relative;
-	margin-top:20px;
+	font-family: 'Ubuntu', sans-serif;
+	color:#585657;
+	font-weight: lighter;
+	font-size: 14px;
+	text-align: center;
+	width:800px;
+	margin-left: auto;
+	margin-right: auto;
+	top:30px;
 
 }
+
+#signup p a{
+	color:#6190af;
+	font-weight: normal;
+
+}
+
+
+#seller{
+	float:left;
+	position:relative;
+	margin-top:70px;
+	left:20px;
+	width:414px;
+	background: #fff;
+	padding-bottom: 30px;
+
+}
+
+#seller img{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#seller h1{
+	font-family: 'Ubuntu', sans-serif;
+	color:#585657;
+	font-weight: medium;
+	font-size: 16px;
+	text-align: center;
+}
+
+#seller ul{
+	list-style-type:circle;
+}
+
+#seller ul li{
+	font-family: 'Ubuntu', sans-serif;
+	color:#585657;
+	font-weight: lighter;
+	font-size: 13px;
+	padding:5px;
+	
+}
+
+.seller-button{
+	padding-top:20px;	
+}
+
+#customer{
+	float:right;
+	position:relative;
+	margin-top:70px;
+	width:414px;
+	background: #fff;
+	right:20px;
+	padding-bottom: 30px;
+	
+
+}
+#customer img{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#customer h1{
+	font-family: 'Ubuntu', sans-serif;
+	color:#585657;
+	font-weight: medium;
+	font-size: 16px;
+	text-align: center;
+}
+
+#customer ul{
+	list-style-type:circle;
+}
+
+#customer ul li{
+	
+	font-family: 'Ubuntu', sans-serif;
+	color:#585657;
+	font-weight: lighter;
+	font-size: 12px;
+	
+}
+
+.customer-button{
+	padding-top:20px;	
+}
+
+
 
 #footer{
 position: relative;
@@ -1061,32 +1139,35 @@ height:423px;
 
 #footer-about-us{
 	float: left; 
-	width: 33%;
+	width: 40%;
 	color: #dad8d9;
 }
 #footer-about-us h1{
-	font-family: 'Ubuntu', sans-serif;	font-size: 15px;
+	font-family: 'Ubuntu', sans-serif;	font-size: 16px;
 	color: #dad8d9;
 
 }
 
 #footer-about-us p{
-	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
+	font-family: 'Ubuntu', sans-serif;	font-size: 14px;
 	color: #dad8d9;
+	font-weight: lighter;
 
 }
 
 #footer-about-us p a{
-	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
+	font-family: 'Ubuntu', sans-serif;	font-size: 14px;
 	color: #e5ddb1;
 	text-decoration: none;
+	font-weight: lighter;
 
 }
 
 #footer-about-us p a:hover{
-	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
+	font-family: 'Ubuntu', sans-serif;	font-size: 14px;
 	color: #e5ddb1;
 	text-decoration: none;
+	font-weight: lighter;
 
 }
 
@@ -1102,7 +1183,7 @@ height:423px;
 #footer-teifi-basket h1{
 	position: relative;
 	left:60px;
-	font-family: 'Ubuntu', sans-serif;	font-size: 15px;
+	font-family: 'Ubuntu', sans-serif;	font-size: 16px;
 	color: #dad8d9;
 	width:150px;	
 
@@ -1116,8 +1197,9 @@ height:423px;
 
 #footer-teifi-basket ul li{
 list-style-type: square;
-font-family: 'Ubuntu', sans-serif;	font-size: 12px;
+font-family: 'Ubuntu', sans-serif;	font-size: 14px;
 color: #dad8d9;
+
 }
 
 #footer-contactus{
@@ -1128,7 +1210,7 @@ color: #dad8d9;
 }
 #footer-contactus h1{
 	position: relative;
-	font-family: 'Ubuntu', sans-serif;	font-size: 15px;
+	font-family: 'Ubuntu', sans-serif;	font-size: 16px;
 	color: #dad8d9;
 	left:30px;
 
@@ -1140,7 +1222,8 @@ list-style-type: none;
 }
 
 #footer-contactus ul li{
-	font-family: 'Ubuntu', sans-serif;	font-size: 12px;
+	font-family: 'Ubuntu', sans-serif;	font-size: 14px;
+		font-weight: lighter;
 	color: #dad8d9;
 
 }

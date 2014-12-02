@@ -67,11 +67,11 @@
 						*/
 						
 						
-						mp_list_global_products( array('per_page' => 5,'order_by' => 'rand', 'text' => 'none', 'button' => 'none') );
+						mp_list_global_products( array('per_page' => 5,'order_by' => 'rand', 'text' => 'none') );
 						
 						    
 					?> 
-                            
+        <!--<p> <a href="">See more products</a></p>     -->               
                             
    </div> <!-- end of featured products--> 	    		
     	    

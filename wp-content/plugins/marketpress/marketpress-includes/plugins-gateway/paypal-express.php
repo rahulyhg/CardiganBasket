@@ -522,12 +522,15 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 			
 			//Start
 			//Mark Davies
+			// EMAIL THE SITE ADMIN AND CUSTOMER THE TOTAL ORDER, INC THE DELIVERY DATE/TIME.
 				
 				
 				
 				global $wpdb;
 					//for($i=0;$i<10;$i++) {
 					//ob_start();
+					
+					//SITE ADMIN
 						$orderConfirmation = "Order Confirmation (".$order_id.")";
 						$global_cart = $global_cart;
 						$orderId = $order_id;
@@ -539,9 +542,60 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 						$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
 									$getProducts1 = $wpdb->get_row($sql,ARRAY_A);
 									$productDetails1 = $getProducts1;
-									$orderDateAndTime = $productDetails1['post_date'];
-						$msg .= "<p>Order Date/Time: ".$orderDateAndTime."</p>";
-						//$msg .= "<p>Total Number of Items: ".$CountOrders."</p>";
+									$order_date = $productDetails1['post_date'];
+						$msg .= "<p>Order Placed: ".$order_date."</p>";
+						
+							//Calculate when the delivery date is
+							$order_date = strtotime( $order->post_date );
+							$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
+							$today = jddayofweek($jd,1);
+							
+							if ($today = "Wednesday"){
+								//wednesday 00:00am to 5:00pm
+								$wed_deadline = strtotime(date('Y-m-d', strtotime("today")) . ' 17:00:00');
+								
+								if ($order_date < $wed_deadline){
+									//if delivery date is Wednesday before 5pm then delivery date is this Friday
+									$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+									$msg .="<p>Collection Date: Friday, ".$del_date."</p>";
+								}	
+								else{
+									//wednesday 5:00pm to 11:59pm
+									//if delivery date is Wednesday after 5pm, then delivery date is one week Friday
+									$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+									$msg .="<p>Collection Date: ".$del_date."</p>";					
+								}		
+							}
+							elseif ($today = "Thursday"){
+								//thursday
+								// if the order date is on a Thursday, delivery date is one week Friday
+								if ($today = $order_date){
+									$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+									$msg .="<p>Collection Date: ".$del_date."</p>";			
+								}
+							}
+							else{
+								//mon, tue, fri, sat, sun
+								//if delivery date is mon, tue, fri, sat, sun then deliery date is 'next Friday'
+								$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+								$msg .="<p>Collection Date: ".$del_date."</p>";
+						
+							}
+
+							
+							
+							/*	$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
+								if( $wed > $order_date ){
+										$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+										$msg .="<p>Collection Date: ".$del_date."</p>";
+									}
+									else{
+										$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+										$msg .="<p>Collection Date: ".$del_date."</p>";
+									}
+							*/
+
+
 
 							foreach ($global_cart as $bid => $cart) //check if shop cart has items..
 								{
@@ -579,7 +633,7 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 										$customerBillingPhone =  $billingSerialize['phone'];
 										/* Order Infromation Start */
 										if(empty($ismail)){
-											$msg_items .= '<li>'.$item_title.' (x'.$qty.') - Sold by: '.$blogName.' (ID: '.$bid.')</li>';
+											$msg_items .= '<li>'.$qty.' '.$item_title.' (£'.$prices.') - Sold by: '.$blogName.' (Shop ID: '.$bid.')</li>';
 										}
 																				
 										}
@@ -666,7 +720,7 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
     global $mp;
 
     if ($mp->global_cart) {
-		  $content .= '<p>' . sprintf(__('Your order(s) for %s store(s) totaling %s were successful.', 'mp'), $_SESSION['store_count'], $mp->format_currency($this->currencyCode, $_SESSION['final_amt'])) . '</p>';
+		  $content .= '<p>' . sprintf(__('Your order total of %s was placed successfully. You will receive a confirmation email for your order, with a collection date for when you can pick up your shopping.', 'mp'), $mp->format_currency($this->currencyCode, $_SESSION['final_amt'])) . '</p>';
 			/* TODO - create a list of sep store orders*/
 	  } else {
 	    if ($order->post_status == 'order_received') {

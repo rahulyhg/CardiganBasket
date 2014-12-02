@@ -12,10 +12,13 @@ function framemarket_listall_shops(){
     foreach($blogs as $blog){
         $blog_details = get_blog_details($blog->blog_id);
 ?>
+ 
 <option value="<?php echo $blog_details->siteurl; ?>"> <?php echo $blog_details->blogname; ?></option>
+
 <?php
     }
-?>
+?> 
+
  </select>
 <?php
 }

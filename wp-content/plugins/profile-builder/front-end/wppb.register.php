@@ -1345,7 +1345,7 @@ function wppb_front_end_register($atts){
 								if ( current_user_can( 'create_users' ) ) 
 									$button_name = __('Add User', 'profilebuilder'); 
 								else 
-									$button_name = __('Register', 'profilebuilder');
+									$button_name = __('Create Account', 'profilebuilder');
 							?>
 							<input name="adduser" type="submit" id="addusersub" class="submit button" value="<?php echo apply_filters('wppb_register_button_name', $button_name, $current_user); ?>" />
 							<input name="action" type="hidden" id="action" value="adduser" />

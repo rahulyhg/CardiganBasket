@@ -167,7 +167,7 @@
 									} else {
 										//echo 'Welcome, visitor!';
 										?>
-										<li> <a href="http://<?php echo $domain_name; ?>/signup/"> Create Account </a> </li>
+										<li> <a href="http://<?php echo $domain_name; ?>/signup/"> Signup </a> </li>
 									<li> <a href="http://<?php echo $domain_name; ?>/login">Log In</a> </li>
 								<?php
 									}
@@ -220,24 +220,63 @@
 										    <select class="dropdown-menu" onchange="javascript:handleSelect(this)">
    										        <option>Select a category...</option>	
    										        	
-   										        <optgroup value="/marketplace/categories/bakery/" label="Bakery" >					    																	<option value="/marketplace/categories/biscuits/">Biscuits</option>
+   										        <optgroup value="/marketplace/categories/bakery/" label="Bakery" >
+													<option value="/marketplace/categories/biscuits/">Biscuits</option>
 											        <option value="/marketplace/categories/bread/">Bread</option>
-	   										        <option value="/marketplace/categories/cakes/">Cakes</option>							        										        		<option value="/marketplace/categories/pastry/">Pastry</option></a>
-	   											</optgroup>									        
+	   										        <option value="/marketplace/categories/cakes/">Cakes</option>
+	   										        <option value="/marketplace/categories/flour/">Flour</option>	   										        
+	   										        <option value="/marketplace/categories/pastry/">Pastry</option>
+	   											</optgroup>					
+	   											
+	   											<optgroup value="/marketplace/categories/beers-and-wines/" label="Beers/Wines" >		
+										           	<option value="/marketplace/categories/beers/">Beers</option>
+										           	<option value="/marketplace/categories/wines/">Wines</option>
+										        </optgroup>
+	   											
+	   											<optgroup value="/marketplace/categories/chemist/" label="Chemist" >
+													<option value="/marketplace/categories/cleaning/">Cleaning</option>
+											        <option value="/marketplace/categories/eco-products/">Eco products</option>
+	   										        <option value="/marketplace/categories/medicines/">Over the counter medicines</option>
+	   										        <option value="/marketplace/categories/toiletries/">Toiletries</option>
+	   											</optgroup>		
+
+	   											 <optgroup value="/marketplace/categories/chocolate-and-confectionery/" label="Chocolate/Confectionery" >		
+										           	<option value="/marketplace/categories/chocolate-and-confectionery/">See all chocolate and confectionery</option>
+										        </optgroup>				        
 										        
-										        <optgroup value="/marketplace/categories/dairy/" label="Dairy" >										        										        	<option value="/marketplace/categories/butter/">Butter</option>
+										        <optgroup value="/marketplace/categories/dairy/" label="Dairy" >		
+										           	<option value="/marketplace/categories/butter/">Butter</option>
 													<option value="/marketplace/categories/cheese/">Cheese</option>
+													<option value="/marketplace/categories/cream/">Cream</option>
+													<option value="/marketplace/categories/ice-cream/">Ice cream</option>
 													<option value="/marketplace/categories/milk/">Milk</option>
 										        </optgroup>
+										        
+										        <optgroup value="/marketplace/categories/delicatessen/" label="Delicatessen" >		
+										           	<option value="/marketplace/categories/delicatessen/">See all delicatessen</option>
+										        </optgroup>
+										        
+										        <optgroup value="/marketplace/categories/fish-and-shellfish/" label="Fish/Shell fish" >		
+										           	<option value="/marketplace/categories/fish/">Fish</option>
+										           	<option value="/marketplace/categories/shellfish/">Shell fish</option>
+										        </optgroup>
+										        
 										        <optgroup value="/marketplace/categories/fruit/" label="Fruit" >
 										        	<option value="/marketplace/categories/apples/">Apples</option>
+										        	<option value="/marketplace/categories/apricots/">Apricots</option>										        	
 										        	<option value="/marketplace/categories/bananas/">Bananas</option>
-										        	<option value="/marketplace/categories/bananas/">Blueberries</option>								
+										        	<option value="/marketplace/categories/blueberries/">Blueberries</option>								
 										        	<option value="/marketplace/categories/grapes/">Grapes</option>
 										        	<option value="/marketplace/categories/lemons/">Lemons</option>
+										        	<option value="/marketplace/categories/limes/">Limes</option>
+										        	<option value="/marketplace/categories/mango/">Mango</option>
 										        	<option value="/marketplace/categories/melons/">Melons</option>
+										        	<option value="/marketplace/categories/nectarines/">Nectarines</option>
 										        	<option value="/marketplace/categories/oranges/">Oranges</option>
+										        	<option value="/marketplace/categories/pears/">Pears</option>
+										        	<option value="/marketplace/categories/pineapple/">Pineapple</option>										        	
 										        	<option value="/marketplace/categories/raspberries/">Raspberries</option>
+										        	<option value="/marketplace/categories/rhubarb/">Rhubarb</option>
 										        	<option value="/marketplace/categories/strawberries/">Strawberries</option>
 										        </optgroup>
 										        
@@ -247,18 +286,70 @@
    												    <option value="/marketplace/categories/chicken">Chicken</option>
    												    <option value="/marketplace/categories/pork">Pork</option>
    												    <option value="/marketplace/categories/sausages">Sausages</option>
-												</optgroup>									        
+												</optgroup>	
+														
+														
+												<optgroup value="/marketplace/categories/pet-food/" label="Pet food" >
+												    <option value="/marketplace/categories/pet-food">See all pet food</option>
+   												 </optgroup>
+   												 						        
+												<optgroup value="/marketplace/categories/meat/" label="Salad" >
+												    <option value="/marketplace/categories/avocado">Avocado</option>
+												    <option value="/marketplace/categories/beetroot">Beetroot</option>
+   												    <option value="/marketplace/categories/cress">Cress</option>
+   												    <option value="/marketplace/categories/cucumber">Cucumber</option>
+   												    <option value="/marketplace/categories/lettuce">Lettuce</option>
+   													<option value="/marketplace/categories/peppers">Peppers</option>
+   												    <option value="/marketplace/categories/radish">Radish</option>
+   												    <option value="/marketplace/categories/spring-onions">Spring onions</option>
+   												    <option value="/marketplace/categories/tomatoes">Tomatoes</option>  
+   												    <option value="/marketplace/categories/watercress">Watercress</option>
+   												 </optgroup>	
+   												 	
 										        <optgroup value="/marketplace/categories/vegetables/" label="Vegetables">
+										        	<option value="/marketplace/categories/asparagus/">Asparagus</option>
+										        	<option value="/marketplace/categories/aubergine/">Aubergine</option>
+										        	<option value="/marketplace/categories/beans/">Beans</option>
 										        	<option value="/marketplace/categories/broccoli/">Broccoli</option>
+												    <option value="/marketplace/categories/brussels-sprouts/">Brussels sprouts</option>
 													<option value="/marketplace/categories/carrots/">Carrots</option>
+													<option value="/marketplace/categories/cauliflower/">Cauliflower</option>													
+													<option value="/marketplace/categories/celeriac/">Celeriac</option>													
+													<option value="/marketplace/categories/celery/">Celery</option>													
+													<option value="/marketplace/categories/courgette/">Courgette</option>													
+													<option value="/marketplace/categories/garlic/">Garlic</option>													
+													<option value="/marketplace/categories/kale/">Kale</option>
 													<option value="/marketplace/categories/leeks/">Leeks</option>
-													<option value="/marketplace/categories/onions/">Onion</option>
+													<option value="/marketplace/categories/mushrooms/">Mushrooms</option>
+													<option value="/marketplace/categories/onions/">Onions</option>
+													<option value="/marketplace/categories/peas/">Peas</option>
 													<option value="/marketplace/categories/potatoes/">Potatoes</option>
 													<option value="/marketplace/categories/spinach/">Spinach</option>
-												</optgroup>									        
+													<option value="/marketplace/categories/squash/">Squash</option>
+													<option value="/marketplace/categories/swede/">Swede</option>
+													<option value="/marketplace/categories/turnips/">Turnips</option>
+												</optgroup>		
+												
+												<optgroup value="/marketplace/categories/wholefoods/" label="Wholefoods">
+										        	<option value="/marketplace/categories/baking-ingredients/">Baking ingredients</option>
+													<option value="/marketplace/categories/cereals/">Cereals</option>
+													<option value="/marketplace/categories/drinks/">Drinks</option>
+													<option value="/marketplace/categories/food-supplements/">Food supplements</option>
+													<option value="/marketplace/categories/gluten-free/">Gluten free</option>
+													<option value="/marketplace/categories/grains/">Grains</option>
+													<option value="/marketplace/categories/herbs/">Herbs</option>
+													<option value="/marketplace/categories/jams-and-spreads/">Jams/Spreads</option>
+													<option value="/marketplace/categories/nuts/">Nuts</option>
+													<option value="/marketplace/categories/pasta/">Pasta</option>
+													<option value="/marketplace/categories/pulses/">Pulses</option>
+													<option value="/marketplace/categories/spices/">Spices</option>
+													<option value="/marketplace/categories/vitamins/">Vitamins</option>
 
+												</optgroup>	
+												
 										    </select>
 									</div>
+
 									
 									
 									<div id="search">
@@ -322,7 +413,7 @@
 						$logotext = isset($options['logotext']) ? $options['logotext'] : '';
 				
 					?>
-					<?php if (get_bloginfo('name') <> '') { ?>
+					<?php if (get_bloginfo('name') <> 'Teifi Basket' || '') { ?>
 					<div id="site-logo">
 						<img src="http://cardiganbasket.co.uk/wp-admin/images/shop-icon.png" width="24px" height="24px"/><h1> <?php echo bloginfo('name'); ?> Store</h1>
 					</div>

@@ -3,7 +3,10 @@
 
 /* 127451-1401181458 */
 
+h1, h2, h3, h4, label{
+		font-family: 'Ubuntu', sans-serif;
 
+}
 #site-wrapper{
  position: relative;
  /*top:-35px;*/
@@ -44,4 +47,23 @@
 		background: none !important;
 		text-align: center;
 	
+}
+
+/* removes the product category filter for each shop*/
+.mp_list_filter{
+	display: none;
+}
+
+
+#mp_product_list{
+	
+	margin-left: auto; margin-right: auto;
+
+}
+
+
+#mp-product-grid{
+	/*margin-left: auto; margin-right: auto;
+		*/
+		
 }

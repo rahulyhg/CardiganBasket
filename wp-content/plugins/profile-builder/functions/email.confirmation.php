@@ -416,7 +416,7 @@ function wppb_notify_user_registration_email( $bloginfo, $user_name, $email, $se
 	$registerFilterArray['adminMessageSubject'] = '[' . $registerFilterArray['adminMessageFrom'] . '] ' . __( 'A new subscriber has (been) registered!', 'profilebuilder' );
 	$registerFilterArray['adminMessageSubject'] = apply_filters ('wppb_register_admin_email_subject_without_admin_approval', $registerFilterArray['adminMessageSubject'], $email, $password, $registerFilterArray['adminMessageFrom'], 'admin_default_registration_email_subject' );
 	
-	$registerFilterArray['adminMessageContent']  = sprintf( __( 'New subscriber on %1$s.<br/><br/>Username:%2$s<br/>E-mail:%3$s<br/>', 'profilebuilder'), $registerFilterArray['adminMessageFrom'], $user_name, $email );
+	$registerFilterArray['adminMessageContent']  = sprintf( __( 'New customer on %1$s.<br/><br/>Username:%2$s<br/>E-mail:%3$s<br/>', 'profilebuilder'), $registerFilterArray['adminMessageFrom'], $user_name, $email );
 	
 	if ($adminApproval == 'yes'){
 		$registerFilterArray['adminMessageSubject'] = apply_filters( 'wppb_register_admin_email_subject_with_admin_approval', $registerFilterArray['adminMessageSubject'], $email, $password, $registerFilterArray['adminMessageFrom'], 'admin_registration_w_admin_approval_email_subject' );

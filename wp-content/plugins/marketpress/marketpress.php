@@ -3831,51 +3831,43 @@ Thanks again!", 'mp')
 	 
 	 
 	 //MARK DAVIES - Add custom field (delivery_date) as post meta data to the order
-	 /*$order_date = strtotime( $order->post_date );
-			$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
+
+
+			$order_date = strtotime(date('Y-m-j H:i:s'));
+			$dayName = date('l', $order_date);
 			
-			
-			if( $wed > $order_date ){
-				$delivery_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
-				 add_post_meta($post_id, 'delivery_date', $delivery_date, true);
-			}
-			else{
-				$delivery_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
-				add_post_meta($post_id, 'delivery_date', $delivery_date, true);
-			}*/
-			$order_date = strtotime( $order->post_date );
-			$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
-			$today = jddayofweek($jd,1);
-			
-			if ($today = "Wednesday"){
+			if ($dayName == "Wednesday"){
 				//wednesday 00:00am to 5:00pm
 				$wed_deadline = strtotime(date('Y-m-d', strtotime("today")) . ' 17:00:00');
 				
 				if ($order_date < $wed_deadline){
 					//if delivery date is Wednesday before 5pm then delivery date is this Friday
-					$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+					//$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+					$del_date = "wednesday if part because today= ".$dayName." and the order-date =".$order_date;
 					add_post_meta($post_id, 'delivery_date', $del_date, true);
 
 				}	
 				else{
 					//wednesday 5:00pm to 11:59pm
 					//if delivery date is Wednesday after 5pm, then delivery date is one week Friday
-					$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+					//$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+					//$del_date = "wed else";
+					$del_date = "wednesday else part because today= ".$dayName." and the order-date =".$order_date;
 					add_post_meta($post_id, 'delivery_date', $del_date, true);
 				}		
 			}
-			elseif ($today = "Thursday"){
+			elseif ($dayName == "Thursday"){
 				//thursday
 				// if the order date is on a Thursday, delivery date is one week Friday
-				if ($today = $order_date){
-					$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+					//$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+					$del_date = "thursday part because today= ".$dayName." and the order-date =".$order_date;
 					add_post_meta($post_id, 'delivery_date', $del_date, true);
-				}
 			}
 			else{
 				//mon, tue, fri, sat, sun
 				//if delivery date is mon, tue, fri, sat, sun then deliery date is 'next Friday'
-				$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+				//$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+				$del_date = "else part because today= ".$dayName." and the order-date =".$order_date;
 				add_post_meta($post_id, 'delivery_date', $del_date, true);
 			}
 			
@@ -3959,6 +3951,7 @@ Thanks again!", 'mp')
 	 add_post_meta($post_id, 'mp_tax_inclusive', $this->get_setting('tax->tax_inclusive'), true);
 	 add_post_meta($post_id, 'mp_tax_shipping', $this->get_setting('tax->tax_shipping'), true);
 
+	
 	 $timestamp = time();
 	 add_post_meta($post_id, 'mp_received_time', $timestamp, true);
 
@@ -4094,65 +4087,78 @@ Thanks again!", 'mp')
 						$delivery_date = get_post_meta($order->ID, 'delivery_date', true);
 
 						
-						if ( $delivery_date == $del_date){
-						$meta = get_post_custom($order->ID);
-						
-						
-						//unserialize a and add to object
-							foreach ($meta as $key => $val)
-								$order->$key = maybe_unserialize($meta[$key][0]);
-				
-							$fields = array();
-							$fields['order_id'] = $order->post_title;
-							$fields['item_count'] = $order->mp_order_items;
+						if ( true ){//$delivery_date == $del_date){
+							$meta = get_post_custom($order->ID);
+							
+							
+							//unserialize a and add to object
+								foreach ($meta as $key => $val)
+									$order->$key = maybe_unserialize($meta[$key][0]);
+					
+								$fields = array();
+								$fields['order_id'] = $order->post_title;
+								$fields['item_count'] = $order->mp_order_items;
+								
+							echo'<table style="width:90%">';
+											echo '<br>';
+											echo '<a href="http://cardiganbasket.co.uk/'.$blog_title.'/wp-admin/edit.php?post_type=product&page=marketpress-orders&order_id='.$order->ID.'"><h3> Order ID: '.$fields['order_id'].'</h3></a>';
+											//delete this line after working
+											echo '<h3> delivery date: '.$delivery_date.'</h3>';
 
-							//items
-							if (is_array($order->mp_cart_info) && count($order->mp_cart_info)) {
-								foreach ($order->mp_cart_info as $product_id => $variations) {
-									foreach ($variations as $variation => $data) {
-										//if (!empty($fields['items']))
-										//	$fields['items'] .= "\r\n";
-				
-										//if (!empty($data['SKU']))
-										//	$fields['items'] .= '[' . $data['SKU'] . '] ';
 											
-				
-										$fields['paid_date'] = isset($order->mp_paid_time) ? date('Y-m-d H:i:s', $order->mp_paid_time) : null;
-										$blog_title = strtolower(preg_replace('/\s/', '', get_bloginfo('name', false)));
+							
+	
+								//items
+								if (is_array($order->mp_cart_info) && count($order->mp_cart_info)) {
+									foreach ($order->mp_cart_info as $product_id => $variations) {
 										
-										//echo "<b>".$order->post_ID."</b>";
-										//echo "<b>".$order->ID."</b>";
-										echo'<table style="width:90%">';
-										echo '<br>';
-										echo '<a href="http://cardiganbasket.co.uk/'.$blog_title.'/wp-admin/edit.php?post_type=product&page=marketpress-orders&order_id='.$order->ID.'"><h3> Order ID: '.$fields['order_id'].'</h3></a>';
-										echo 
-														  '<tr>
-														    <th>SKU</th>
-														    <th>Item Name</th>		
-														    <th>Quantity</th>
-										   				    <th>Ordered on</th>
-														  </tr>';
-
-										echo '<tr>';
-										echo '<td>'.$data['SKU'].'</td>';
-										echo '<td>'.$data['name'].'</td>';		
-										echo '<td>'.$data['quantity'].'</td>';
-										echo '<td>'.$fields['paid_date'].'</td>';
-
-										echo '</tr>';
 										
-										} 				
+										foreach ($variations as $variation => $data) {
+											//if (!empty($fields['items']))
+											//	$fields['items'] .= "\r\n";
+					
+											//if (!empty($data['SKU']))
+											//	$fields['items'] .= '[' . $data['SKU'] . '] ';
+												
+					
+											$fields['paid_date'] = isset($order->mp_paid_time) ? date('Y-m-d H:i:s', $order->mp_paid_time) : null;
+											$blog_title = strtolower(preg_replace('/\s/', '', get_bloginfo('name', false)));
+											
+											//echo "<b>".$order->post_ID."</b>";
+											//echo "<b>".$order->ID."</b>";
+											
+											echo 
+															  '<tr>
+															    <th>SKU</th>
+															    <th>Item Name</th>		
+															    <th>Quantity</th>
+											   				    <th>Ordered on</th>
+															  </tr>';
+	
+											echo '<tr>';
+											echo '<td>'.$data['SKU'].'</td>';
+											echo '<td>'.$data['name'].'</td>';		
+											echo '<td>'.$data['quantity'].'</td>';
+											echo '<td>'.$fields['paid_date'].'</td>';
+	
+											echo '</tr>';
+											
+											} 				
+											
 										
+										
+										}
 									}
-								}
 						} // end of if 
 						
 						
 						}
+						echo '</table>';
+
 				
 				
 				
-				echo '</table>';
+				
 				
 				
 				
@@ -5011,10 +5017,11 @@ Thanks again!", 'mp')
 	 
 	 //MARK DAVIES - NEW METHOD	 
 	$order_date = strtotime( $order->post_date );
-	$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
-	$today = jddayofweek($jd,1);
+	//$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
+	//$today = jddayofweek($jd,1);
+	$dayName = date('l', $order_date);
 	
-	if ($today = "Wednesday"){
+	if ($dayName == "Wednesday"){
 		//wednesday 00:00am to 5:00pm
 		$wed_deadline = strtotime(date('Y-m-d', strtotime("today")) . ' 17:00:00');
 		
@@ -5028,12 +5035,10 @@ Thanks again!", 'mp')
 			$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
 		}		
 	}
-	elseif ($today = "Thursday"){
+	elseif ($dayName == "Thursday"){
 		//thursday
 		// if the order date is on a Thursday, delivery date is one week Friday
-		if ($today = $order_date){
 			$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
-		}
 	}
 	else{
 		//mon, tue, fri, sat, sun

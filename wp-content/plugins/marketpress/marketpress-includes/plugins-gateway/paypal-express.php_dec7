@@ -533,15 +533,16 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 					//SITE ADMIN and CUSTOMER EMAIL
 						$orderConfirmation = "Order Confirmation (".$order_id.")";
 						//$global_cart = $global_cart;
-						//$orderId = $order_id;
+						$orderId = $order_id;
 						//$CountOrders = count($global_cart); 
 						//$msg = 'Total Number of Orders '.$CountOrders; 
 						//$msg .= '<p>List of Orders</p> ';*/
 						$msg = '<!DOCTYPE html><html><head></head><body>';
 						$msg .= "<b> A new order (".$order_id.") was created in the Teifi Basket.</b>";
-						$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$order_id."'";
-									$getProducts = $wpdb->get_row($sql,ARRAY_A);
-									$order_date = $getProducts['post_date'];
+						$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
+									$getProducts1 = $wpdb->get_row($sql,ARRAY_A);
+									$productDetails1 = $getProducts1;
+									$order_date = $productDetails1['post_date'];
 						$msg .= "<p>Order Placed: ".$order_date."</p>";
 						$msgC = '<!DOCTYPE html><html><head></head><body>';
 						$msgC .= "<b> Thank you for shopping on the Teifi Basket! Your order (".$order_id.") has been placed.</b>";
@@ -551,6 +552,8 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 						
 							//Calculate when the delivery date is
 							$time_of_order = strtotime( $order_date);
+							//$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
+							//$today = jddayofweek($jd,1);
 							
 							$dayName = date('l', $time_of_order);
 							
@@ -598,27 +601,40 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 
 							foreach ($global_cart as $bid => $cart) 
 								{
+									/* Blog Information Start */
 									$blogName = get_blog_option($bid,'blogname');
-
+									//NOT USED $blogEmail = get_blog_option($bid,'admin_email');
+									//$blogbillingSerialize = get_user_meta($bid,'mp_billing_info',true);
+									//$blogCustomerBillingAddress1 =  $blogbillingSerialize['address1'];
+									//$blogCustomerBillingPhone =  $blogbillingSerialize['phone'];
+									
+										/* Blog Information End */
 										foreach ($cart as $product_id => $data) {
 									
 										/* For each product in a store's cart */
-										$price = $data[0]['price'];
+										$prices = $data[0]['price'];
 										$qty = $data[0]['quantity'];
-										//$totalPrice = $price * $qty;
+										$totalPrices = $prices * $qty;
 										$item_title = $data[0]['name'];
-										$msg_items .= '<li>x'.$qty.' '.$item_title.' (£'.$price.' each) - Sold by: '.$blogName.' (Shop ID: '.$bid.')</li>';
-										$msgC_items .= '<li>x'.$qty.' '.$item_title.' (£'.$price.' each) - Sold by: '.$blogName.'</li>';	
+										$msg_items .= '<li>'.$qty.' '.$item_title.' (£'.$prices.') - Sold by: '.$blogName.' (Shop ID: '.$bid.')</li>';
+										$msgC_items .= '<li>'.$qty.' '.$item_title.' (£'.$prices.') - Sold by: '.$blogName.'</li>';	
+										//$orderProduct = get_page_by_title($page_title , 'ARRAY_A', 'mp_order' );
 										
-
-										$orderPostId = $getProducts['ID'];
+										$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
+										$productDetails = $wpdb->get_row($sql,ARRAY_A);
+										//$productDetails = $getProducts;
+										//$orderDateAndTime = $productDetails['post_date'];
+										$orderPostId = $productDetails['ID'];
 										$ismail = get_post_meta($orderPostId,'is_mail',true);
 										if(empty($ismail)){
 											add_post_meta($orderPostId,'is_mail',true);
 										} 
-										$customerName = $shipping_info['name'];
-										$customerBillingAddress =  $shipping_info['address1'].', '.$shipping_info['address2'];
-										$customerBillingPhone =  $shipping_info['phone'];
+										$cId = $productDetails['post_author'];
+										//$customerDetails = get_userdata( $cId  );
+										$billingSerialize = get_user_meta($cId,'mp_billing_info',true);
+										$customerName = $billingSerialize['name'];
+										$customerBillingAddress1 =  $billingSerialize['address1'];
+										$customerBillingPhone =  $billingSerialize['phone'];
 										/* Order Infromation Start */
 										//if(empty($ismail)){
 														
@@ -627,7 +643,6 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 										}
 										
 								}
-								break;
 								
 								//} //For loop
 				
@@ -636,7 +651,7 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 				}
 				
 									
-									$msg_customer = '<p>Customer Information:</p><ul style="list-style-type: none;"><li>Name: '.$customerName.'</li><li>Address: '.$customerBillingAddress.'</li><li>Phone: '.$customerBillingPhone.'</li></ul>';
+									$msg_customer = '<p>Customer Information:</p><ul style="list-style-type: none;"><li>Name: '.$customerName.'</li><li>Address: '.$customerBillingAddress1.'</li><li>Phone: '.$customerBillingPhone.'</li></ul>';
 									$msg .= $msg_customer.'<p>Order Information:</p><p>Items:</p><ul>'.$msg_items.'</ul></body></html>';
 									$msgC .= $msg_customer.'<p>Order Information:</p><p>Items:</p><ul>'.$msgC_items.'</ul></body></html>';
 									$to =  get_blog_option(1,'admin_email');

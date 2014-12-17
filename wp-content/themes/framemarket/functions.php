@@ -1,4 +1,6 @@
 <?php
+	
+	
 if ( ! function_exists( 'framemarket_setup' ) ) :
 function framemarket_setup() {
 	global $multi_site_on, $bp_existed;

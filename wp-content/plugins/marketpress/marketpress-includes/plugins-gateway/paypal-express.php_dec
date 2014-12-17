@@ -530,31 +530,27 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 					//for($i=0;$i<10;$i++) {
 					//ob_start();
 					
-					//SITE ADMIN and CUSTOMER EMAIL
+					//SITE ADMIN
 						$orderConfirmation = "Order Confirmation (".$order_id.")";
-						//$global_cart = $global_cart;
-						//$orderId = $order_id;
+						$global_cart = $global_cart;
+						$orderId = $order_id;
 						//$CountOrders = count($global_cart); 
 						//$msg = 'Total Number of Orders '.$CountOrders; 
 						//$msg .= '<p>List of Orders</p> ';*/
 						$msg = '<!DOCTYPE html><html><head></head><body>';
 						$msg .= "<b> A new order (".$order_id.") was created in the Teifi Basket.</b>";
-						$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$order_id."'";
-									$getProducts = $wpdb->get_row($sql,ARRAY_A);
-									$order_date = $getProducts['post_date'];
+						$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
+									$getProducts1 = $wpdb->get_row($sql,ARRAY_A);
+									$productDetails1 = $getProducts1;
+									$order_date = $productDetails1['post_date'];
 						$msg .= "<p>Order Placed: ".$order_date."</p>";
-						$msgC = '<!DOCTYPE html><html><head></head><body>';
-						$msgC .= "<b> Thank you for shopping on the Teifi Basket! Your order (".$order_id.") has been placed.</b>";
-						$msgC .= "<p>Order Placed: ".$order_date."</p>";
-						$msgC .= "<p>Order ID: ".$order_id."</p>";
-
 						
 							//Calculate when the delivery date is
 							$time_of_order = strtotime( $order_date);
+							$jd = cal_to_jd(CAL_GREGORIAN,date("m"),date("d"),date("Y"));
+							$today = jddayofweek($jd,1);
 							
-							$dayName = date('l', $time_of_order);
-							
-							if ($dayName == "Wednesday"){
+							if ($today = "Wednesday"){
 								//wednesday 00:00am to 5:00pm
 								$wed_deadline = strtotime(date('Y-m-d', strtotime("today")) . ' 17:00:00');
 								
@@ -563,91 +559,118 @@ class MP_Gateway_Paypal_Express extends MP_Gateway_API {
 									//if delivery date is Wednesday before 5pm then delivery date is this Friday
 									$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
 									$msg .="<p>Collection Date: Friday, ".$del_date."</p>";
-									$msgC .="<p>Please bring your Order ID and collect your shopping between 3:00 p.m. and 8:00 p.m. from the 4CG Click & Collect Hub in Pwllhai car park on:<b> Friday, ".$del_date."</b></p>";
-
 								}	
 								else{
 									//wednesday 5:00pm to 11:59pm
 									//if delivery date is Wednesday after 5pm, then delivery date is one week Friday
 									$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
 									$msg .="<p>Collection Date: ".$del_date."</p>";		
-									$msgC .="<p>Please bring your Order ID and collect your shopping between 3:00 p.m. and 8:00 p.m. from the 4CG Click & Collect Hub in Pwllhai car park on:<b> Friday, ".$del_date."</b></p>";		
-
 								}		
 							}
-							elseif ($dayName == "Thursday"){
+							elseif ($today = "Thursday"){
 								//thursday
 								// if the order date is on a Thursday, delivery date is one week Friday
+								if ($today = $order_date){
 									$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
-									$msg .="<p>Collection Date: ".$del_date."</p>";	
-									$msgC .="<p>Please bring your Order ID and collect your shopping between 3:00 p.m. and 8:00 p.m. from the 4CG Click & Collect Hub in Pwllhai car park on:<b> Friday, ".$del_date."</b></p>";		
+									$msg .="<p>Collection Date: ".$del_date."</p>";			
+								}
 							}
 							else{
 								//mon, tue, fri, sat, sun
 								//if delivery date is mon, tue, fri, sat, sun then deliery date is 'next Friday'
 								$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
 								$msg .="<p>Collection Date: ".$del_date."</p>";
-								$msgC .="<p>Please bring your Order ID and collect your shopping between 3:00 p.m. and 8:00 p.m. from the 4CG Click & Collect Hub in Pwllhai car park on:<b> Friday, ".$del_date."</b></p>";								
 						
 							}
 
 							
+							
+							/*	$wed = strtotime(date('Y-m-d', strtotime("next Wednesday")) . ' 17:00:00');
+								if( $wed > $order_date ){
+										$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
+										$msg .="<p>Collection Date: ".$del_date."</p>";
+									}
+									else{
+										$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
+										$msg .="<p>Collection Date: ".$del_date."</p>";
+									}
+							*/
 
 
 
-
-							foreach ($global_cart as $bid => $cart) 
+							foreach ($global_cart as $bid => $cart) //check if shop cart has items..
 								{
+								
+									/* Blog Information Start */
 									$blogName = get_blog_option($bid,'blogname');
-
-										foreach ($cart as $product_id => $data) {
+									//NOT USED $blogEmail = get_blog_option($bid,'admin_email');
+									$blogbillingSerialize = get_user_meta($bid,'mp_billing_info',true);
+									$blogCustomerBillingAddress1 =  $blogbillingSerialize['address1'];
+									$blogCustomerBillingPhone =  $blogbillingSerialize['phone'];
+								
 									
-										/* For each product in a store's cart */
-										$price = $data[0]['price'];
+										/* Blog Information End */
+								foreach ($cart as $product_id => $data) {
+										/* Order Infromation Start */
+										$prices = $data[0]['price'];
 										$qty = $data[0]['quantity'];
-										//$totalPrice = $price * $qty;
+										$totalPrices = $prices * $qty;
 										$item_title = $data[0]['name'];
-										$msg_items .= '<li>x'.$qty.' '.$item_title.' (£'.$price.' each) - Sold by: '.$blogName.' (Shop ID: '.$bid.')</li>';
-										$msgC_items .= '<li>x'.$qty.' '.$item_title.' (£'.$price.' each) - Sold by: '.$blogName.'</li>';	
-										
-
-										$orderPostId = $getProducts['ID'];
+										//$orderProduct = get_page_by_title($page_title , 'ARRAY_A', 'mp_order' );
+										$sql = "SELECT * FROM `wp_".$bid."_posts` where post_title = '".$orderId."'";
+										$getProducts = $wpdb->get_row($sql,ARRAY_A);
+										$productDetails = $getProducts;
+										$orderDateAndTime = $productDetails['post_date'];
+										$orderPostId = $productDetails['ID'];
 										$ismail = get_post_meta($orderPostId,'is_mail',true);
 										if(empty($ismail)){
 											add_post_meta($orderPostId,'is_mail',true);
 										} 
-										$customerName = $shipping_info['name'];
-										$customerBillingAddress =  $shipping_info['address1'].', '.$shipping_info['address2'];
-										$customerBillingPhone =  $shipping_info['phone'];
+										$cId = $productDetails['post_author'];
+										$customerDetails = get_userdata( $cId  );
+										$customerName = $customerDetails->user_login;
+										$billingSerialize = get_user_meta($cId,'mp_billing_info',true);
+										$customerBillingAddress1 =  $billingSerialize['address1'];
+										$customerBillingPhone =  $billingSerialize['phone'];
 										/* Order Infromation Start */
-										//if(empty($ismail)){
-														
-										
-										//}
+										if(empty($ismail)){
+											$msg_items .= '<li>'.$qty.' '.$item_title.' (£'.$prices.') - Sold by: '.$blogName.' (Shop ID: '.$bid.')</li>';
 										}
+																				
+										}
+
+									}
+
+							
+									$msg_customer = '<p>Customer Information:</p><ul style="list-style-type: none;"><li>Full Name: '.$customerName.'</li><li>Address: '.$customerBillingAddress1.'</li><li>Phone: '.$customerBillingPhone.'</li></ul>';
+
+									
+									$msg .= $msg_customer.'<p>Order Information:</p><p>Items:</p><ul>'.$msg_items.'</ul></body></html>';
+									$to =  get_blog_option(1,'admin_email');
+									$blogNameNetwork =  get_blog_option(1,'blogname');
+									$subject = $orderConfirmation;
+									$message = $msg;
+									//$headers = 'From: '.$blogNameNetwork.' <'.$to.'>' . "\r\n";
+									$headers = 'Content-type: text/html';
+									wp_mail( $to, $subject, $message, $headers);
+
+									//add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+									//wp_mail( $to, $subject, $message, $headers);
+									//remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
+									
 										
-								}
-								break;
-								
 								//} //For loop
 				
 							/*Mark Davies*/
 							//End
+							
+													
 				}
 				
-									
-									$msg_customer = '<p>Customer Information:</p><ul style="list-style-type: none;"><li>Name: '.$customerName.'</li><li>Address: '.$customerBillingAddress.'</li><li>Phone: '.$customerBillingPhone.'</li></ul>';
-									$msg .= $msg_customer.'<p>Order Information:</p><p>Items:</p><ul>'.$msg_items.'</ul></body></html>';
-									$msgC .= $msg_customer.'<p>Order Information:</p><p>Items:</p><ul>'.$msgC_items.'</ul></body></html>';
-									$to =  get_blog_option(1,'admin_email');
-									$toC = $shipping_info['email'];
-									$blogNameNetwork =  get_blog_option(1,'blogname');
-									$subject = $orderConfirmation;
-									$message = $msg;
-									$messageC = $msgC;
-									$headers = 'Content-type: text/html';
-									wp_mail( $to, $subject, $message, $headers);
-									wp_mail( $toC, $subject, $messageC, $headers);
+				//wp_mail( $to, $subject, $message, $headers);
+				
+				
+				
 
 
         if (is_multisite())

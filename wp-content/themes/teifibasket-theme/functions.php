@@ -4,6 +4,30 @@
  * Custom admin login header logo
  */
  
+ /* auto-detect the server so you only have to enter the front/from half of the email address, including the @ sign */
+function xyz_filter_wp_mail_from($email){
+/* start of code lifted from wordpress core, at http://svn.automattic.com/wordpress/tags/3.4/wp-includes/pluggable.php */
+$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+$sitename = substr( $sitename, 4 );
+}
+/* end of code lifted from wordpress core */
+$myfront = "order@";
+$myback = $sitename;
+$myfrom = $myfront . $myback;
+return $myfrom;
+}
+add_filter("wp_mail_from", "xyz_filter_wp_mail_from");
+
+/* enter the full name you want displayed alongside the email address */
+/* from http://miloguide.com/filter-hooks/wp_mail_from_name/ */
+function xyz_filter_wp_mail_from_name($from_name){
+return "Teifi Basket";
+}
+add_filter("wp_mail_from_name", "xyz_filter_wp_mail_from_name");
+
+
+
  
  // remove the site title from the store list
 function custom_framemarket_list_shops( $blogs ){

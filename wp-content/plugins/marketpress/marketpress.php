@@ -3842,32 +3842,27 @@ Thanks again!", 'mp')
 				
 				if ($order_date < $wed_deadline){
 					//if delivery date is Wednesday before 5pm then delivery date is this Friday
-					//$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
-					$del_date = "wednesday if part because today= ".$dayName." and the order-date =".$order_date;
+					$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
 					add_post_meta($post_id, 'delivery_date', $del_date, true);
 
 				}	
 				else{
 					//wednesday 5:00pm to 11:59pm
 					//if delivery date is Wednesday after 5pm, then delivery date is one week Friday
-					//$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
-					//$del_date = "wed else";
-					$del_date = "wednesday else part because today= ".$dayName." and the order-date =".$order_date;
+					$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
 					add_post_meta($post_id, 'delivery_date', $del_date, true);
 				}		
 			}
 			elseif ($dayName == "Thursday"){
 				//thursday
 				// if the order date is on a Thursday, delivery date is one week Friday
-					//$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
-					$del_date = "thursday part because today= ".$dayName." and the order-date =".$order_date;
+					$del_date = date_i18n( get_option('date_format'), (strtotime("next Friday") + 60 * 60 * 24 * 7));
 					add_post_meta($post_id, 'delivery_date', $del_date, true);
 			}
 			else{
 				//mon, tue, fri, sat, sun
 				//if delivery date is mon, tue, fri, sat, sun then deliery date is 'next Friday'
-				//$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
-				$del_date = "else part because today= ".$dayName." and the order-date =".$order_date;
+				$del_date = date_i18n( get_option('date_format'), strtotime("next Friday"));
 				add_post_meta($post_id, 'delivery_date', $del_date, true);
 			}
 			
@@ -4087,7 +4082,7 @@ Thanks again!", 'mp')
 						$delivery_date = get_post_meta($order->ID, 'delivery_date', true);
 
 						
-						if ( true ){//$delivery_date == $del_date){
+						if ( $delivery_date == $del_date){
 							$meta = get_post_custom($order->ID);
 							
 							
